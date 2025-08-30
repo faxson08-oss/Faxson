@@ -3,20 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Futuristic Aurora Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>CyberTerminal Pro - Multi-OS Simulator</title>
     <style>
-        :root {
-            --primary-color: #00d4ff;
-            --secondary-color: #ff00ff;
-            --accent-color: #00ff88;
-            --dark-bg: #0a0a1a;
-            --card-bg: rgba(20, 20, 40, 0.7);
-            --text-color: #e0e0ff;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -24,719 +12,854 @@
         }
 
         body {
-            font-family: 'Rajdhani', sans-serif;
-            background-color: var(--dark-bg);
-            color: var(--text-color);
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Aurora Background */
-        .aurora-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
+            background: #0a0a0a;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            height: 100vh;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
-        .aurora {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.6;
-            animation: aurora-movement 15s infinite alternate ease-in-out;
-        }
-
-        .aurora-1 {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            top: -200px;
-            left: -200px;
-        }
-
-        .aurora-2 {
-            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
-            bottom: -200px;
-            right: -200px;
-            animation-delay: 5s;
-        }
-
-        .aurora-3 {
-            background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-delay: 10s;
-        }
-
-        @keyframes aurora-movement {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-            50% {
-                transform: translate(50px, -50px) scale(1.1);
-            }
-            100% {
-                transform: translate(-50px, 50px) scale(0.9);
-            }
-        }
-
-        /* Header */
-        header {
-            padding: 20px 50px;
+        .header {
+            background: #111;
+            padding: 10px 20px;
+            border-bottom: 2px solid #00ff00;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(10, 10, 26, 0.7);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
         .logo {
-            font-family: 'Orbitron', sans-serif;
             font-size: 24px;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-weight: bold;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .status {
+            font-size: 14px;
+            color: #00cc00;
+        }
+
+        .platform-selector {
+            display: flex;
+            gap: 10px;
+        }
+
+        .platform-btn {
+            background: #222;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 5px 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .platform-btn.active {
+            background: #00ff00;
+            color: #000;
+        }
+
+        .platform-btn:hover {
+            background: #00cc00;
+            color: #000;
+        }
+
+        .terminal-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #0a0a0a;
+            position: relative;
+        }
+
+        .terminal {
+            background: #000;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            padding: 20px;
+            min-height: 90%;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .output {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .input-line {
             display: flex;
             align-items: center;
         }
 
-        .logo i {
+        .prompt {
+            color: #00ff00;
             margin-right: 10px;
-            font-size: 28px;
+            font-weight: bold;
         }
 
-        nav ul {
-            display: flex;
-            list-style: none;
+        .command-input {
+            background: transparent;
+            border: none;
+            color: #00ff00;
+            font-family: inherit;
+            font-size: 16px;
+            outline: none;
+            flex: 1;
+            caret-color: #00ff00;
         }
 
-        nav ul li {
-            margin-left: 30px;
-        }
-
-        nav ul li a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        nav ul li a:hover {
-            color: var(--primary-color);
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            position: relative;
-        }
-
-        .hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 5rem;
-            font-weight: 900;
-            margin-bottom: 20px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            animation: glow 2s infinite alternate;
-        }
-
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
-            }
-            to {
-                text-shadow: 0 0 20px rgba(0, 212, 255, 0.8), 0 0 30px rgba(255, 0, 255, 0.6);
-            }
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            max-width: 800px;
-            margin-bottom: 40px;
-            line-height: 1.6;
-        }
-
-        .cta-button {
+        .cursor {
             display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 18px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            width: 10px;
+            height: 20px;
+            background: #00ff00;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        .help-text {
+            color: #00cc00;
+            margin-top: 10px;
+        }
+
+        .warning {
+            color: #ff6600;
+            margin: 10px 0;
+        }
+
+        .success {
+            color: #00ff00;
+            margin: 10px 0;
+        }
+
+        .error {
+            color: #ff0000;
+            margin: 10px 0;
+        }
+
+        .progress-bar {
+            display: inline-block;
+            width: 200px;
+            height: 20px;
+            background: #333;
+            border: 1px solid #00ff00;
+            margin: 10px 0;
             position: relative;
             overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
         }
 
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 7px 20px rgba(0, 212, 255, 0.6);
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
+        .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
+            background: linear-gradient(90deg, #00ff00, #00cc00);
+            width: 0%;
+            transition: width 0.3s;
         }
 
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        /* Metrics Section */
-        .metrics {
-            padding: 80px 50px;
-            background: rgba(10, 10, 26, 0.5);
-            backdrop-filter: blur(5px);
-        }
-
-        .section-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+        .footer {
+            background: #111;
+            padding: 10px 20px;
+            border-top: 1px solid #00ff00;
             text-align: center;
-            margin-bottom: 50px;
-            color: var(--primary-color);
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-size: 12px;
+            color: #666;
         }
 
-        .metrics-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .metric-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 25px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-            position: relative;
+        .typing-effect {
             overflow: hidden;
+            white-space: nowrap;
+            animation: typing 2s steps(40, end);
         }
 
-        .metric-card::before {
-            content: '';
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .glitch {
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { text-shadow: 0 0 5px #00ff00; }
+            25% { text-shadow: -2px 0 #ff0000, 2px 0 #00ffff; }
+            50% { text-shadow: 2px 0 #ff00ff, -2px 0 #ffff00; }
+            75% { text-shadow: 0 0 10px #00ff00; }
+        }
+
+        .file-tree {
+            margin-left: 20px;
+            color: #00ccff;
+        }
+
+        .file {
+            color: #ffff00;
+        }
+
+        .directory {
+            color: #00ccff;
+        }
+
+        .command-history {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ff00;
+            padding: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
         }
 
-        .metric-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 212, 255, 0.3);
+        .history-item {
+            padding: 5px;
+            cursor: pointer;
+            transition: background 0.2s;
         }
 
-        .metric-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .metric-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-color);
-        }
-
-        .metric-icon {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-        }
-
-        .metric-value {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .metric-change {
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .metric-change.positive {
-            color: var(--accent-color);
-        }
-
-        .metric-change.negative {
-            color: #ff4d4d;
-        }
-
-        /* Charts Section */
-        .charts-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
-        }
-
-        .chart-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 25px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-        }
-
-        .chart-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-        }
-
-        /* Features Section */
-        .features {
-            padding: 80px 50px;
-        }
-
-        .features-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 212, 255, 0.3);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        .feature-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--text-color);
-        }
-
-        .feature-description {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: rgba(224, 224, 255, 0.8);
-        }
-
-        /* Footer */
-        footer {
-            padding: 40px 50px;
-            background: rgba(10, 10, 26, 0.8);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(0, 212, 255, 0.3);
-            text-align: center;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            margin: 0 15px;
-            background: rgba(0, 212, 255, 0.1);
-            border-radius: 50%;
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background: var(--primary-color);
-            color: var(--dark-bg);
-            transform: translateY(-5px);
-        }
-
-        .copyright {
-            font-size: 0.9rem;
-            color: rgba(224, 224, 255, 0.6);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            header {
-                padding: 15px 20px;
-            }
-
-            .hero h1 {
-                font-size: 3rem;
-            }
-
-            .hero p {
-                font-size: 1.2rem;
-            }
-
-            .metrics, .features {
-                padding: 60px 20px;
-            }
-
-            .charts-container {
-                grid-template-columns: 1fr;
-            }
+        .history-item:hover {
+            background: rgba(0, 255, 0, 0.1);
         }
     </style>
 </head>
 <body>
-    <!-- Aurora Background -->
-    <div class="aurora-bg">
-        <div class="aurora aurora-1"></div>
-        <div class="aurora aurora-2"></div>
-        <div class="aurora aurora-3"></div>
+    <div class="header">
+        <div class="logo glitch">CyberTerminal Pro</div>
+        <div class="platform-selector">
+            <button class="platform-btn active" onclick="switchPlatform('linux')">Linux</button>
+            <button class="platform-btn" onclick="switchPlatform('windows')">Windows</button>
+        </div>
+        <div class="status">Status: <span id="status">SECURE</span></div>
     </div>
 
-    <!-- Header -->
-    <header>
-        <div class="logo">
-            <i class="fas fa-rocket"></i>
-            AURORA TECH
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#metrics">Metrics</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div class="terminal-container">
+        <div class="terminal">
+            <div class="output" id="output">
+Welcome to CyberTerminal Pro - Multi-OS Simulator
+Current Platform: Linux
+Type 'help' for available commands.
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <h1>FUTURE IS NOW</h1>
-        <p>Experience the next generation of digital innovation with our cutting-edge technology solutions</p>
-        <a href="#metrics" class="cta-button">Explore Metrics</a>
-    </section>
+WARNING: This is a simulation for educational purposes only.
+All activities are simulated and do not access real systems.
 
-    <!-- Metrics Section -->
-    <section class="metrics" id="metrics">
-        <h2 class="section-title">Performance Metrics</h2>
-        
-        <div class="metrics-container">
-            <div class="metric-card">
-                <div class="metric-header">
-                    <div class="metric-title">Active Users</div>
-                    <div class="metric-icon"><i class="fas fa-users"></i></div>
-                </div>
-                <div class="metric-value">24,589</div>
-                <div class="metric-change positive">
-                    <i class="fas fa-arrow-up"></i> 12.5% from last month
-                </div>
             </div>
-            
-            <div class="metric-card">
-                <div class="metric-header">
-                    <div class="metric-title">Revenue</div>
-                    <div class="metric-icon"><i class="fas fa-dollar-sign"></i></div>
-                </div>
-                <div class="metric-value">$842K</div>
-                <div class="metric-change positive">
-                    <i class="fas fa-arrow-up"></i> 8.2% from last month
-                </div>
-            </div>
-            
-            <div class="metric-card">
-                <div class="metric-header">
-                    <div class="metric-title">Conversion Rate</div>
-                    <div class="metric-icon"><i class="fas fa-chart-line"></i></div>
-                </div>
-                <div class="metric-value">4.8%</div>
-                <div class="metric-change negative">
-                    <i class="fas fa-arrow-down"></i> 1.2% from last month
-                </div>
+            <div class="input-line">
+                <span class="prompt" id="prompt">user@linux:~$</span>
+                <input type="text" class="command-input" id="commandInput" autofocus>
+                <span class="cursor"></span>
             </div>
         </div>
-        
-        <div class="charts-container">
-            <div class="chart-card">
-                <h3 class="chart-title">User Growth</h3>
-                <canvas id="userGrowthChart"></canvas>
-            </div>
-            
-            <div class="chart-card">
-                <h3 class="chart-title">Revenue Distribution</h3>
-                <canvas id="revenueChart"></canvas>
-            </div>
-        </div>
-    </section>
+        <div class="command-history" id="commandHistory"></div>
+    </div>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <h2 class="section-title">Advanced Features</h2>
-        
-        <div class="features-container">
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-brain"></i></div>
-                <h3 class="feature-title">AI Integration</h3>
-                <p class="feature-description">Leverage the power of artificial intelligence to automate processes and gain valuable insights from your data.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                <h3 class="feature-title">Enhanced Security</h3>
-                <p class="feature-description">State-of-the-art encryption and security protocols to keep your data safe from unauthorized access.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-cloud"></i></div>
-                <h3 class="feature-title">Cloud Solutions</h3>
-                <p class="feature-description">Scalable cloud infrastructure that grows with your business needs without compromising performance.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
-                <h3 class="feature-title">Mobile Optimization</h3>
-                <p class="feature-description">Fully responsive design that ensures a seamless experience across all devices and screen sizes.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-chart-pie"></i></div>
-                <h3 class="feature-title">Analytics Dashboard</h3>
-                <p class="feature-description">Comprehensive analytics tools that provide real-time insights into your business performance.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-cogs"></i></div>
-                <h3 class="feature-title">Customization</h3>
-                <p class="feature-description">Tailor the platform to your specific needs with our extensive customization options and API integrations.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="social-links">
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#"><i class="fab fa-github"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-        </div>
-        <div class="copyright">
-            &copy; 2023 Aurora Tech. All rights reserved.
-        </div>
-    </footer>
+    <div class="footer">
+        Educational Use Only | Simulated Environment | No Real Systems Accessed
+    </div>
 
     <script>
-        // User Growth Chart
-        const userGrowthCtx = document.getElementById('userGrowthChart').getContext('2d');
-        const userGrowthChart = new Chart(userGrowthCtx, {
-            type: 'line',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                datasets: [{
-                    label: 'Active Users',
-                    data: [12000, 13500, 14200, 15800, 16200, 17500, 18200, 19500, 21000, 22500, 23800, 24589],
-                    borderColor: '#00d4ff',
-                    backgroundColor: 'rgba(0, 212, 255, 0.1)',
-                    borderWidth: 2,
-                    pointBackgroundColor: '#00d4ff',
-                    pointBorderColor: '#fff',
-                    pointRadius: 4,
-                    tension: 0.4,
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
+        const output = document.getElementById('output');
+        const commandInput = document.getElementById('commandInput');
+        const statusElement = document.getElementById('status');
+        const promptElement = document.getElementById('prompt');
+        const historyElement = document.getElementById('commandHistory');
+        
+        let currentPlatform = 'linux';
+        let commandHistory = [];
+        let historyIndex = -1;
+        let currentDir = '/home/user';
+        let fileSystem = {
+            '/': {
+                'home': {
+                    'user': {
+                        'documents': {},
+                        'downloads': {},
+                        'desktop': {},
+                        'readme.txt': 'Welcome to the simulated terminal!'
                     }
                 },
-                scales: {
-                    y: {
-                        beginAtZero: false,
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
-                        },
-                        ticks: {
-                            color: 'rgba(224, 224, 255, 0.7)'
-                        }
-                    },
-                    x: {
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
-                        },
-                        ticks: {
-                            color: 'rgba(224, 224, 255, 0.7)'
-                        }
-                    }
-                }
+                'etc': {},
+                'usr': {
+                    'bin': {}
+                },
+                'tmp': {}
             }
-        });
-
-        // Revenue Distribution Chart
-        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
-        const revenueChart = new Chart(revenueCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Product Sales', 'Services', 'Subscriptions', 'Licensing'],
-                datasets: [{
-                    data: [45, 25, 20, 10],
-                    backgroundColor: [
-                        '#00d4ff',
-                        '#ff00ff',
-                        '#00ff88',
-                        '#ffcc00'
-                    ],
-                    borderColor: 'rgba(10, 10, 26, 0.8)',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'right',
-                        labels: {
-                            color: 'rgba(224, 224, 255, 0.7)',
-                            font: {
-                                size: 12
-                            },
-                            padding: 20
-                        }
-                    }
-                }
-            }
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Add animation to metric values when they come into view
-        const metricValues = document.querySelectorAll('.metric-value');
-        const observerOptions = {
-            threshold: 0.5
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const target = entry.target;
-                    const finalValue = target.textContent;
-                    const isPercentage = finalValue.includes('%');
-                    const isDollar = finalValue.includes('$');
-                    const isComma = finalValue.includes(',');
+        const commands = {
+            help: () => {
+                let helpText = `Available Commands (${currentPlatform}):\n\n`;
+                
+                if (currentPlatform === 'linux') {
+                    helpText += `File System:\n`;
+                    helpText += `ls         - List directory contents\n`;
+                    helpText += `cd         - Change directory\n`;
+                    helpText += `pwd        - Print working directory\n`;
+                    helpText += `mkdir      - Create directory\n`;
+                    helpText += `touch      - Create empty file\n`;
+                    helpText += `cat        - Display file contents\n`;
+                    helpText += `rm         - Remove files/directories\n`;
+                    helpText += `cp         - Copy files\n`;
+                    helpText += `mv         - Move/rename files\n`;
+                    helpText += `grep       - Search text in files\n`;
+                    helpText += `chmod      - Change file permissions\n`;
+                    helpText += `find       - Search for files\n\n`;
                     
-                    let numericValue = parseFloat(finalValue.replace(/[^0-9.]/g, ''));
-                    let currentValue = 0;
-                    const increment = numericValue / 50;
+                    helpText += `System:\n`;
+                    helpText += `ps         - List processes\n`;
+                    helpText += `top        - Show running processes\n`;
+                    helpText += `kill       - Terminate processes\n`;
+                    helpText += `df         - Disk space usage\n`;
+                    helpText += `du         - Directory space usage\n`;
+                    helpText += `free       - Memory usage\n`;
+                    helpText += `uname      - System information\n`;
+                    helpText += `uptime     - System uptime\n\n`;
                     
-                    const updateValue = () => {
-                        currentValue += increment;
-                        if (currentValue < numericValue) {
-                            if (isComma) {
-                                target.textContent = (isDollar ? '$' : '') + Math.floor(currentValue).toLocaleString() + (isPercentage ? '%' : '');
-                            } else {
-                                target.textContent = (isDollar ? '$' : '') + Math.floor(currentValue) + (isPercentage ? '%' : '');
-                            }
-                            requestAnimationFrame(updateValue);
-                        } else {
-                            target.textContent = finalValue;
-                        }
-                    };
+                    helpText += `Network:\n`;
+                    helpText += `ifconfig   - Network interfaces\n`;
+                    helpText += `ping       - Test network connection\n`;
+                    helpText += `netstat    - Network statistics\n`;
+                    helpText += `ssh        - SSH client\n`;
+                    helpText += `wget       - Download files\n`;
+                    helpText += `curl       - Transfer data\n\n`;
+                } else {
+                    helpText += `File System:\n`;
+                    helpText += `dir        - List directory contents\n`;
+                    helpText += `cd         - Change directory\n`;
+                    helpText += `md         - Create directory\n`;
+                    helpText += `type       - Display file contents\n`;
+                    helpText += `del        - Delete files\n`;
+                    helpText += `copy       - Copy files\n`;
+                    helpText += `move       - Move/rename files\n`;
+                    helpText += `findstr    - Search text in files\n`;
+                    helpText += `attrib     - Change file attributes\n\n`;
                     
-                    updateValue();
-                    observer.unobserve(target);
+                    helpText += `System:\n`;
+                    helpText += `tasklist   - List processes\n`;
+                    helpText += `taskkill   - Terminate processes\n`;
+                    helpText += `systeminfo - System information\n`;
+                    helpText += `wmic       - Windows Management Interface\n`;
+                    helpText += `chkdsk     - Check disk\n`;
+                    helpText += `sfc        - System File Checker\n\n`;
+                    
+                    helpText += `Network:\n`;
+                    helpText += `ipconfig   - Network configuration\n`;
+                    helpText += `ping       - Test network connection\n`;
+                    helpText += `netstat    - Network statistics\n`;
+                    helpText += `tracert    - Trace route\n`;
+                    helpText += `nslookup   - DNS lookup\n`;
+                    helpText += `ftp        - FTP client\n\n`;
                 }
-            });
-        }, observerOptions);
+                
+                helpText += `General:\n`;
+                helpText += `clear       - Clear terminal\n`;
+                helpText += `history     - Show command history\n`;
+                helpText += `date        - Show date/time\n`;
+                helpText += `echo        - Display text\n`;
+                helpText += `whoami      - Current user\n`;
+                helpText += `exit        - Exit terminal\n`;
+                helpText += `reboot      - Simulate system reboot\n`;
+                
+                return helpText;
+            },
+            
+            clear: () => {
+                output.innerHTML = '';
+                return '';
+            },
+            
+            ls: () => {
+                if (currentPlatform !== 'linux') return 'Command not recognized. Use "dir" in Windows.';
+                
+                const pathParts = currentDir.split('/').filter(p => p);
+                let current = fileSystem['/'];
+                
+                for (const part of pathParts) {
+                    if (current[part]) {
+                        current = current[part];
+                    } else {
+                        return `ls: cannot access '${currentDir}': No such directory`;
+                    }
+                }
+                
+                let result = '';
+                for (const item in current) {
+                    if (typeof current[item] === 'object') {
+                        result += `<span class="directory">${item}/</span>  `;
+                    } else {
+                        result += `<span class="file">${item}</span>  `;
+                    }
+                }
+                
+                return result || 'Directory empty';
+            },
+            
+            dir: () => {
+                if (currentPlatform !== 'windows') return 'Command not recognized. Use "ls" in Linux.';
+                
+                const pathParts = currentDir.split('/').filter(p => p);
+                let current = fileSystem['/'];
+                
+                for (const part of pathParts) {
+                    if (current[part]) {
+                        current = current[part];
+                    } else {
+                        return `The system cannot find the path specified.`;
+                    }
+                }
+                
+                let result = ` Directory of ${currentDir}\n\n`;
+                for (const item in current) {
+                    if (typeof current[item] === 'object') {
+                        result += `<DIR>          ${item}\n`;
+                    } else {
+                        result += `               ${item}\n`;
+                    }
+                }
+                
+                return result || 'Directory empty';
+            },
+            
+            cd: (args) => {
+                if (args.length === 0) {
+                    currentDir = currentPlatform === 'linux' ? '/home/user' : 'C:\\Users\\user';
+                    updatePrompt();
+                    return '';
+                }
+                
+                const targetDir = args[0];
+                if (targetDir === '..') {
+                    const parts = currentDir.split('/').filter(p => p);
+                    if (parts.length > 0) {
+                        parts.pop();
+                        currentDir = '/' + parts.join('/');
+                    }
+                } else if (targetDir === '/') {
+                    currentDir = '/';
+                } else if (targetDir.startsWith('/')) {
+                    currentDir = targetDir;
+                } else {
+                    currentDir = currentDir.endsWith('/') ? currentDir + targetDir : currentDir + '/' + targetDir;
+                }
+                
+                updatePrompt();
+                return '';
+            },
+            
+            pwd: () => {
+                if (currentPlatform !== 'linux') return 'Command not recognized.';
+                return currentDir;
+            },
+            
+            mkdir: (args) => {
+                if (args.length === 0) return 'Usage: mkdir <directory>';
+                
+                const dirName = args[0];
+                const pathParts = currentDir.split('/').filter(p => p);
+                let current = fileSystem['/'];
+                
+                for (const part of pathParts) {
+                    if (current[part]) {
+                        current = current[part];
+                    } else {
+                        return `mkdir: cannot create directory '${dirName}': No such file or directory`;
+                    }
+                }
+                
+                if (current[dirName]) {
+                    return `mkdir: cannot create directory '${dirName}': File exists`;
+                }
+                
+                current[dirName] = {};
+                return `Directory '${dirName}' created`;
+            },
+            
+            touch: (args) => {
+                if (args.length === 0) return 'Usage: touch <file>';
+                
+                const fileName = args[0];
+                const pathParts = currentDir.split('/').filter(p => p);
+                let current = fileSystem['/'];
+                
+                for (const part of pathParts) {
+                    if (current[part]) {
+                        current = current[part];
+                    } else {
+                        return `touch: cannot touch '${fileName}': No such file or directory`;
+                    }
+                }
+                
+                current[fileName] = '';
+                return `File '${fileName}' created`;
+            },
+            
+            cat: (args) => {
+                if (args.length === 0) return 'Usage: cat <file>';
+                
+                const fileName = args[0];
+                const pathParts = currentDir.split('/').filter(p => p);
+                let current = fileSystem['/'];
+                
+                for (const part of pathParts) {
+                    if (current[part]) {
+                        current = current[part];
+                    } else {
+                        return `cat: ${fileName}: No such file or directory`;
+                    }
+                }
+                
+                if (typeof current[fileName] === 'string') {
+                    return current[fileName] || '(empty file)';
+                } else {
+                    return `cat: ${fileName}: Is a directory`;
+                }
+            },
+            
+            rm: (args) => {
+                if (args.length === 0) return 'Usage: rm <file/directory>';
+                
+                const target = args[0];
+                const pathParts = currentDir.split('/').filter(p => p);
+                let current = fileSystem['/'];
+                
+                for (const part of pathParts) {
+                    if (current[part]) {
+                        current = current[part];
+                    } else {
+                        return `rm: cannot remove '${target}': No such file or directory`;
+                    }
+                }
+                
+                if (current[target]) {
+                    delete current[target];
+                    return `Removed '${target}'`;
+                } else {
+                    return `rm: cannot remove '${target}': No such file or directory`;
+                }
+            },
+            
+            ps: () => {
+                if (currentPlatform !== 'linux') return 'Command not recognized. Use "tasklist" in Windows.';
+                
+                return `  PID TTY          TIME CMD
+ 1234 pts/0    00:00:01 bash
+ 5678 pts/0    00:00:02 terminal
+ 9012 pts/0    00:00:00 ps
+ 3456 pts/0    00:00:05 chrome
+ 7890 pts/0    00:00:03 code`;
+            },
+            
+            tasklist: () => {
+                if (currentPlatform !== 'windows') return 'Command not recognized. Use "ps" in Linux.';
+                
+                return `Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+System                         4 Services                   0      1,024 K
+svchost.exe                  1234 Services                   0      5,432 K
+explorer.exe                 5678 Console                    1     12,345 K
+chrome.exe                   9012 Console                    1    123,456 K
+Code.exe                     3456 Console                    1     98,765 K`;
+            },
+            
+            ifconfig: () => {
+                if (currentPlatform !== 'linux') return 'Command not recognized. Use "ipconfig" in Windows.';
+                
+                return `eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.100  netmask 255.255.255.0  broadcast 192.168.1.255
+        ether 00:0c:29:aa:bb:cc  txqueuelen 1000  (Ethernet)
+        RX packets 12345  bytes 1234567 (1.2 MB)
+        TX packets 54321  bytes 9876543 (9.8 MB)
+        device interrupt 16  memory 0xf7c00000-f7c20000  
 
-        metricValues.forEach(value => {
-            observer.observe(value);
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 0  bytes 0 (0.0 B)
+        TX packets 0  bytes 0 (0.0 B)`;
+            },
+            
+            ipconfig: () => {
+                if (currentPlatform !== 'windows') return 'Command not recognized. Use "ifconfig" in Windows.';
+                
+                return `Windows IP Configuration
+
+Ethernet adapter Ethernet:
+   Connection-specific DNS Suffix . : localdomain
+   IPv4 Address. . . . . . . . . . : 192.168.1.100
+   Subnet Mask . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . : 192.168.1.1
+
+Wireless LAN adapter Wi-Fi:
+   Media State . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix . : 
+
+Tunnel adapter isatap.{12345678-1234-1234-1234-123456789012}:
+   Media State . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix . :`;
+            },
+            
+            ping: (args) => {
+                if (args.length === 0) return 'Usage: ping <hostname>';
+                
+                const target = args[0];
+                return `PING ${target} (${target === 'localhost' ? '127.0.0.1' : '192.168.1.1'}) 56(84) bytes of data.
+64 bytes from ${target === 'localhost' ? '127.0.0.1' : '192.168.1.1'}: icmp_seq=1 ttl=64 time=0.123 ms
+64 bytes from ${target === 'localhost' ? '127.0.0.1' : '192.168.1.1'}: icmp_seq=2 ttl=64 time=0.456 ms
+64 bytes from ${target === 'localhost' ? '127.0.0.1' : '192.168.1.1'}: icmp_seq=3 ttl=64 time=0.789 ms
+
+--- ${target} ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev = 0.123/0.456/0.789/0.234 ms`;
+            },
+            
+            netstat: () => {
+                if (currentPlatform === 'linux') {
+                    return `Active Internet connections (w/o servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 192.168.1.100:54321     104.16.1.1:443          ESTABLISHED
+tcp        0      0 192.168.1.100:54322     172.217.1.1:443         ESTABLISHED
+tcp6       0      0 ::1:631                 :::*                    LISTEN     
+udp        0      0 0.0.0.0:68              0.0.0.0:*                           `;
+                } else {
+                    return `Active Connections
+
+  Proto  Local Address          Foreign Address        State
+  TCP    192.168.1.100:54321   104.16.1.1:443        ESTABLISHED
+  TCP    192.168.1.100:54322   172.217.1.1:443       ESTABLISHED
+  TCP    127.0.0.1:5357        DESKTOP-ABC:5357       ESTABLISHED
+  UDP    192.168.1.100:123     *:*                                    `;
+                }
+            },
+            
+            ssh: (args) => {
+                if (args.length === 0) return 'Usage: ssh <user@hostname>';
+                
+                const target = args[0];
+                return `Connecting to ${target}...
+The authenticity of host '${target.split('@')[1]}' can't be established.
+ECDSA key fingerprint is SHA256:abc123def456ghi789jkl012mno345pqr678stu901.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '${target.split('@')[1]}' (ECDSA) to the list of known hosts.
+${target.split('@')[0]}@${target.split('@')[1]}'s password: 
+Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-91-generic x86_64)
+
+Last login: Mon Jan 1 12:00:00 2023 from 192.168.1.100
+$ `;
+            },
+            
+            grep: (args) => {
+                if (args.length < 2) return 'Usage: grep <pattern> <file>';
+                
+                const pattern = args[0];
+                const file = args[1];
+                return `${file}:${pattern} - simulated match found`;
+            },
+            
+            chmod: (args) => {
+                if (args.length < 2) return 'Usage: chmod <permissions> <file>';
+                
+                const perms = args[0];
+                const file = args[1];
+                return `mode of '${file}' changed to ${perms}`;
+            },
+            
+            top: () => {
+                if (currentPlatform !== 'linux') return 'Command not recognized. Use "tasklist" in Windows.';
+                
+                return `top - 10:30:45 up 2 days,  3:45,  2 users,  load average: 0.10, 0.20, 0.30
+Tasks: 123 total,   1 running, 122 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  5.0 us,  2.0 sy,  0.0 ni, 92.0 id,  1.0 wa,  0.0 hi,  0.0 si,  0.0 st
+KiB Mem:   8176848 total,  2345678 used,  5831170 free,   123456 buffers
+KiB Swap:  2097148 total,        0 used,  2097148 free.  1234567 cached Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND
+ 1234 user      20   0  123456  23456   3456 S  5.0  0.3   0:45.67 terminal
+ 5678 user      20   0  234567  34567   4567 S  2.0  0.4   1:23.45 chrome
+ 9012 root      20   0   12345   2345    345 S  1.0  0.0   0:12.34 systemd`;
+            },
+            
+            systeminfo: () => {
+                if (currentPlatform !== 'windows') return 'Command not recognized.';
+                
+                return `Host Name:                 WIN-PC
+OS Name:                   Microsoft Windows 10 Pro
+OS Version:                10.0.19041 N/A Build 19041
+OS Manufacturer:           Microsoft Corporation
+OS Configuration:          Standalone Workstation
+OS Build Type:             Multiprocessor Free
+Registered Owner:          User
+Registered Organization:   
+Product ID:                12345-67890-ABCDE-FGHIJ-JKLMN
+Original Install Date:     1/1/2023, 12:00:00 AM
+System Boot Time:          1/2/2023, 8:30:45 AM
+System Manufacturer:       Manufacturer
+System Model:              Model
+System Type:               x64-based PC
+Processor(s):              1 Processor(s) Installed.
+                           [01]: Intel64 Family 6 Model 158 Stepping 10 GenuineIntel ~2904 Mhz
+BIOS Version:              Manufacturer V1.0, 1/1/2023
+Windows Directory:         C:\\Windows
+System Directory:          C:\\Windows\\system32
+Boot Device:               \\Device\\HarddiskVolume1
+System Locale:             en-us;English (United States)
+Input Locale:              en-us;English (United States)
+Time Zone:                 (UTC-05:00) Eastern Time (US & Canada)
+Total Physical Memory:     16,384 MB
+Available Physical Memory: 8,192 MB
+Virtual Memory: Max Size:  32,768 MB
+Virtual Memory: Available: 24,576 MB
+Virtual Memory: In Use:    8,192 MB`;
+            },
+            
+            date: () => {
+                return new Date().toString();
+            },
+            
+            echo: (args) => {
+                return args.join(' ');
+            },
+            
+            whoami: () => {
+                return currentPlatform === 'linux' ? 'user' : 'win-pc\\user';
+            },
+            
+            history: () => {
+                return commandHistory.map((cmd, index) => `${index + 1}  ${cmd}`).join('\n');
+            },
+            
+            exit: () => {
+                updateStatus('TERMINATED');
+                return `Session terminated.
+Thank you for using CyberTerminal Pro!
+Remember: With great power comes great responsibility.`;
+            },
+            
+            reboot: () => {
+                updateStatus('REBOOTING');
+                animateProgress('Rebooting system...', () => {
+                    return 'System reboot complete. All services running normally.';
+                });
+                return '';
+            }
+        };
+
+        function switchPlatform(platform) {
+            currentPlatform = platform;
+            document.querySelectorAll('.platform-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            currentDir = platform === 'linux' ? '/home/user' : 'C:\\Users\\user';
+            updatePrompt();
+            
+            addToOutput(`\nSwitched to ${platform.toUpperCase()} simulation\n`);
+        }
+
+        function updatePrompt() {
+            if (currentPlatform === 'linux') {
+                const homeDir = '/home/user';
+                const displayDir = currentDir === homeDir ? '~' : currentDir;
+                promptElement.textContent = `user@linux:${displayDir}$`;
+            } else {
+                promptElement.textContent = `${currentDir}>`;
+            }
+        }
+
+        function updateStatus(status) {
+            statusElement.textContent = status;
+            statusElement.style.color = status === 'SECURE' ? '#00ff00' : '#ff6600';
+            setTimeout(() => {
+                statusElement.textContent = 'SECURE';
+                statusElement.style.color = '#00ff00';
+            }, 5000);
+        }
+
+        function animateProgress(message, callback) {
+            const progressDiv = document.createElement('div');
+            progressDiv.innerHTML = `${message}<div class="progress-bar"><div class="progress-fill"></div></div>`;
+            output.appendChild(progressDiv);
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                progressDiv.querySelector('.progress-fill').style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        progressDiv.remove();
+                        addToOutput(callback());
+                    }, 500);
+                }
+            }, 100);
+        }
+
+        function addToOutput(text) {
+            const newLine = document.createElement('div');
+            newLine.className = 'output';
+            newLine.innerHTML = '\n' + text;
+            output.appendChild(newLine);
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        function processCommand() {
+            const command = commandInput.value.trim();
+            if (!command) return;
+
+            // Add to history
+            commandHistory.push(command);
+            if (commandHistory.length > 50) {
+                commandHistory.shift();
+            }
+            historyIndex = -1;
+
+            addToOutput(`\n${promptElement.textContent} ${command}`);
+            
+            const args = command.split(/\s+/);
+            const cmd = args.shift().toLowerCase();
+            
+            if (commands[cmd]) {
+                const result = commands[cmd](args);
+                if (result) addToOutput(result);
+            } else {
+                addToOutput(`Command not found: ${cmd}\nType 'help' for available commands.`);
+            }
+            
+            commandInput.value = '';
+        }
+
+        commandInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                processCommand();
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
+                    commandInput.value = commandHistory[commandHistory.length - 1 - historyIndex];
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    commandInput.value = commandHistory[commandHistory.length - 1 - historyIndex];
+                } else if (historyIndex === 0) {
+                    historyIndex = -1;
+                    commandInput.value = '';
+                }
+            }
         });
+
+        // Initial focus
+        commandInput.focus();
+        updatePrompt();
     </script>
 </body>
 </html>
