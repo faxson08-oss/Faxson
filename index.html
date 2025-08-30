@@ -3,31 +3,740 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Page</title>
+    <title>Futuristic Aurora Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        :root {
+            --primary-color: #00d4ff;
+            --secondary-color: #ff00ff;
+            --accent-color: #00ff88;
+            --dark-bg: #0a0a1a;
+            --card-bg: rgba(20, 20, 40, 0.7);
+            --text-color: #e0e0ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Aurora Background */
+        .aurora-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .aurora {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: aurora-movement 15s infinite alternate ease-in-out;
+        }
+
+        .aurora-1 {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            top: -200px;
+            left: -200px;
+        }
+
+        .aurora-2 {
+            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
+            bottom: -200px;
+            right: -200px;
+            animation-delay: 5s;
+        }
+
+        .aurora-3 {
+            background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 10s;
+        }
+
+        @keyframes aurora-movement {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+            100% {
+                transform: translate(-50px, 50px) scale(0.9);
+            }
+        }
+
+        /* Header */
+        header {
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 26, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(0, 212, 255, 0.8), 0 0 30px rgba(255, 0, 255, 0.6);
+            }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
             max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+            margin-bottom: 40px;
             line-height: 1.6;
         }
-        header {
-            text-align: center;
-            padding: 20px 0;
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
         }
-        h1 {
-            color: #333;
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0, 212, 255, 0.6);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Metrics Section */
+        .metrics {
+            padding: 80px 50px;
+            background: rgba(10, 10, 26, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .metrics-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .metric-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 212, 255, 0.3);
+        }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .metric-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .metric-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .metric-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .metric-change {
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .metric-change.positive {
+            color: var(--accent-color);
+        }
+
+        .metric-change.negative {
+            color: #ff4d4d;
+        }
+
+        /* Charts Section */
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+
+        .chart-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 50px;
+        }
+
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 212, 255, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .feature-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(224, 224, 255, 0.8);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 50px;
+            background: rgba(10, 10, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0, 212, 255, 0.3);
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            margin: 0 15px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 50%;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            color: var(--dark-bg);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: rgba(224, 224, 255, 0.6);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .metrics, .features {
+                padding: 60px 20px;
+            }
+
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Aurora Background -->
+    <div class="aurora-bg">
+        <div class="aurora aurora-1"></div>
+        <div class="aurora aurora-2"></div>
+        <div class="aurora aurora-3"></div>
+    </div>
+
+    <!-- Header -->
     <header>
-        <h1>Welcome to My GitHub Website</h1>
+        <div class="logo">
+            <i class="fas fa-rocket"></i>
+            AURORA TECH
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#metrics">Metrics</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
     </header>
-    <main>
-        <p>This is a simple website hosted on GitHub Pages.</p>
-        <p>You can add more content, styling, and functionality as you learn more HTML, CSS, and JavaScript.</p>
-    </main>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>FUTURE IS NOW</h1>
+        <p>Experience the next generation of digital innovation with our cutting-edge technology solutions</p>
+        <a href="#metrics" class="cta-button">Explore Metrics</a>
+    </section>
+
+    <!-- Metrics Section -->
+    <section class="metrics" id="metrics">
+        <h2 class="section-title">Performance Metrics</h2>
+        
+        <div class="metrics-container">
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-title">Active Users</div>
+                    <div class="metric-icon"><i class="fas fa-users"></i></div>
+                </div>
+                <div class="metric-value">24,589</div>
+                <div class="metric-change positive">
+                    <i class="fas fa-arrow-up"></i> 12.5% from last month
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-title">Revenue</div>
+                    <div class="metric-icon"><i class="fas fa-dollar-sign"></i></div>
+                </div>
+                <div class="metric-value">$842K</div>
+                <div class="metric-change positive">
+                    <i class="fas fa-arrow-up"></i> 8.2% from last month
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-title">Conversion Rate</div>
+                    <div class="metric-icon"><i class="fas fa-chart-line"></i></div>
+                </div>
+                <div class="metric-value">4.8%</div>
+                <div class="metric-change negative">
+                    <i class="fas fa-arrow-down"></i> 1.2% from last month
+                </div>
+            </div>
+        </div>
+        
+        <div class="charts-container">
+            <div class="chart-card">
+                <h3 class="chart-title">User Growth</h3>
+                <canvas id="userGrowthChart"></canvas>
+            </div>
+            
+            <div class="chart-card">
+                <h3 class="chart-title">Revenue Distribution</h3>
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title">Advanced Features</h2>
+        
+        <div class="features-container">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-brain"></i></div>
+                <h3 class="feature-title">AI Integration</h3>
+                <p class="feature-description">Leverage the power of artificial intelligence to automate processes and gain valuable insights from your data.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3 class="feature-title">Enhanced Security</h3>
+                <p class="feature-description">State-of-the-art encryption and security protocols to keep your data safe from unauthorized access.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-cloud"></i></div>
+                <h3 class="feature-title">Cloud Solutions</h3>
+                <p class="feature-description">Scalable cloud infrastructure that grows with your business needs without compromising performance.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                <h3 class="feature-title">Mobile Optimization</h3>
+                <p class="feature-description">Fully responsive design that ensures a seamless experience across all devices and screen sizes.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-chart-pie"></i></div>
+                <h3 class="feature-title">Analytics Dashboard</h3>
+                <p class="feature-description">Comprehensive analytics tools that provide real-time insights into your business performance.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-cogs"></i></div>
+                <h3 class="feature-title">Customization</h3>
+                <p class="feature-description">Tailor the platform to your specific needs with our extensive customization options and API integrations.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="social-links">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="copyright">
+            &copy; 2023 Aurora Tech. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // User Growth Chart
+        const userGrowthCtx = document.getElementById('userGrowthChart').getContext('2d');
+        const userGrowthChart = new Chart(userGrowthCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Active Users',
+                    data: [12000, 13500, 14200, 15800, 16200, 17500, 18200, 19500, 21000, 22500, 23800, 24589],
+                    borderColor: '#00d4ff',
+                    backgroundColor: 'rgba(0, 212, 255, 0.1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#00d4ff',
+                    pointBorderColor: '#fff',
+                    pointRadius: 4,
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: 'rgba(224, 224, 255, 0.7)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: 'rgba(224, 224, 255, 0.7)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Revenue Distribution Chart
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        const revenueChart = new Chart(revenueCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Product Sales', 'Services', 'Subscriptions', 'Licensing'],
+                datasets: [{
+                    data: [45, 25, 20, 10],
+                    backgroundColor: [
+                        '#00d4ff',
+                        '#ff00ff',
+                        '#00ff88',
+                        '#ffcc00'
+                    ],
+                    borderColor: 'rgba(10, 10, 26, 0.8)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            color: 'rgba(224, 224, 255, 0.7)',
+                            font: {
+                                size: 12
+                            },
+                            padding: 20
+                        }
+                    }
+                }
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add animation to metric values when they come into view
+        const metricValues = document.querySelectorAll('.metric-value');
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    const finalValue = target.textContent;
+                    const isPercentage = finalValue.includes('%');
+                    const isDollar = finalValue.includes('$');
+                    const isComma = finalValue.includes(',');
+                    
+                    let numericValue = parseFloat(finalValue.replace(/[^0-9.]/g, ''));
+                    let currentValue = 0;
+                    const increment = numericValue / 50;
+                    
+                    const updateValue = () => {
+                        currentValue += increment;
+                        if (currentValue < numericValue) {
+                            if (isComma) {
+                                target.textContent = (isDollar ? '$' : '') + Math.floor(currentValue).toLocaleString() + (isPercentage ? '%' : '');
+                            } else {
+                                target.textContent = (isDollar ? '$' : '') + Math.floor(currentValue) + (isPercentage ? '%' : '');
+                            }
+                            requestAnimationFrame(updateValue);
+                        } else {
+                            target.textContent = finalValue;
+                        }
+                    };
+                    
+                    updateValue();
+                    observer.unobserve(target);
+                }
+            });
+        }, observerOptions);
+
+        metricValues.forEach(value => {
+            observer.observe(value);
+        });
+    </script>
 </body>
 </html>
