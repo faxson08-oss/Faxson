@@ -109,10 +109,18 @@
             margin-top: -5px;
         }
 
+        nav {
+            position: relative;
+        }
+
         nav ul {
             display: flex;
             list-style: none;
             gap: 30px;
+        }
+
+        nav li {
+            position: relative;
         }
 
         nav a {
@@ -130,6 +138,59 @@
         nav a:hover {
             color: var(--text-primary);
             background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            min-width: 200px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s;
+            z-index: 1000;
+            margin-top: 5px;
+        }
+
+        nav li:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s;
+            border-radius: 6px;
+            margin: 4px;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            text-align: center;
+            color: var(--red-light);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 8px 16px;
         }
 
         /* Main Content */
@@ -971,6 +1032,22 @@
                 align-items: flex-start;
                 gap: 15px;
             }
+
+            .dropdown {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                margin-top: 10px;
+                box-shadow: none;
+                border: none;
+                background: transparent;
+            }
+
+            .dropdown-item {
+                padding: 8px 12px;
+                margin: 0;
+            }
         }
     </style>
 </head>
@@ -987,9 +1064,69 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#"><i class="fas fa-shield-alt"></i> Safe Search</a></li>
-                <li><a href="#"><i class="fas fa-history"></i> History</a></li>
-                <li><a href="#"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                <li>
+                    <a href="#"><i class="fas fa-shield-alt"></i> Safe Search</a>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item" onclick="setSafeSearchLevel('strict')">
+                            <i class="fas fa-lock"></i> Strict Filtering
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="setSafeSearchLevel('moderate')">
+                            <i class="fas fa-shield-alt"></i> Moderate Filtering
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="setSafeSearchLevel('off')">
+                            <i class="fas fa-unlock"></i> No Filtering
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item" onclick="toggleFamilyFilter()">
+                            <i class="fas fa-child"></i> Family Filter
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="toggleExplicitFilter()">
+                            <i class="fas fa-eye-slash"></i> Block Explicit Content
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-history"></i> History</a>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item" onclick="showRecentSearches()">
+                            <i class="fas fa-clock"></i> Recent Searches
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="showVisitedPages()">
+                            <i class="fas fa-file-alt"></i> Visited Pages
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="showSavedResults()">
+                            <i class="fas fa-bookmark"></i> Saved Results
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item" onclick="clearSearchHistory()">
+                            <i class="fas fa-trash"></i> Clear History
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="manageHistorySettings()">
+                            <i class="fas fa-cog"></i> History Settings
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-chart-line"></i> Analytics</a>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item" onclick="showSearchStats()">
+                            <i class="fas fa-chart-bar"></i> Search Statistics
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="showTrendingTopics()">
+                            <i class="fas fa-fire"></i> Trending Topics
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="showSafetyReport()">
+                            <i class="fas fa-shield-alt"></i> Safety Report
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="showPrivacyReport()">
+                            <i class="fas fa-user-secret"></i> Privacy Report
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item" onclick="exportData()">
+                            <i class="fas fa-download"></i> Export Data
+                        </a>
+                    </div>
+                </li>
                 <li><a href="#" id="settingsBtn"><i class="fas fa-cog"></i> Settings</a></li>
             </ul>
         </nav>
@@ -1739,6 +1876,77 @@
             setTimeout(() => {
                 notification.classList.remove('show');
             }, 3000);
+        }
+
+        // Safe Search menu functions
+        function setSafeSearchLevel(level) {
+            showNotification(`Safe search set to ${level}`, 'success');
+            
+            // Update safety indicator based on level
+            safetyIndicator.className = 'safety-indicator';
+            if (level === 'strict') {
+                safetyIndicator.classList.add('high');
+                safetyIndicator.innerHTML = '<i class="fas fa-shield-alt"></i><span>Strict Mode</span>';
+            } else if (level === 'moderate') {
+                safetyIndicator.innerHTML = '<i class="fas fa-shield-alt"></i><span>Moderate Mode</span>';
+            } else {
+                safetyIndicator.innerHTML = '<i class="fas fa-shield-alt"></i><span>Safe Mode</span>';
+            }
+        }
+
+        function toggleFamilyFilter() {
+            familyFilterToggle.classList.toggle('active');
+            const isActive = familyFilterToggle.classList.contains('active');
+            showNotification(`Family filter ${isActive ? 'enabled' : 'disabled'}`, 'success');
+        }
+
+        function toggleExplicitFilter() {
+            blockMaliciousToggle.classList.toggle('active');
+            const isActive = blockMaliciousToggle.classList.contains('active');
+            showNotification(`Explicit content filter ${isActive ? 'enabled' : 'disabled'}`, 'success');
+        }
+
+        // History menu functions
+        function showRecentSearches() {
+            showNotification('Recent searches feature coming soon', 'warning');
+        }
+
+        function showVisitedPages() {
+            showNotification('Visited pages feature coming soon', 'warning');
+        }
+
+        function showSavedResults() {
+            showNotification('Saved results feature coming soon', 'warning');
+        }
+
+        function clearSearchHistory() {
+            showNotification('Search history cleared', 'success');
+        }
+
+        function manageHistorySettings() {
+            settingsModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Analytics menu functions
+        function showSearchStats() {
+            showNotification('Search statistics feature coming soon', 'warning');
+        }
+
+        function showTrendingTopics() {
+            showNotification('Trending topics feature coming soon', 'warning');
+        }
+
+        function showSafetyReport() {
+            showNotification('Safety report feature coming soon', 'warning');
+        }
+
+        function showPrivacyReport() {
+            showNotification('Privacy report feature coming soon', 'warning');
+        }
+
+        function exportData() {
+            showNotification('Data export feature coming soon', 'warning');
         }
     </script>
 </body>
