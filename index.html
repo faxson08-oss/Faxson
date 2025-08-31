@@ -26,6 +26,7 @@
             --success: #4a4a4a;
             --warning: #666666;
             --red-light: #e74c3c;
+            --accent: #3498db;
         }
 
         body {
@@ -148,7 +149,7 @@
             background: var(--bg-light);
             border: 1px solid var(--border);
             border-radius: 10px;
-            min-width: 200px;
+            min-width: 220px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             opacity: 0;
             visibility: hidden;
@@ -174,6 +175,7 @@
             transition: all 0.2s;
             border-radius: 6px;
             margin: 4px;
+            cursor: pointer;
         }
 
         .dropdown-item:hover {
@@ -286,6 +288,48 @@
         @keyframes listening {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.2); }
+        }
+
+        /* Search Suggestions */
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            margin-top: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            z-index: 100;
+        }
+
+        .suggestion-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .suggestion-item .title {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .suggestion-item .description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 4px;
         }
 
         /* Safety Filters */
@@ -708,6 +752,10 @@
             background: var(--warning);
         }
 
+        .notification.error {
+            background: var(--red-light);
+        }
+
         /* Loading Spinner */
         .loading-spinner {
             display: none;
@@ -977,6 +1025,192 @@
             transform: translateY(-2px);
         }
 
+        /* History Modal */
+        .history-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .history-modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .history-container {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+
+        .history-modal.show .history-container {
+            transform: scale(1);
+        }
+
+        .history-header {
+            padding: 25px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-header h2 {
+            font-size: 1.6rem;
+            color: var(--text-primary);
+        }
+
+        .history-content {
+            padding: 20px;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .history-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(5px);
+        }
+
+        .history-query {
+            color: var(--text-primary);
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .history-query:hover {
+            color: var(--red-light);
+        }
+
+        .history-time {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .history-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .history-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .history-btn:hover {
+            background: var(--red-light);
+            border-color: var(--red-light);
+            color: white;
+        }
+
+        .empty-history {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+
+        .empty-history i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        /* Help Section */
+        .help-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .help-item {
+            margin-bottom: 20px;
+        }
+
+        .help-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .help-question {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .help-question i {
+            color: var(--red-light);
+        }
+
+        .help-answer {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            padding-left: 30px;
+        }
+
+        /* Keyboard Shortcuts */
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .shortcut-key {
+            background: var(--primary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .shortcut-desc {
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             header {
@@ -1048,6 +1282,15 @@
                 padding: 8px 12px;
                 margin: 0;
             }
+
+            .history-container {
+                width: 95%;
+            }
+
+            .shortcuts-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
         }
     </style>
 </head>
@@ -1088,7 +1331,7 @@
                 <li>
                     <a href="#"><i class="fas fa-history"></i> History</a>
                     <div class="dropdown">
-                        <a href="#" class="dropdown-item" onclick="showRecentSearches()">
+                        <a href="#" class="dropdown-item" onclick="showHistoryModal()">
                             <i class="fas fa-clock"></i> Recent Searches
                         </a>
                         <a href="#" class="dropdown-item" onclick="showVisitedPages()">
@@ -1127,6 +1370,11 @@
                         </a>
                     </div>
                 </li>
+                <li>
+                    <a href="#" onclick="showHelp()">
+                        <i class="fas fa-question-circle"></i> Help
+                    </a>
+                </li>
                 <li><a href="#" id="settingsBtn"><i class="fas fa-cog"></i> Settings</a></li>
             </ul>
         </nav>
@@ -1140,7 +1388,7 @@
                         <i class="fas fa-shield-alt"></i>
                         <span>Safe Mode</span>
                     </div>
-                    <input type="text" class="search-input" placeholder="Search safely with Red Light..." id="searchInput">
+                    <input type="text" class="search-input" placeholder="Search safely with Red Light..." id="searchInput" autocomplete="off">
                     <div class="search-actions">
                         <button class="voice-btn" id="voiceBtn">
                             <i class="fas fa-microphone"></i>
@@ -1153,6 +1401,7 @@
                         </button>
                     </div>
                 </div>
+                <div class="search-suggestions" id="searchSuggestions"></div>
             </div>
 
             <div class="safety-filters">
@@ -1453,11 +1702,73 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Help Section -->
+                <div class="settings-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-question-circle"></i>
+                        Help & Support
+                    </h3>
+                    
+                    <div class="help-section">
+                        <div class="help-item">
+                            <div class="help-question">
+                                <i class="fas fa-keyboard"></i> Keyboard Shortcuts
+                            </div>
+                            <div class="help-answer">
+                                <div class="shortcuts-grid">
+                                    <div class="shortcut-key">/</div>
+                                    <div class="shortcut-desc">Focus search box</div>
+                                    <div class="shortcut-key">Ctrl + K</div>
+                                    <div class="shortcut-desc">Open search</div>
+                                    <div class="shortcut-key">Esc</div>
+                                    <div class="shortcut-desc">Clear search</div>
+                                    <div class="shortcut-key">Ctrl + H</div>
+                                    <div class="shortcut-desc">Show history</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="help-item">
+                            <div class="help-question">
+                                <i class="fas fa-shield-alt"></i> Safety Features
+                            </div>
+                            <div class="help-answer">
+                                Red Light automatically filters harmful content, blocks malicious sites, and provides family-safe browsing. You can adjust safety levels in the Safety Settings.
+                            </div>
+                        </div>
+                        
+                        <div class="help-item">
+                            <div class="help-question">
+                                <i class="fas fa-user-secret"></i> Privacy Protection
+                            </div>
+                            <div class="help-answer">
+                                We don't track your searches or store personal data. Enable Anonymous Mode for complete privacy while browsing.
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <div class="settings-actions">
                 <button class="btn btn-cancel" id="cancelSettings">Cancel</button>
                 <button class="btn btn-save" id="saveSettings">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- History Modal -->
+    <div class="history-modal" id="historyModal">
+        <div class="history-container">
+            <div class="history-header">
+                <h2>Search History</h2>
+                <button class="close-settings" onclick="closeHistoryModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="history-content" id="historyContent">
+                <!-- History items will be dynamically inserted here -->
             </div>
         </div>
     </div>
@@ -1486,6 +1797,7 @@
         const trendingSection = document.getElementById('trendingSection');
         const featuresSection = document.getElementById('featuresSection');
         const trendingItems = document.querySelectorAll('.trending-item');
+        const searchSuggestions = document.getElementById('searchSuggestions');
 
         // Settings elements
         const settingsBtn = document.getElementById('settingsBtn');
@@ -1493,6 +1805,10 @@
         const closeSettings = document.getElementById('closeSettings');
         const cancelSettings = document.getElementById('cancelSettings');
         const saveSettings = document.getElementById('saveSettings');
+
+        // History elements
+        const historyModal = document.getElementById('historyModal');
+        const historyContent = document.getElementById('historyContent');
 
         // Toggle switches
         const safeSearchToggle = document.getElementById('safeSearchToggle');
@@ -1503,6 +1819,21 @@
         const anonymousToggle = document.getElementById('anonymousToggle');
         const experimentalToggle = document.getElementById('experimentalToggle');
         const debugToggle = document.getElementById('debugToggle');
+
+        // Global variables
+        let searchHistory = [];
+        let currentFilter = 'all';
+        let suggestionTimeout;
+
+        // Initialize
+        window.addEventListener('load', () => {
+            loadSettings();
+            loadSearchHistory();
+            setupKeyboardShortcuts();
+            setTimeout(() => {
+                showNotification("Welcome to Red Light! Your safety is our priority.", 'success');
+            }, 1000);
+        });
 
         // Wikipedia API integration
         async function searchWikipedia(query) {
@@ -1530,6 +1861,23 @@
             } catch (error) {
                 console.error('Error fetching thumbnail:', error);
                 return null;
+            }
+        }
+
+        // Get search suggestions
+        async function getSearchSuggestions(query) {
+            const apiUrl = `https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=${encodeURIComponent(query)}&limit=5&origin=*`;
+            
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                return data[1].map((title, index) => ({
+                    title: title,
+                    description: data[2][index] || ''
+                }));
+            } catch (error) {
+                console.error('Error fetching suggestions:', error);
+                return [];
             }
         }
 
@@ -1623,18 +1971,13 @@
             }
         }
 
-        // Load settings on page load
-        window.addEventListener('load', () => {
-            loadSettings();
-            setTimeout(() => {
-                showNotification("Welcome to Red Light! Your safety is our priority.", 'success');
-            }, 1000);
-        });
-
         // Search functionality
         async function performSearch() {
             const query = searchInput.value.trim();
             if (query) {
+                // Add to search history
+                addToSearchHistory(query);
+                
                 // Show loading spinner
                 loadingSpinner.style.display = 'block';
                 resultsGrid.innerHTML = '';
@@ -1670,7 +2013,7 @@
                     }
                 } catch (error) {
                     loadingSpinner.style.display = 'none';
-                    showNotification('Error fetching results', 'warning');
+                    showNotification('Error fetching results', 'error');
                     console.error('Search error:', error);
                 }
             }
@@ -1688,6 +2031,7 @@
             trendingSection.style.display = 'block';
             featuresSection.style.display = 'grid';
             clearBtn.style.display = 'none';
+            searchSuggestions.style.display = 'none';
             showNotification('Search cleared', 'success');
         });
 
@@ -1697,6 +2041,47 @@
                 clearBtn.style.display = 'flex';
             } else {
                 clearBtn.style.display = 'none';
+            }
+            
+            // Show suggestions
+            const query = searchInput.value.trim();
+            if (query.length > 2) {
+                clearTimeout(suggestionTimeout);
+                suggestionTimeout = setTimeout(() => {
+                    showSuggestions(query);
+                }, 300);
+            } else {
+                searchSuggestions.style.display = 'none';
+            }
+        });
+
+        // Search suggestions
+        async function showSuggestions(query) {
+            const suggestions = await getSearchSuggestions(query);
+            
+            if (suggestions.length > 0) {
+                searchSuggestions.innerHTML = suggestions.map(s => `
+                    <div class="suggestion-item" onclick="selectSuggestion('${s.title.replace(/'/g, "\\'")}')">
+                        <div class="title">${s.title}</div>
+                        <div class="description">${s.description}</div>
+                    </div>
+                `).join('');
+                searchSuggestions.style.display = 'block';
+            } else {
+                searchSuggestions.style.display = 'none';
+            }
+        }
+
+        function selectSuggestion(query) {
+            searchInput.value = query;
+            searchSuggestions.style.display = 'none';
+            performSearch();
+        }
+
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-box')) {
+                searchSuggestions.style.display = 'none';
             }
         });
 
@@ -1737,9 +2122,9 @@
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 
-                const filter = btn.getAttribute('data-filter');
-                let filterName = btn.textContent.trim();
-                updateSafetyIndicator(filter);
+                currentFilter = btn.getAttribute('data-filter');
+                const filterName = btn.textContent.trim();
+                updateSafetyIndicator(currentFilter);
                 showNotification(`${filterName} filter activated`, 'success');
                 
                 // If there's an active search, refresh results with new filter
@@ -1846,6 +2231,106 @@
             }
         }
 
+        // Search history management
+        function loadSearchHistory() {
+            const savedHistory = localStorage.getItem('redLightSearchHistory');
+            if (savedHistory) {
+                searchHistory = JSON.parse(savedHistory);
+            }
+        }
+
+        function addToSearchHistory(query) {
+            if (!searchHistoryToggle.classList.contains('active')) return;
+            
+            // Remove duplicate if exists
+            searchHistory = searchHistory.filter(item => item.query !== query);
+            
+            // Add to beginning
+            searchHistory.unshift({
+                query: query,
+                timestamp: new Date().toISOString()
+            });
+            
+            // Limit to 50 items
+            if (searchHistory.length > 50) {
+                searchHistory = searchHistory.slice(0, 50);
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('redLightSearchHistory', JSON.stringify(searchHistory));
+        }
+
+        function showHistoryModal() {
+            displaySearchHistory();
+            historyModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeHistoryModal() {
+            historyModal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        function displaySearchHistory() {
+            if (searchHistory.length === 0) {
+                historyContent.innerHTML = `
+                    <div class="empty-history">
+                        <i class="fas fa-history"></i>
+                        <p>No search history yet</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            historyContent.innerHTML = searchHistory.map((item, index) => `
+                <div class="history-item">
+                    <div class="history-query" onclick="searchFromHistory('${item.query.replace(/'/g, "\\'")}')">${item.query}</div>
+                    <div class="history-actions">
+                        <span class="history-time">${formatTime(item.timestamp)}</span>
+                        <button class="history-btn" onclick="removeFromHistory(${index})" title="Remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function searchFromHistory(query) {
+            searchInput.value = query;
+            closeHistoryModal();
+            performSearch();
+        }
+
+        function removeFromHistory(index) {
+            searchHistory.splice(index, 1);
+            localStorage.setItem('redLightSearchHistory', JSON.stringify(searchHistory));
+            displaySearchHistory();
+            showNotification('Removed from history', 'success');
+        }
+
+        function clearSearchHistory() {
+            if (confirm('Are you sure you want to clear all search history?')) {
+                searchHistory = [];
+                localStorage.removeItem('redLightSearchHistory');
+                showNotification('Search history cleared', 'success');
+            }
+        }
+
+        function formatTime(timestamp) {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diff = now - date;
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+            
+            if (minutes < 1) return 'Just now';
+            if (minutes < 60) return `${minutes}m ago`;
+            if (hours < 24) return `${hours}h ago`;
+            if (days < 7) return `${days}d ago`;
+            return date.toLocaleDateString();
+        }
+
         // Save result function
         function saveResult(title, url) {
             showNotification(`"${title}" saved to bookmarks`, 'success');
@@ -1864,11 +2349,41 @@
             }
         }
 
+        // Keyboard shortcuts
+        function setupKeyboardShortcuts() {
+            document.addEventListener('keydown', (e) => {
+                // Focus search box
+                if (e.key === '/' && document.activeElement !== searchInput) {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+                
+                // Clear search
+                if (e.key === 'Escape' && searchInput.value) {
+                    searchInput.value = '';
+                    clearBtn.click();
+                }
+                
+                // Open search (Ctrl+K or Cmd+K)
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+                
+                // Show history (Ctrl+H or Cmd+H)
+                if ((e.ctrlKey || e.metaKey) && e.key === 'h') {
+                    e.preventDefault();
+                    showHistoryModal();
+                }
+            });
+        }
+
         // Notification system
         function showNotification(message, type = 'default') {
             notification.className = 'notification';
             if (type === 'success') notification.classList.add('success');
             if (type === 'warning') notification.classList.add('warning');
+            if (type === 'error') notification.classList.add('error');
             
             notificationText.textContent = message;
             notification.classList.add('show');
@@ -1907,20 +2422,12 @@
         }
 
         // History menu functions
-        function showRecentSearches() {
-            showNotification('Recent searches feature coming soon', 'warning');
-        }
-
         function showVisitedPages() {
             showNotification('Visited pages feature coming soon', 'warning');
         }
 
         function showSavedResults() {
             showNotification('Saved results feature coming soon', 'warning');
-        }
-
-        function clearSearchHistory() {
-            showNotification('Search history cleared', 'success');
         }
 
         function manageHistorySettings() {
@@ -1947,6 +2454,12 @@
 
         function exportData() {
             showNotification('Data export feature coming soon', 'warning');
+        }
+
+        // Help function
+        function showHelp() {
+            settingsModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
         }
     </script>
 </body>
