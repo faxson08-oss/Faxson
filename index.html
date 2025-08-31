@@ -30,12 +30,68 @@
         }
 
         body {
-            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
             color: var(--text-primary);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(45deg, #000000, #1a1a1a, #0f0f1e, #1a1a1a);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(231, 76, 60, 0.3);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
         }
 
         /* Header Styles */
@@ -203,6 +259,7 @@
             align-items: center;
             padding: 20px;
             position: relative;
+            z-index: 1;
         }
 
         /* Search Container */
@@ -701,6 +758,8 @@
             color: var(--text-secondary);
             font-size: 0.9rem;
             background: rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
         }
 
         .footer-links {
@@ -733,7 +792,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             transform: translateX(400px);
             transition: transform 0.5s;
-            z-index: 1000;
+            z-index: 10000;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -784,7 +843,7 @@
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 10000;
             opacity: 0;
             transition: opacity 0.3s;
         }
@@ -1037,7 +1096,7 @@
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 10000;
             opacity: 0;
             transition: opacity 0.3s;
         }
@@ -1295,6 +1354,10 @@
     </style>
 </head>
 <body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    <div class="particles" id="particles"></div>
+
     <header>
         <div class="logo">
             <div class="logo-icon">
@@ -1824,9 +1887,29 @@
         let searchHistory = [];
         let currentFilter = 'all';
         let suggestionTimeout;
+        let isModalOpen = false;
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random position
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 20 + 20) + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
 
         // Initialize
         window.addEventListener('load', () => {
+            createParticles();
             loadSettings();
             loadSearchHistory();
             setupKeyboardShortcuts();
@@ -1883,22 +1966,35 @@
 
         // Settings functionality
         settingsBtn.addEventListener('click', () => {
-            settingsModal.classList.add('show');
-            document.body.style.overflow = 'hidden';
+            if (!isModalOpen) {
+                openModal(settingsModal);
+            }
         });
 
-        function closeSettingsModal() {
-            settingsModal.classList.remove('show');
-            document.body.style.overflow = 'auto';
+        function openModal(modal) {
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            isModalOpen = true;
         }
 
-        closeSettings.addEventListener('click', closeSettingsModal);
-        cancelSettings.addEventListener('click', closeSettingsModal);
+        function closeModal(modal) {
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+            isModalOpen = false;
+        }
+
+        closeSettings.addEventListener('click', () => {
+            closeModal(settingsModal);
+        });
+
+        cancelSettings.addEventListener('click', () => {
+            closeModal(settingsModal);
+        });
 
         // Close modal when clicking outside
         settingsModal.addEventListener('click', (e) => {
             if (e.target === settingsModal) {
-                closeSettingsModal();
+                closeModal(settingsModal);
             }
         });
 
@@ -1940,7 +2036,7 @@
             localStorage.setItem('redLightSettings', JSON.stringify(settings));
             
             showNotification('Settings saved successfully!', 'success');
-            closeSettingsModal();
+            closeModal(settingsModal);
         });
 
         // Load saved settings
@@ -2080,7 +2176,7 @@
 
         // Hide suggestions when clicking outside
         document.addEventListener('click', (e) => {
-            if (!e.target.closest('.search-box')) {
+            if (!e.target.closest('.search-box') && !e.target.closest('.search-suggestions')) {
                 searchSuggestions.style.display = 'none';
             }
         });
@@ -2235,7 +2331,12 @@
         function loadSearchHistory() {
             const savedHistory = localStorage.getItem('redLightSearchHistory');
             if (savedHistory) {
-                searchHistory = JSON.parse(savedHistory);
+                try {
+                    searchHistory = JSON.parse(savedHistory);
+                } catch (e) {
+                    console.error('Error parsing search history:', e);
+                    searchHistory = [];
+                }
             }
         }
 
@@ -2262,13 +2363,11 @@
 
         function showHistoryModal() {
             displaySearchHistory();
-            historyModal.classList.add('show');
-            document.body.style.overflow = 'hidden';
+            openModal(historyModal);
         }
 
         function closeHistoryModal() {
-            historyModal.classList.remove('show');
-            document.body.style.overflow = 'auto';
+            closeModal(historyModal);
         }
 
         function displaySearchHistory() {
@@ -2313,22 +2412,27 @@
                 searchHistory = [];
                 localStorage.removeItem('redLightSearchHistory');
                 showNotification('Search history cleared', 'success');
+                displaySearchHistory();
             }
         }
 
         function formatTime(timestamp) {
-            const date = new Date(timestamp);
-            const now = new Date();
-            const diff = now - date;
-            const minutes = Math.floor(diff / 60000);
-            const hours = Math.floor(diff / 3600000);
-            const days = Math.floor(diff / 86400000);
-            
-            if (minutes < 1) return 'Just now';
-            if (minutes < 60) return `${minutes}m ago`;
-            if (hours < 24) return `${hours}h ago`;
-            if (days < 7) return `${days}d ago`;
-            return date.toLocaleDateString();
+            try {
+                const date = new Date(timestamp);
+                const now = new Date();
+                const diff = now - date;
+                const minutes = Math.floor(diff / 60000);
+                const hours = Math.floor(diff / 3600000);
+                const days = Math.floor(diff / 86400000);
+                
+                if (minutes < 1) return 'Just now';
+                if (minutes < 60) return `${minutes}m ago`;
+                if (hours < 24) return `${hours}h ago`;
+                if (days < 7) return `${days}d ago`;
+                return date.toLocaleDateString();
+            } catch (e) {
+                return 'Unknown time';
+            }
         }
 
         // Save result function
@@ -2342,16 +2446,25 @@
                 navigator.share({
                     title: 'Check out this article from Red Light Search',
                     url: url
+                }).catch(err => {
+                    console.log('Error sharing:', err);
                 });
             } else {
-                navigator.clipboard.writeText(url);
-                showNotification('Link copied to clipboard', 'success');
+                navigator.clipboard.writeText(url).then(() => {
+                    showNotification('Link copied to clipboard', 'success');
+                }).catch(err => {
+                    console.error('Error copying to clipboard:', err);
+                    showNotification('Failed to copy link', 'error');
+                });
             }
         }
 
         // Keyboard shortcuts
         function setupKeyboardShortcuts() {
             document.addEventListener('keydown', (e) => {
+                // Prevent shortcuts when typing in input fields
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                
                 // Focus search box
                 if (e.key === '/' && document.activeElement !== searchInput) {
                     e.preventDefault();
@@ -2360,6 +2473,7 @@
                 
                 // Clear search
                 if (e.key === 'Escape' && searchInput.value) {
+                    e.preventDefault();
                     searchInput.value = '';
                     clearBtn.click();
                 }
@@ -2380,14 +2494,23 @@
 
         // Notification system
         function showNotification(message, type = 'default') {
+            // Close any existing notification
+            notification.classList.remove('show');
+            
+            // Set notification type
             notification.className = 'notification';
             if (type === 'success') notification.classList.add('success');
             if (type === 'warning') notification.classList.add('warning');
             if (type === 'error') notification.classList.add('error');
             
             notificationText.textContent = message;
-            notification.classList.add('show');
             
+            // Show notification
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 10);
+            
+            // Auto hide after 3 seconds
             setTimeout(() => {
                 notification.classList.remove('show');
             }, 3000);
@@ -2431,8 +2554,7 @@
         }
 
         function manageHistorySettings() {
-            settingsModal.classList.add('show');
-            document.body.style.overflow = 'hidden';
+            openModal(settingsModal);
         }
 
         // Analytics menu functions
@@ -2458,8 +2580,7 @@
 
         // Help function
         function showHelp() {
-            settingsModal.classList.add('show');
-            document.body.style.overflow = 'hidden';
+            openModal(settingsModal);
         }
     </script>
 </body>
