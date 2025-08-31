@@ -675,6 +675,259 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Settings Modal */
+        .settings-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .settings-modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .settings-container {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+
+        .settings-modal.show .settings-container {
+            transform: scale(1);
+        }
+
+        .settings-header {
+            padding: 30px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .settings-header h2 {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+        }
+
+        .close-settings {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-settings:hover {
+            color: var(--red-light);
+            background: rgba(231, 76, 60, 0.1);
+        }
+
+        .settings-content {
+            padding: 30px;
+        }
+
+        .settings-section {
+            margin-bottom: 40px;
+        }
+
+        .settings-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--red-light);
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-label {
+            color: var(--text-secondary);
+        }
+
+        .setting-label strong {
+            color: var(--text-primary);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: var(--border);
+            border-radius: 13px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: var(--red-light);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(24px);
+        }
+
+        /* Radio Buttons */
+        .radio-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"] {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .radio-option input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background: var(--red-light);
+            border-radius: 50%;
+        }
+
+        /* Select Dropdown */
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-wrapper select {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 8px 35px 8px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            appearance: none;
+            outline: none;
+        }
+
+        .select-wrapper::after {
+            content: '\f107';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: var(--text-secondary);
+        }
+
+        /* Settings Actions */
+        .settings-actions {
+            padding: 20px 30px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn-cancel {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-save {
+            background: var(--red-light);
+            color: white;
+        }
+
+        .btn-save:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             header {
@@ -719,6 +972,17 @@
                 gap: 15px;
                 align-items: flex-start;
             }
+
+            .settings-container {
+                width: 95%;
+                max-height: 95vh;
+            }
+
+            .setting-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
         }
     </style>
 </head>
@@ -738,7 +1002,7 @@
                 <li><a href="#"><i class="fas fa-shield-alt"></i> Safe Search</a></li>
                 <li><a href="#"><i class="fas fa-history"></i> History</a></li>
                 <li><a href="#"><i class="fas fa-chart-line"></i> Analytics</a></li>
-                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#" id="settingsBtn"><i class="fas fa-cog"></i> Settings</a></li>
             </ul>
         </nav>
         <button class="theme-toggle" id="themeToggle">
@@ -885,6 +1149,218 @@
         <p>© 2023 Red Light Search Engine. Keeping your digital journey safe since 2023.</p>
     </footer>
 
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-container">
+            <div class="settings-header">
+                <h2>Settings</h2>
+                <button class="close-settings" id="closeSettings">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="settings-content">
+                <!-- Safety Settings -->
+                <div class="settings-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-shield-alt"></i>
+                        Safety Settings
+                    </h3>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Safe Search</strong>
+                            <span>Filter explicit results</span>
+                        </div>
+                        <div class="toggle-switch active" id="safeSearchToggle"></div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Family Filter</strong>
+                            <span>Extra protection for children</span>
+                        </div>
+                        <div class="toggle-switch" id="familyFilterToggle"></div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Block Malicious Sites</strong>
+                            <span>Automatically block known dangerous sites</span>
+                        </div>
+                        <div class="toggle-switch active" id="blockMaliciousToggle"></div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Safety Level</strong>
+                            <span>Choose your safety preference</span>
+                        </div>
+                        <div class="select-wrapper">
+                            <select id="safetyLevelSelect">
+                                <option value="strict">Strict</option>
+                                <option value="moderate" selected>Moderate</option>
+                                <option value="relaxed">Relaxed</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Privacy Settings -->
+                <div class="settings-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-user-secret"></i>
+                        Privacy Settings
+                    </h3>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Search History</strong>
+                            <span>Save your search history</span>
+                        </div>
+                        <div class="toggle-switch" id="searchHistoryToggle"></div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Personalized Results</strong>
+                            <span>Use location for better results</span>
+                        </div>
+                        <div class="toggle-switch" id="personalizedToggle"></div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Anonymous Mode</strong>
+                            <span>Browse without leaving traces</span>
+                        </div>
+                        <div class="toggle-switch" id="anonymousToggle"></div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Cookie Policy</strong>
+                            <span>Manage cookie preferences</span>
+                        </div>
+                        <div class="select-wrapper">
+                            <select id="cookiePolicySelect">
+                                <option value="essential">Essential Only</option>
+                                <option value="all" selected>Accept All</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Display Settings -->
+                <div class="settings-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-display"></i>
+                        Display Settings
+                    </h3>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Theme</strong>
+                            <span>Choose your preferred theme</span>
+                        </div>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="theme" value="dark" checked>
+                                <span>Dark</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="theme" value="light">
+                                <span>Light</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="theme" value="auto">
+                                <span>Auto</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Results Per Page</strong>
+                            <span>Number of search results to display</span>
+                        </div>
+                        <div class="select-wrapper">
+                            <select id="resultsPerPageSelect">
+                                <option value="10">10</option>
+                                <option value="20" selected>20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Open Links In</strong>
+                            <span>Choose how links open</span>
+                        </div>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="links" value="new" checked>
+                                <span>New Tab</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="links" value="current">
+                                <span>Current Tab</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Settings -->
+                <div class="settings-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-cogs"></i>
+                        Advanced Settings
+                    </h3>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Experimental Features</strong>
+                            <span>Enable beta features</span>
+                        </div>
+                        <div class="toggle-switch" id="experimentalToggle"></div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Debug Mode</strong>
+                            <span>Show technical information</span>
+                        </div>
+                        <div class="toggle-switch" id="debugToggle"></div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Search Region</strong>
+                            <span>Preferred search region</span>
+                        </div>
+                        <div class="select-wrapper">
+                            <select id="searchRegionSelect">
+                                <option value="auto">Auto-detect</option>
+                                <option value="us">United States</option>
+                                <option value="uk">United Kingdom</option>
+                                <option value="ca">Canada</option>
+                                <option value="au">Australia</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="settings-actions">
+                <button class="btn btn-cancel" id="cancelSettings">Cancel</button>
+                <button class="btn btn-save" id="saveSettings">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
     <div class="notification" id="notification">
         <i class="fas fa-check-circle"></i>
         <span id="notificationText">Safe search activated!</span>
@@ -910,6 +1386,23 @@
         const trendingSection = document.getElementById('trendingSection');
         const featuresSection = document.getElementById('featuresSection');
         const trendingItems = document.querySelectorAll('.trending-item');
+
+        // Settings elements
+        const settingsBtn = document.getElementById('settingsBtn');
+        const settingsModal = document.getElementById('settingsModal');
+        const closeSettings = document.getElementById('closeSettings');
+        const cancelSettings = document.getElementById('cancelSettings');
+        const saveSettings = document.getElementById('saveSettings');
+
+        // Toggle switches
+        const safeSearchToggle = document.getElementById('safeSearchToggle');
+        const familyFilterToggle = document.getElementById('familyFilterToggle');
+        const blockMaliciousToggle = document.getElementById('blockMaliciousToggle');
+        const searchHistoryToggle = document.getElementById('searchHistoryToggle');
+        const personalizedToggle = document.getElementById('personalizedToggle');
+        const anonymousToggle = document.getElementById('anonymousToggle');
+        const experimentalToggle = document.getElementById('experimentalToggle');
+        const debugToggle = document.getElementById('debugToggle');
 
         // Mock search results data
         const mockResults = [
@@ -954,6 +1447,120 @@
                 icon: "fas fa-heart"
             }
         ];
+
+        // Settings functionality
+        settingsBtn.addEventListener('click', () => {
+            settingsModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        });
+
+        function closeSettingsModal() {
+            settingsModal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        closeSettings.addEventListener('click', closeSettingsModal);
+        cancelSettings.addEventListener('click', closeSettingsModal);
+
+        // Close modal when clicking outside
+        settingsModal.addEventListener('click', (e) => {
+            if (e.target === settingsModal) {
+                closeSettingsModal();
+            }
+        });
+
+        // Toggle switches functionality
+        function setupToggle(toggleElement) {
+            toggleElement.addEventListener('click', () => {
+                toggleElement.classList.toggle('active');
+            });
+        }
+
+        setupToggle(safeSearchToggle);
+        setupToggle(familyFilterToggle);
+        setupToggle(blockMaliciousToggle);
+        setupToggle(searchHistoryToggle);
+        setupToggle(personalizedToggle);
+        setupToggle(anonymousToggle);
+        setupToggle(experimentalToggle);
+        setupToggle(debugToggle);
+
+        // Save settings
+        saveSettings.addEventListener('click', () => {
+            const settings = {
+                safeSearch: safeSearchToggle.classList.contains('active'),
+                familyFilter: familyFilterToggle.classList.contains('active'),
+                blockMalicious: blockMaliciousToggle.classList.contains('active'),
+                safetyLevel: document.getElementById('safetyLevelSelect').value,
+                searchHistory: searchHistoryToggle.classList.contains('active'),
+                personalized: personalizedToggle.classList.contains('active'),
+                anonymous: anonymousToggle.classList.contains('active'),
+                cookiePolicy: document.getElementById('cookiePolicySelect').value,
+                theme: document.querySelector('input[name="theme"]:checked').value,
+                resultsPerPage: document.getElementById('resultsPerPageSelect').value,
+                links: document.querySelector('input[name="links"]:checked').value,
+                experimental: experimentalToggle.classList.contains('active'),
+                debug: debugToggle.classList.contains('active'),
+                searchRegion: document.getElementById('searchRegionSelect').value
+            };
+
+            // Save to localStorage
+            localStorage.setItem('redLightSettings', JSON.stringify(settings));
+            
+            // Apply theme if changed
+            if (settings.theme === 'light') {
+                document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+            } else {
+                document.body.style.filter = 'none';
+            }
+
+            showNotification('Settings saved successfully!', 'success');
+            closeSettingsModal();
+        });
+
+        // Load saved settings
+        function loadSettings() {
+            const savedSettings = localStorage.getItem('redLightSettings');
+            if (savedSettings) {
+                const settings = JSON.parse(savedSettings);
+                
+                // Apply toggle states
+                if (settings.safeSearch) safeSearchToggle.classList.add('active');
+                if (settings.familyFilter) familyFilterToggle.classList.add('active');
+                if (settings.blockMalicious) blockMaliciousToggle.classList.add('active');
+                if (settings.searchHistory) searchHistoryToggle.classList.add('active');
+                if (settings.personalized) personalizedToggle.classList.add('active');
+                if (settings.anonymous) anonymousToggle.classList.add('active');
+                if (settings.experimental) experimentalToggle.classList.add('active');
+                if (settings.debug) debugToggle.classList.add('active');
+                
+                // Apply select values
+                document.getElementById('safetyLevelSelect').value = settings.safetyLevel || 'moderate';
+                document.getElementById('cookiePolicySelect').value = settings.cookiePolicy || 'all';
+                document.getElementById('resultsPerPageSelect').value = settings.resultsPerPage || '20';
+                document.getElementById('searchRegionSelect').value = settings.searchRegion || 'auto';
+                
+                // Apply radio values
+                const themeRadio = document.querySelector(`input[name="theme"][value="${settings.theme || 'dark'}"]`);
+                if (themeRadio) themeRadio.checked = true;
+                
+                const linksRadio = document.querySelector(`input[name="links"][value="${settings.links || 'new'}"]`);
+                if (linksRadio) linksRadio.checked = true;
+                
+                // Apply theme
+                if (settings.theme === 'light') {
+                    document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+                }
+            }
+        }
+
+        // Load settings on page load
+        window.addEventListener('load', () => {
+            loadSettings();
+            setTimeout(() => {
+                showNotification("Welcome to Red Light! Your safety is our priority.", 'success');
+            }, 1000);
+        });
 
         // Search functionality
         function performSearch() {
@@ -1155,13 +1762,6 @@
                 notification.classList.remove('show');
             }, 3000);
         }
-
-        // Initial notification
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                showNotification("Welcome to Red Light! Your safety is our priority.", 'success');
-            }, 1000);
-        });
     </script>
 </body>
 </html>
