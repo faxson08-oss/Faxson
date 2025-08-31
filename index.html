@@ -425,6 +425,13 @@
             color: var(--text-primary);
             border: 1px solid var(--border);
             flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .result-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .result-content {
@@ -1362,7 +1369,7 @@
 
         // Wikipedia API integration
         async function searchWikipedia(query) {
-            const apiUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=${encodeURIComponent(query)}&srlimit=20`;
+            const apiUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=${encodeURIComponent(query)}&srlimit=10&origin=*`;
             
             try {
                 const response = await fetch(apiUrl);
@@ -1371,6 +1378,21 @@
             } catch (error) {
                 console.error('Error fetching Wikipedia data:', error);
                 return [];
+            }
+        }
+
+        // Get Wikipedia page thumbnail
+        async function getPageThumbnail(pageId) {
+            const thumbnailUrl = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&pageids=${pageId}&pithumbsize=120&origin=*`;
+            
+            try {
+                const response = await fetch(thumbnailUrl);
+                const data = await response.json();
+                const page = data.query.pages[pageId];
+                return page.thumbnail ? page.thumbnail.source : null;
+            } catch (error) {
+                console.error('Error fetching thumbnail:', error);
+                return null;
             }
         }
 
@@ -1624,7 +1646,7 @@
         });
 
         // Display search results
-        function displaySearchResults(query, results) {
+        async function displaySearchResults(query, results) {
             resultsGrid.innerHTML = '';
             
             // Update result count
@@ -1641,21 +1663,19 @@
                 return;
             }
             
-            results.forEach((result, index) => {
+            for (const result of results) {
                 const resultItem = document.createElement('div');
                 resultItem.className = 'result-item';
-                resultItem.style.animationDelay = `${index * 0.1}s`;
                 
                 // Create Wikipedia URL
                 const wikiUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(result.title.replace(/ /g, '_'))}`;
                 
-                // Get page ID for thumbnail
-                const pageId = result.pageid;
-                const thumbnailUrl = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&pithumbsize=120&pageids=${pageId}`;
+                // Get thumbnail
+                const thumbnail = await getPageThumbnail(result.pageid);
                 
                 resultItem.innerHTML = `
-                    <div class="result-thumbnail" id="thumb-${pageId}">
-                        <i class="fas fa-book"></i>
+                    <div class="result-thumbnail">
+                        ${thumbnail ? `<img src="${thumbnail}" alt="${result.title}">` : '<i class="fas fa-book"></i>'}
                     </div>
                     <div class="result-content">
                         <div class="result-title" onclick="window.open('${wikiUrl}', '_blank')">${result.title}</div>
@@ -1674,7 +1694,7 @@
                                 Updated recently
                             </span>
                             <div class="result-actions">
-                                <button class="action-btn" title="Save" onclick="saveResult('${result.title}', '${wikiUrl}')">
+                                <button class="action-btn" title="Save" onclick="saveResult('${result.title.replace(/'/g, "\\'")}', '${wikiUrl}')">
                                     <i class="fas fa-bookmark"></i>
                                 </button>
                                 <button class="action-btn" title="Share" onclick="shareResult('${wikiUrl}')">
@@ -1686,21 +1706,7 @@
                 `;
                 
                 resultsGrid.appendChild(resultItem);
-                
-                // Fetch thumbnail if available
-                fetch(thumbnailUrl)
-                    .then(response => response.json())
-                    .then(data => {
-                        const thumbnail = data.query.pages[pageId].thumbnail;
-                        if (thumbnail) {
-                            const thumbElement = document.getElementById(`thumb-${pageId}`);
-                            thumbElement.innerHTML = `<img src="${thumbnail.source}" alt="${result.title}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">`;
-                        }
-                    })
-                    .catch(error => {
-                        console.log('No thumbnail available for this result');
-                    });
-            });
+            }
         }
 
         // Save result function
