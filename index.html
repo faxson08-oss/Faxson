@@ -23,6 +23,8 @@
             --text-secondary: #b0b0b0;
             --card-bg: rgba(255, 255, 255, 0.05);
             --border: rgba(255, 255, 255, 0.1);
+            --success: #2ecc71;
+            --warning: #f1c40f;
         }
 
         body {
@@ -154,7 +156,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             padding: 20px;
             position: relative;
         }
@@ -206,7 +207,7 @@
             gap: 10px;
         }
 
-        .voice-btn, .search-btn {
+        .voice-btn, .search-btn, .clear-btn {
             background: var(--primary);
             border: none;
             border-radius: 50%;
@@ -225,7 +226,12 @@
             background: var(--secondary);
         }
 
-        .voice-btn:hover, .search-btn:hover {
+        .clear-btn {
+            background: var(--warning);
+            display: none;
+        }
+
+        .voice-btn:hover, .search-btn:hover, .clear-btn:hover {
             transform: scale(1.1);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
@@ -308,6 +314,7 @@
             width: 100%;
             max-width: 800px;
             margin-top: 40px;
+            display: none;
         }
 
         .trending-header {
@@ -353,6 +360,181 @@
             justify-content: center;
             font-size: 0.8rem;
             font-weight: bold;
+        }
+
+        /* Search Results */
+        .search-results-container {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 30px;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 0 10px;
+        }
+
+        .results-info {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .results-stats {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .stat-item i {
+            color: var(--primary);
+        }
+
+        .results-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .result-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .result-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .result-thumbnail {
+            width: 120px;
+            height: 90px;
+            border-radius: 10px;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary);
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .result-content {
+            flex: 1;
+        }
+
+        .result-title {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-title:hover {
+            text-decoration: underline;
+        }
+
+        .result-url {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .result-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .result-meta {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .safety-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+        }
+
+        .safety-badge.moderate {
+            background: rgba(241, 196, 15, 0.2);
+            color: #f1c40f;
+            border-color: rgba(241, 196, 15, 0.3);
+        }
+
+        .result-date {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 10px;
+            margin-left: auto;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
         }
 
         /* Features Grid */
@@ -476,54 +658,20 @@
             background: #f1c40f;
         }
 
-        /* Search Results */
-        .search-results {
-            width: 100%;
-            max-width: 800px;
-            margin-top: 30px;
+        /* Loading Spinner */
+        .loading-spinner {
             display: none;
+            width: 40px;
+            height: 40px;
+            margin: 20px auto;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
 
-        .result-item {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 15px;
-            transition: all 0.3s;
-        }
-
-        .result-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--primary);
-        }
-
-        .result-title {
-            color: var(--primary);
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-            cursor: pointer;
-        }
-
-        .result-url {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-
-        .result-description {
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        .safety-badge {
-            display: inline-block;
-            background: rgba(46, 204, 113, 0.2);
-            color: #2ecc71;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            margin-left: 10px;
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         /* Responsive */
@@ -554,6 +702,21 @@
 
             .trending-list {
                 justify-content: center;
+            }
+
+            .result-item {
+                grid-template-columns: 1fr;
+            }
+
+            .result-thumbnail {
+                width: 100%;
+                height: 150px;
+            }
+
+            .results-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
             }
         }
     </style>
@@ -595,6 +758,9 @@
                         <button class="voice-btn" id="voiceBtn">
                             <i class="fas fa-microphone"></i>
                         </button>
+                        <button class="clear-btn" id="clearBtn">
+                            <i class="fas fa-times"></i>
+                        </button>
                         <button class="search-btn" id="searchBtn">
                             <i class="fas fa-search"></i>
                         </button>
@@ -621,7 +787,7 @@
             </div>
         </div>
 
-        <div class="trending-section">
+        <div class="trending-section" id="trendingSection">
             <div class="trending-header">
                 <i class="fas fa-fire"></i>
                 <span>Trending Searches</span>
@@ -650,11 +816,31 @@
             </div>
         </div>
 
-        <div class="search-results" id="searchResults">
-            <!-- Search results will be dynamically inserted here -->
+        <div class="search-results-container" id="searchResultsContainer">
+            <div class="results-header">
+                <div class="results-info" id="resultsInfo">
+                    Showing results for "<span id="searchQuery"></span>"
+                </div>
+                <div class="results-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <span id="searchTime">0.23s</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-file-alt"></i>
+                        <span id="resultCount">0 results</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="loading-spinner" id="loadingSpinner"></div>
+            
+            <div class="results-grid" id="resultsGrid">
+                <!-- Search results will be dynamically inserted here -->
+            </div>
         </div>
 
-        <div class="features">
+        <div class="features" id="featuresSection">
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-shield-alt"></i>
@@ -707,13 +893,21 @@
         // Elements
         const searchInput = document.getElementById('searchInput');
         const searchBtn = document.getElementById('searchBtn');
+        const clearBtn = document.getElementById('clearBtn');
         const voiceBtn = document.getElementById('voiceBtn');
         const notification = document.getElementById('notification');
         const notificationText = document.getElementById('notificationText');
         const filterBtns = document.querySelectorAll('.filter-btn');
         const themeToggle = document.getElementById('themeToggle');
         const safetyIndicator = document.getElementById('safetyIndicator');
-        const searchResults = document.getElementById('searchResults');
+        const searchResultsContainer = document.getElementById('searchResultsContainer');
+        const resultsGrid = document.getElementById('resultsGrid');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const searchQuery = document.getElementById('searchQuery');
+        const resultCount = document.getElementById('resultCount');
+        const searchTime = document.getElementById('searchTime');
+        const trendingSection = document.getElementById('trendingSection');
+        const featuresSection = document.getElementById('featuresSection');
         const trendingItems = document.querySelectorAll('.trending-item');
 
         // Mock search results data
@@ -721,20 +915,42 @@
             {
                 title: "Understanding Online Safety - Complete Guide",
                 url: "https://example.com/online-safety-guide",
-                description: "Learn essential online safety practices to protect yourself and your family from digital threats.",
-                safety: "Verified Safe"
+                description: "Learn essential online safety practices to protect yourself and your family from digital threats. This comprehensive guide covers everything from password security to social media privacy.",
+                safety: "Verified Safe",
+                date: "2 days ago",
+                icon: "fas fa-shield-alt"
             },
             {
                 title: "Top 10 Cybersecurity Tips for 2023",
                 url: "https://example.com/cybersecurity-tips",
-                description: "Stay protected with the latest cybersecurity best practices and tools recommended by experts.",
-                safety: "Family Safe"
+                description: "Stay protected with the latest cybersecurity best practices and tools recommended by experts. Includes practical advice for both individuals and businesses.",
+                safety: "Family Safe",
+                date: "1 week ago",
+                icon: "fas fa-lock"
             },
             {
                 title: "Privacy Protection Tools Comparison",
                 url: "https://example.com/privacy-tools",
-                description: "Comprehensive review of the best privacy protection tools available for secure browsing.",
-                safety: "Verified Safe"
+                description: "Comprehensive review of the best privacy protection tools available for secure browsing. Compare VPNs, password managers, and encryption software.",
+                safety: "Verified Safe",
+                date: "3 days ago",
+                icon: "fas fa-user-secret"
+            },
+            {
+                title: "Safe Browsing Tips for Parents",
+                url: "https://example.com/safe-browsing-parents",
+                description: "Essential guide for parents to ensure their children's safety online. Learn about parental controls, monitoring tools, and how to talk to kids about internet safety.",
+                safety: "Family Safe",
+                date: "5 days ago",
+                icon: "fas fa-child"
+            },
+            {
+                title: "Digital Wellness in the Modern Age",
+                url: "https://example.com/digital-wellness",
+                description: "Explore strategies for maintaining mental and physical health in our connected world. Includes tips for digital detox and mindful technology use.",
+                safety: "Verified Safe",
+                date: "1 week ago",
+                icon: "fas fa-heart"
             }
         ];
 
@@ -742,16 +958,49 @@
         function performSearch() {
             const query = searchInput.value.trim();
             if (query) {
-                showNotification(`Searching for: "${query}" with safety filters enabled`, 'success');
-                displaySearchResults(query);
-                // In a real implementation, this would fetch actual results
-                console.log(`Searching for: ${query}`);
+                // Show loading spinner
+                loadingSpinner.style.display = 'block';
+                resultsGrid.innerHTML = '';
+                
+                // Hide trending and features sections
+                trendingSection.style.display = 'none';
+                featuresSection.style.display = 'none';
+                
+                // Show search results container
+                searchResultsContainer.style.display = 'block';
+                searchQuery.textContent = query;
+                
+                // Simulate search delay
+                setTimeout(() => {
+                    loadingSpinner.style.display = 'none';
+                    displaySearchResults(query);
+                    showNotification(`Found ${mockResults.length} results for "${query}"`, 'success');
+                }, 1500);
             }
         }
 
         searchBtn.addEventListener('click', performSearch);
         searchInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') performSearch();
+        });
+
+        // Clear search
+        clearBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            searchResultsContainer.style.display = 'none';
+            trendingSection.style.display = 'block';
+            featuresSection.style.display = 'grid';
+            clearBtn.style.display = 'none';
+            showNotification('Search cleared', 'success');
+        });
+
+        // Show/hide clear button based on input
+        searchInput.addEventListener('input', () => {
+            if (searchInput.value.trim()) {
+                clearBtn.style.display = 'flex';
+            } else {
+                clearBtn.style.display = 'none';
+            }
         });
 
         // Voice search functionality
@@ -795,6 +1044,11 @@
                 let filterName = btn.textContent.trim();
                 updateSafetyIndicator(filter);
                 showNotification(`${filterName} filter activated`, 'success');
+                
+                // If there's an active search, refresh results with new filter
+                if (searchInput.value.trim()) {
+                    performSearch();
+                }
             });
         });
 
@@ -848,24 +1102,52 @@
 
         // Display search results
         function displaySearchResults(query) {
-            searchResults.style.display = 'block';
-            searchResults.innerHTML = `
-                <h3 style="margin-bottom: 20px; color: var(--text-secondary);">
-                    Search results for "${query}"
-                </h3>
-            `;
+            resultsGrid.innerHTML = '';
             
-            mockResults.forEach(result => {
+            // Update stats
+            resultCount.textContent = `${mockResults.length} results`;
+            searchTime.textContent = `${(Math.random() * 0.5 + 0.1).toFixed(2)}s`;
+            
+            mockResults.forEach((result, index) => {
                 const resultItem = document.createElement('div');
                 resultItem.className = 'result-item';
+                resultItem.style.animationDelay = `${index * 0.1}s`;
+                
+                const safetyClass = result.safety === 'Family Safe' ? 'moderate' : '';
+                
                 resultItem.innerHTML = `
-                    <div class="result-title">${result.title}
-                        <span class="safety-badge">${result.safety}</span>
+                    <div class="result-thumbnail">
+                        <i class="${result.icon}"></i>
                     </div>
-                    <div class="result-url">${result.url}</div>
-                    <div class="result-description">${result.description}</div>
+                    <div class="result-content">
+                        <div class="result-title">${result.title}</div>
+                        <div class="result-url">
+                            <i class="fas fa-link"></i>
+                            ${result.url}
+                        </div>
+                        <div class="result-description">${result.description}</div>
+                        <div class="result-meta">
+                            <span class="safety-badge ${safetyClass}">
+                                <i class="fas fa-shield-alt"></i>
+                                ${result.safety}
+                            </span>
+                            <span class="result-date">
+                                <i class="fas fa-calendar"></i>
+                                ${result.date}
+                            </span>
+                            <div class="result-actions">
+                                <button class="action-btn" title="Save">
+                                    <i class="fas fa-bookmark"></i>
+                                </button>
+                                <button class="action-btn" title="Share">
+                                    <i class="fas fa-share"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 `;
-                searchResults.appendChild(resultItem);
+                
+                resultsGrid.appendChild(resultItem);
             });
         }
 
