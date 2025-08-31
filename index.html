@@ -3,1019 +3,892 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terminal Hub - Command Reference</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Red Light - Advanced Safety Search Engine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap');
-        
-        .matrix-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
-        .aurora-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(-45deg, rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.7), rgba(15, 52, 96, 0.6), rgba(83, 52, 131, 0.8));
-            background-size: 400% 400%;
-            animation: aurora 20s ease infinite;
+
+        :root {
+            --primary: #e74c3c;
+            --primary-dark: #c0392b;
+            --secondary: #3498db;
+            --bg-dark: #0f0f1e;
+            --bg-light: #1a1a2e;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
         }
-        
-        @keyframes aurora {
-            0% { background-position: 0% 50%; }
-            25% { background-position: 100% 0%; }
-            50% { background-position: 100% 100%; }
-            75% { background-position: 0% 100%; }
-            100% { background-position: 0% 50%; }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
         }
-        
-        .matrix-rain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        .matrix-column {
-            position: absolute;
-            top: -100%;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            color: #00ff41;
-            text-shadow: 0 0 5px #00ff41;
-            animation: matrix-fall linear infinite;
-            opacity: 0.7;
-        }
-        
-        @keyframes matrix-fall {
-            0% { top: -100%; opacity: 1; }
-            90% { opacity: 0.7; }
-            100% { top: 100vh; opacity: 0; }
-        }
-        
-        .aurora-glow {
-            box-shadow: 0 0 30px rgba(0, 255, 65, 0.2), 0 0 60px rgba(139, 92, 246, 0.3), 0 0 90px rgba(59, 130, 246, 0.2);
-        }
-        
-        .terminal-window {
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(0, 255, 65, 0.3);
-            box-shadow: 0 0 30px rgba(0, 255, 65, 0.1), inset 0 0 30px rgba(0, 255, 65, 0.05);
-        }
-        
-        .command-card {
-            background: rgba(0, 0, 0, 0.85);
+
+        /* Header Styles */
+        header {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 255, 65, 0.2);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .command-card::before {
-            content: '';
-            position: absolute;
+            background: rgba(15, 15, 30, 0.7);
+            position: sticky;
             top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
-            transition: left 0.5s;
+            z-index: 100;
         }
-        
-        .command-card:hover::before {
-            left: 100%;
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
-        
-        .command-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(0, 255, 65, 0.2), 0 5px 15px rgba(139, 92, 246, 0.1);
-            border-color: rgba(0, 255, 65, 0.6);
-        }
-        
-        .tab-active {
-            background: linear-gradient(135deg, #00ff41, #8b5cf6, #3b82f6);
-            color: white;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
-            animation: pulse-glow 2s ease-in-out infinite alternate;
-        }
-        
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 0 20px rgba(0, 255, 65, 0.3); }
-            100% { box-shadow: 0 0 30px rgba(0, 255, 65, 0.5), 0 0 40px rgba(139, 92, 246, 0.3); }
-        }
-        
-        .floating-orb {
-            position: absolute;
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
             border-radius: 50%;
-            filter: blur(2px);
-            animation: float 8s ease-in-out infinite;
-            box-shadow: 0 0 20px currentColor;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
-            25% { transform: translateY(-30px) rotate(90deg) scale(1.1); }
-            50% { transform: translateY(-20px) rotate(180deg) scale(0.9); }
-            75% { transform: translateY(-40px) rotate(270deg) scale(1.05); }
-        }
-        
-        .search-glow:focus {
-            box-shadow: 0 0 0 3px rgba(0, 255, 65, 0.3), 0 0 20px rgba(0, 255, 65, 0.2);
-            border-color: rgba(0, 255, 65, 0.6);
-        }
-        
-        .neon-text {
-            text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
-        }
-        
-        .matrix-cursor {
-            animation: blink 1s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-        
-        .scan-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.5);
+            animation: pulse 2s infinite;
             position: relative;
             overflow: hidden;
         }
-        
-        .scan-line::after {
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(231, 76, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: -5px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+            background: rgba(231, 76, 60, 0.1);
+        }
+
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            transform: rotate(180deg);
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Search Container */
+        .search-container {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 20px 70px 20px 25px;
+            border-radius: 50px;
+            border: 2px solid var(--border);
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2), 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-actions {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .voice-btn, .search-btn {
+            background: var(--primary);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .voice-btn {
+            background: var(--secondary);
+        }
+
+        .voice-btn:hover, .search-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .voice-btn.listening {
+            animation: listening 1.5s infinite;
+        }
+
+        @keyframes listening {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Safety Filters */
+        .safety-filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn:hover {
+            background: rgba(231, 76, 60, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Safety Indicator */
+        .safety-indicator {
+            position: absolute;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(46, 204, 113, 0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #2ecc71;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+        }
+
+        .safety-indicator.moderate {
+            background: rgba(241, 196, 15, 0.2);
+            color: #f1c40f;
+            border-color: rgba(241, 196, 15, 0.3);
+        }
+
+        .safety-indicator.high {
+            background: rgba(231, 76, 60, 0.2);
+            color: var(--primary);
+            border-color: rgba(231, 76, 60, 0.3);
+        }
+
+        /* Trending Searches */
+        .trending-section {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 40px;
+        }
+
+        .trending-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+
+        .trending-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .trending-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .trending-item:hover {
+            background: rgba(52, 152, 219, 0.1);
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .trending-number {
+            background: var(--secondary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #00ff41, transparent);
-            animation: scan 3s linear infinite;
-        }
-        
-        @keyframes scan {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-        
-        .glitch {
-            position: relative;
-        }
-        
-        .glitch::before,
-        .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
             left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            padding: 30px 40px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            background: rgba(15, 15, 30, 0.5);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateX(400px);
+            transition: transform 0.5s;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 350px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: #2ecc71;
+        }
+
+        .notification.warning {
+            background: #f1c40f;
+        }
+
+        /* Search Results */
+        .search-results {
             width: 100%;
-            height: 100%;
-        }
-        
-        .glitch::before {
-            animation: glitch-1 0.5s infinite;
-            color: #ff0040;
-            z-index: -1;
-        }
-        
-        .glitch::after {
-            animation: glitch-2 0.5s infinite;
-            color: #00ffff;
-            z-index: -2;
-        }
-        
-        @keyframes glitch-1 {
-            0%, 14%, 15%, 49%, 50%, 99%, 100% { transform: translate(0); }
-            15%, 49% { transform: translate(-2px, 1px); }
-        }
-        
-        @keyframes glitch-2 {
-            0%, 20%, 21%, 62%, 63%, 99%, 100% { transform: translate(0); }
-            21%, 62% { transform: translate(2px, -1px); }
+            max-width: 800px;
+            margin-top: 30px;
+            display: none;
         }
 
-        .learn-section {
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 255, 65, 0.2);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
+        .result-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
         }
 
-        .progress-bar {
+        .result-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
+        }
+
+        .result-title {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .result-url {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .result-description {
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .safety-badge {
             display: inline-block;
-            width: 200px;
-            height: 20px;
-            background: #333;
-            border: 1px solid #00ff41;
-            margin: 10px 0;
-            position: relative;
-            overflow: hidden;
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-left: 10px;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #00ff41, #00cc00);
-            width: 0%;
-            transition: width 0.3s;
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+
+            .search-container {
+                max-width: 100%;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .trending-list {
+                justify-content: center;
+            }
         }
     </style>
 </head>
-<body class="min-h-screen font-['Inter'] text-white overflow-x-hidden relative">
-    <!-- Matrix Background -->
-    <div class="matrix-bg"></div>
-    <div class="aurora-bg"></div>
-    <div class="matrix-rain" id="matrixRain"></div>
-    
-    <!-- Enhanced Floating Orbs -->
-    <div class="floating-orb w-24 h-24 bg-green-400 opacity-30 top-20 left-10" style="animation-delay: 0s; color: #00ff41;"></div>
-    <div class="floating-orb w-20 h-20 bg-purple-500 opacity-25 top-40 right-20" style="animation-delay: 2s; color: #8b5cf6;"></div>
-    <div class="floating-orb w-16 h-16 bg-blue-500 opacity-20 bottom-40 left-1/4" style="animation-delay: 4s; color: #3b82f6;"></div>
-    <div class="floating-orb w-14 h-14 bg-cyan-400 opacity-35 top-1/2 right-1/3" style="animation-delay: 6s; color: #00ffff;"></div>
-    <div class="floating-orb w-18 h-18 bg-emerald-400 opacity-25 bottom-20 right-10" style="animation-delay: 8s; color: #10b981;"></div>
-    
-    <!-- Header -->
-    <header class="relative z-10 p-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex items-center justify-between mb-8">
-                <div class="flex items-center space-x-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-green-400 via-purple-500 to-blue-500 rounded-lg flex items-center justify-center aurora-glow scan-line">
-                        <span class="text-2xl font-bold neon-text">⚡</span>
-                    </div>
-                    <div>
-                        <h1 class="text-4xl font-bold bg-gradient-to-r from-green-400 via-purple-400 to-blue-400 bg-clip-text text-transparent neon-text glitch" data-text="Terminal Hub">
-                            Terminal Hub
-                        </h1>
-                        <div class="text-xs text-green-400 font-mono mt-1">
-                            <span class="matrix-cursor">█</span> SYSTEM_ONLINE
-                        </div>
-                    </div>
-                </div>
-                <div class="hidden md:flex items-center space-x-4">
-                    <div class="text-right">
-                        <div class="text-sm text-green-400 font-mono">STATUS: CONNECTED</div>
-                        <div class="text-xs text-gray-400">Multi-OS Command Interface</div>
-                    </div>
-                    <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                </div>
+<body>
+    <header>
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-traffic-light"></i>
             </div>
-            
-            <!-- Enhanced Search Bar -->
-            <div class="relative max-w-3xl mx-auto mb-8">
-                <div class="relative">
-                    <input 
-                        type="text" 
-                        id="searchInput"
-                        placeholder="SEARCH_COMMANDS > Enter query..."
-                        class="w-full px-8 py-5 bg-black/80 border-2 border-green-400/30 rounded-2xl text-green-400 placeholder-green-400/60 focus:outline-none search-glow backdrop-blur-sm font-mono text-lg scan-line"
-                    >
-                    <div class="absolute left-3 top-1/2 transform -translate-y-1/2">
-                        <span class="text-green-400 text-xl">▶</span>
-                    </div>
-                    <div class="absolute right-4 top-1/2 transform -translate-y-1/2 flex items-center space-x-2">
-                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                        <span class="text-green-400 font-mono text-sm">SCAN</span>
-                    </div>
-                </div>
-                <div class="text-center mt-2">
-                    <span class="text-xs text-gray-400 font-mono">// Try: 'network', 'files', 'git', 'system' //</span>
-                </div>
+            <div>
+                <h1>Red Light</h1>
+                <div class="tagline">Advanced Safety Search Engine</div>
             </div>
         </div>
+        <nav>
+            <ul>
+                <li><a href="#"><i class="fas fa-shield-alt"></i> Safe Search</a></li>
+                <li><a href="#"><i class="fas fa-history"></i> History</a></li>
+                <li><a href="#"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </nav>
+        <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </button>
     </header>
-    
-    <!-- Main Content -->
-    <main class="relative z-10 max-w-7xl mx-auto px-6 pb-12">
-        <!-- Enhanced OS Tabs -->
-        <div class="flex flex-wrap justify-center mb-10 space-x-3">
-            <button onclick="switchOS('windows')" id="tab-windows" class="tab-active px-8 py-4 rounded-xl font-mono font-medium transition-all duration-300 mb-2 border border-green-400/30 hover:scale-105">
-                <span class="text-lg mr-2">🪟</span>
-                <span class="neon-text">WINDOWS.EXE</span>
-            </button>
-            <button onclick="switchOS('linux')" id="tab-linux" class="px-8 py-4 rounded-xl font-mono font-medium bg-black/60 hover:bg-black/80 transition-all duration-300 mb-2 border border-green-400/20 hover:border-green-400/50 hover:scale-105">
-                <span class="text-lg mr-2">🐧</span>
-                <span>LINUX.SH</span>
-            </button>
-            <button onclick="switchOS('mac')" id="tab-mac" class="px-8 py-4 rounded-xl font-mono font-medium bg-black/60 hover:bg-black/80 transition-all duration-300 mb-2 border border-green-400/20 hover:border-green-400/50 hover:scale-105">
-                <span class="text-lg mr-2">🍎</span>
-                <span>MACOS.APP</span>
-            </button>
-            <button onclick="switchOS('all')" id="tab-all" class="px-8 py-4 rounded-xl font-mono font-medium bg-black/60 hover:bg-black/80 transition-all duration-300 mb-2 border border-green-400/20 hover:border-green-400/50 hover:scale-105">
-                <span class="text-lg mr-2">🌐</span>
-                <span>ALL_SYSTEMS</span>
-            </button>
-        </div>
-        
-        <!-- Command Categories -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="commandsContainer">
-            <!-- Commands will be populated by JavaScript -->
-        </div>
-        
-        <!-- Learn Section -->
-        <div class="mt-16">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold mb-2 bg-gradient-to-r from-green-400 via-purple-400 to-blue-400 bg-clip-text text-transparent neon-text">
-                    LEARN_SECTION
-                </h2>
-                <div class="text-green-400 font-mono text-sm">
-                    <span class="matrix-cursor">█</span> CYBERSECURITY_KNOWLEDGE_BASE
-                </div>
-            </div>
-            <div class="learn-section rounded-2xl p-8 max-w-5xl mx-auto aurora-glow">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="border-l-2 border-green-400/30 pl-4">
-                        <h3 class="text-xl font-semibold mb-3 text-green-400">Ethical Hacking</h3>
-                        <p class="text-gray-300 mb-3">Ethical hacking involves authorized attempts to gain unauthorized access to computer systems, applications, or data. It's a legal and legitimate practice used to identify and fix security vulnerabilities.</p>
-                        <div class="text-sm text-gray-400">
-                            <div class="mb-1">• Always get proper authorization</div>
-                            <div class="mb-1">• Document all findings</div>
-                            <div class="mb-1">• Respect privacy and data</div>
-                            <div>• Report vulnerabilities responsibly</div>
-                        </div>
+
+    <main>
+        <div class="search-container">
+            <div class="search-box">
+                <div class="search-input-wrapper">
+                    <div class="safety-indicator" id="safetyIndicator">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Safe Mode</span>
                     </div>
-                    <div class="border-l-2 border-purple-400/30 pl-4">
-                        <h3 class="text-xl font-semibold mb-3 text-purple-400">Common Security Tools</h3>
-                        <p class="text-gray-300 mb-3">Security professionals use various tools to assess and improve system security. These tools help identify vulnerabilities, monitor networks, and protect against threats.</p>
-                        <div class="text-sm text-gray-400">
-                            <div class="mb-1">• Nmap - Network scanning</div>
-                            <div class="mb-1">• Wireshark - Packet analysis</div>
-                            <div class="mb-1">• Metasploit - Penetration testing</div>
-                            <div>• Aircrack-ng - Wireless security</div>
-                        </div>
+                    <input type="text" class="search-input" placeholder="Search safely with Red Light..." id="searchInput">
+                    <div class="search-actions">
+                        <button class="voice-btn" id="voiceBtn">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <button class="search-btn" id="searchBtn">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </div>
                 </div>
             </div>
+
+            <div class="safety-filters">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-globe"></i> All Results
+                </button>
+                <button class="filter-btn" data-filter="safe">
+                    <i class="fas fa-child"></i> Family Safe
+                </button>
+                <button class="filter-btn" data-filter="verified">
+                    <i class="fas fa-check-circle"></i> Verified Sources
+                </button>
+                <button class="filter-btn" data-filter="news">
+                    <i class="fas fa-newspaper"></i> News Only
+                </button>
+                <button class="filter-btn" data-filter="images">
+                    <i class="fas fa-images"></i> Images
+                </button>
+            </div>
         </div>
-        
-        <!-- Enhanced Terminal Simulator -->
-        <div class="mt-16">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold mb-2 bg-gradient-to-r from-green-400 via-purple-400 to-blue-400 bg-clip-text text-transparent neon-text">
-                    INTERACTIVE_TERMINAL.EXE
-                </h2>
-                <div class="text-green-400 font-mono text-sm">
-                    <span class="matrix-cursor">█</span> NEURAL_INTERFACE_ACTIVE
+
+        <div class="trending-section">
+            <div class="trending-header">
+                <i class="fas fa-fire"></i>
+                <span>Trending Searches</span>
+            </div>
+            <div class="trending-list" id="trendingList">
+                <div class="trending-item">
+                    <span class="trending-number">1</span>
+                    <span>AI Safety Guidelines</span>
+                </div>
+                <div class="trending-item">
+                    <span class="trending-number">2</span>
+                    <span>Cybersecurity Best Practices</span>
+                </div>
+                <div class="trending-item">
+                    <span class="trending-number">3</span>
+                    <span>Privacy Protection Tools</span>
+                </div>
+                <div class="trending-item">
+                    <span class="trending-number">4</span>
+                    <span>Safe Browsing Tips</span>
+                </div>
+                <div class="trending-item">
+                    <span class="trending-number">5</span>
+                    <span>Digital Wellness</span>
                 </div>
             </div>
-            <div class="terminal-window rounded-2xl p-8 max-w-5xl mx-auto aurora-glow scan-line">
-                <div class="flex items-center justify-between mb-6">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-4 h-4 bg-red-500 rounded-full animate-pulse"></div>
-                        <div class="w-4 h-4 bg-yellow-500 rounded-full animate-pulse" style="animation-delay: 0.2s;"></div>
-                        <div class="w-4 h-4 bg-green-500 rounded-full animate-pulse" style="animation-delay: 0.4s;"></div>
-                        <span class="ml-4 text-sm text-green-400 font-mono neon-text">MATRIX_TERMINAL_v2.1</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                        <span class="text-xs text-green-400 font-mono">ONLINE</span>
-                    </div>
+        </div>
+
+        <div class="search-results" id="searchResults">
+            <!-- Search results will be dynamically inserted here -->
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
                 </div>
-                <div class="font-mono text-base">
-                    <div class="mb-3 flex items-center">
-                        <span class="text-green-400 neon-text">root@matrix-hub:/home/user#</span>
-                        <input 
-                            type="text" 
-                            id="terminalInput"
-                            class="bg-transparent border-none outline-none text-green-400 ml-3 flex-1 w-full font-mono placeholder-green-400/50"
-                            placeholder="Enter command..."
-                        >
-                        <span class="text-green-400 matrix-cursor">█</span>
-                    </div>
-                    <div id="terminalOutput" class="text-green-300 min-h-[250px] max-h-[400px] overflow-y-auto space-y-1 border-t border-green-400/20 pt-4">
-                        <div class="text-green-400 neon-text">╔══════════════════════════════════════════════════════════════╗</div>
-                        <div class="text-green-400 neon-text">║                    WELCOME TO THE MATRIX                     ║</div>
-                        <div class="text-green-400 neon-text">╚══════════════════════════════════════════════════════════════╝</div>
-                        <div class="text-green-300 mt-2">SYSTEM INITIALIZED... ✓</div>
-                        <div class="text-green-300">NEURAL LINK ESTABLISHED... ✓</div>
-                        <div class="text-green-300">COMMAND INTERFACE READY... ✓</div>
-                        <div class="text-gray-400 mt-3">Type 'help' for available commands | 'matrix' for special mode</div>
-                    </div>
+                <h3>Advanced Protection</h3>
+                <p>AI-powered filtering blocks harmful content, phishing attempts, and malicious sites in real-time.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-user-secret"></i>
                 </div>
+                <h3>Zero-Track Privacy</h3>
+                <p>We never track your searches, store personal data, or create user profiles. Complete anonymity guaranteed.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Lightning Fast</h3>
+                <p>Get results in milliseconds with our optimized search algorithms and global CDN network.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>Smart AI</h3>
+                <p>Our AI understands context and intent, delivering safer and more relevant results every time.</p>
             </div>
         </div>
     </main>
-    
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Safety Center</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact</a>
+            <a href="#">Developers</a>
+        </div>
+        <p>© 2023 Red Light Search Engine. Keeping your digital journey safe since 2023.</p>
+    </footer>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Safe search activated!</span>
+    </div>
+
     <script>
-        const commands = {
-            windows: {
-                "File Operations": [
-                    { cmd: "dir", desc: "List directory contents", example: "dir C:\\" },
-                    { cmd: "cd", desc: "Change directory", example: "cd Documents" },
-                    { cmd: "copy", desc: "Copy files", example: "copy file.txt backup.txt" },
-                    { cmd: "del", desc: "Delete files", example: "del unwanted.txt" },
-                    { cmd: "mkdir", desc: "Create directory", example: "mkdir NewFolder" },
-                    { cmd: "rmdir", desc: "Remove directory", example: "rmdir OldFolder" }
-                ],
-                "System Info": [
-                    { cmd: "systeminfo", desc: "Display system information", example: "systeminfo" },
-                    { cmd: "tasklist", desc: "List running processes", example: "tasklist" },
-                    { cmd: "whoami", desc: "Display current user", example: "whoami" },
-                    { cmd: "hostname", desc: "Display computer name", example: "hostname" }
-                ],
-                "Network": [
-                    { cmd: "ipconfig", desc: "Display IP configuration", example: "ipconfig /all" },
-                    { cmd: "ping", desc: "Test network connectivity", example: "ping google.com" },
-                    { cmd: "netstat", desc: "Display network connections", example: "netstat -an" },
-                    { cmd: "tracert", desc: "Trace network route", example: "tracert google.com" }
-                ],
-                "Security": [
-                    { cmd: "net user", desc: "Manage user accounts", example: "net user username" },
-                    { cmd: "netsh", desc: "Network configuration", example: "netsh firewall show state" },
-                    { cmd: "cipher", desc: "Encrypt/decrypt files", example: "cipher /e filename" }
-                ]
+        // Elements
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const voiceBtn = document.getElementById('voiceBtn');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notificationText');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const themeToggle = document.getElementById('themeToggle');
+        const safetyIndicator = document.getElementById('safetyIndicator');
+        const searchResults = document.getElementById('searchResults');
+        const trendingItems = document.querySelectorAll('.trending-item');
+
+        // Mock search results data
+        const mockResults = [
+            {
+                title: "Understanding Online Safety - Complete Guide",
+                url: "https://example.com/online-safety-guide",
+                description: "Learn essential online safety practices to protect yourself and your family from digital threats.",
+                safety: "Verified Safe"
             },
-            linux: {
-                "File Operations": [
-                    { cmd: "ls", desc: "List directory contents", example: "ls -la" },
-                    { cmd: "cd", desc: "Change directory", example: "cd /home/user" },
-                    { cmd: "cp", desc: "Copy files", example: "cp file.txt backup.txt" },
-                    { cmd: "rm", desc: "Remove files", example: "rm unwanted.txt" },
-                    { cmd: "mkdir", desc: "Create directory", example: "mkdir new_folder" },
-                    { cmd: "rmdir", desc: "Remove directory", example: "rmdir old_folder" },
-                    { cmd: "find", desc: "Search for files", example: "find . -name '*.txt'" },
-                    { cmd: "chmod", desc: "Change file permissions", example: "chmod 755 script.sh" }
-                ],
-                "System Info": [
-                    { cmd: "uname", desc: "System information", example: "uname -a" },
-                    { cmd: "ps", desc: "List running processes", example: "ps aux" },
-                    { cmd: "whoami", desc: "Display current user", example: "whoami" },
-                    { cmd: "df", desc: "Display disk usage", example: "df -h" },
-                    { cmd: "free", desc: "Display memory usage", example: "free -h" },
-                    { cmd: "top", desc: "System monitor", example: "top" }
-                ],
-                "Network": [
-                    { cmd: "ifconfig", desc: "Display network interfaces", example: "ifconfig" },
-                    { cmd: "ping", desc: "Test connectivity", example: "ping google.com" },
-                    { cmd: "wget", desc: "Download files", example: "wget https://example.com/file.zip" },
-                    { cmd: "curl", desc: "Transfer data", example: "curl -O https://example.com/api" },
-                    { cmd: "netstat", desc: "Network statistics", example: "netstat -tuln" }
-                ],
-                "Security": [
-                    { cmd: "nmap", desc: "Network scanning tool", example: "nmap -sV 192.168.1.1" },
-                    { cmd: "ssh", desc: "Secure shell client", example: "ssh user@hostname" },
-                    { cmd: "iptables", desc: "Firewall configuration", example: "iptables -L" },
-                    { cmd: "gpg", desc: "Encryption tool", example: "gpg --encrypt file.txt" }
-                ]
+            {
+                title: "Top 10 Cybersecurity Tips for 2023",
+                url: "https://example.com/cybersecurity-tips",
+                description: "Stay protected with the latest cybersecurity best practices and tools recommended by experts.",
+                safety: "Family Safe"
             },
-            mac: {
-                "File Operations": [
-                    { cmd: "ls", desc: "List directory contents", example: "ls -la" },
-                    { cmd: "cd", desc: "Change directory", example: "cd ~/Documents" },
-                    { cmd: "cp", desc: "Copy files", example: "cp file.txt backup.txt" },
-                    { cmd: "rm", desc: "Remove files", example: "rm unwanted.txt" },
-                    { cmd: "mkdir", desc: "Create directory", example: "mkdir new_folder" },
-                    { cmd: "open", desc: "Open files/applications", example: "open -a Safari" }
-                ],
-                "System Info": [
-                    { cmd: "uname", desc: "System information", example: "uname -a" },
-                    { cmd: "ps", desc: "List processes", example: "ps aux" },
-                    { cmd: "whoami", desc: "Current user", example: "whoami" },
-                    { cmd: "df", desc: "Disk usage", example: "df -h" },
-                    { cmd: "top", desc: "System monitor", example: "top" }
-                ],
-                "Network": [
-                    { cmd: "ifconfig", desc: "Network interfaces", example: "ifconfig" },
-                    { cmd: "ping", desc: "Test connectivity", example: "ping google.com" },
-                    { cmd: "curl", desc: "Transfer data", example: "curl -O https://example.com/file" }
-                ],
-                "Security": [
-                    { cmd: "ssh", desc: "Secure shell client", example: "ssh user@hostname" },
-                    { cmd: "scutil", desc: "System configuration", example: "scutil --dns" },
-                    { cmd: "pfctl", desc: "Firewall control", example: "pfctl -s rules" }
-                ]
+            {
+                title: "Privacy Protection Tools Comparison",
+                url: "https://example.com/privacy-tools",
+                description: "Comprehensive review of the best privacy protection tools available for secure browsing.",
+                safety: "Verified Safe"
             }
-        };
-        
-        // File system simulation
-        let fileSystem = {
-            '/': {
-                'home': {
-                    'user': {
-                        'documents': {
-                            'report.txt': 'Quarterly Report Q3 2023',
-                            'notes.md': '# Meeting Notes\n## Agenda\n1. Review progress\n2. Discuss next steps'
-                        },
-                        'downloads': {},
-                        'readme.txt': 'Welcome to the Matrix Terminal Hub!\nThis is a simulated environment for learning commands.',
-                        '.bashrc': 'export PATH=$PATH:/usr/local/bin\nalias ll="ls -la"'
-                    }
-                },
-                'etc': {
-                    'passwd': 'root:x:0:0:root:/root:/bin/bash\nuser:x:1000:1000:user:/home/user:/bin/bash'
-                },
-                'usr': {
-                    'bin': {
-                        'ls': '',
-                        'cd': '',
-                        'cp': ''
-                    }
-                },
-                'tmp': {}
-            }
-        };
-        
-        let currentDir = '/home/user';
-        let commandHistory = [];
-        let historyIndex = -1;
-        let currentOS = 'windows';
-        let allCommands = [];
-        
-        function initializeCommands() {
-            allCommands = [];
-            Object.keys(commands).forEach(os => {
-                Object.keys(commands[os]).forEach(category => {
-                    commands[os][category].forEach(cmd => {
-                        allCommands.push({...cmd, os, category});
-                    });
-                });
-            });
-        }
-        
-        function switchOS(os) {
-            currentOS = os;
-            
-            // Update tab styles
-            document.querySelectorAll('[id^="tab-"]').forEach(tab => {
-                tab.className = 'px-8 py-4 rounded-xl font-mono font-medium bg-black/60 hover:bg-black/80 transition-all duration-300 mb-2 border border-green-400/20 hover:border-green-400/50 hover:scale-105';
-            });
-            document.getElementById(`tab-${os}`).className = 'tab-active px-8 py-4 rounded-xl font-mono font-medium transition-all duration-300 mb-2 border border-green-400/30 hover:scale-105';
-            
-            renderCommands(os);
-        }
-        
-        function renderCommands(os) {
-            const container = document.getElementById('commandsContainer');
-            container.innerHTML = '';
-            if (os === 'all') {
-                // Show all commands grouped by OS
-                Object.keys(commands).forEach(osName => {
-                    const osSection = document.createElement('div');
-                    osSection.className = 'col-span-full mb-8';
-                    osSection.innerHTML = `
-                        <h3 class="text-xl font-bold mb-4 text-center bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                            ${osName.charAt(0).toUpperCase() + osName.slice(1)} Commands
-                        </h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="${osName}-commands"></div>
-                    `;
-                    container.appendChild(osSection);
-                    
-                    Object.keys(commands[osName]).forEach(category => {
-                        renderCategory(category, commands[osName][category], `${osName}-commands`);
-                    });
-                });
-            } else {
-                Object.keys(commands[os]).forEach(category => {
-                    renderCategory(category, commands[os][category], 'commandsContainer');
-                });
-            }
-        }
-        
-        function renderCategory(category, cmds, containerId) {
-            const container = document.getElementById(containerId);
-            const categoryDiv = document.createElement('div');
-            categoryDiv.className = 'command-card rounded-xl p-6';
-            
-            categoryDiv.innerHTML = `
-                <h3 class="text-lg font-semibold mb-4 text-purple-300">${category}</h3>
-                <div class="space-y-3">
-                    ${cmds.map(cmd => `
-                        <div class="border-l-2 border-purple-500/30 pl-4 hover:border-purple-500/60 transition-colors">
-                            <div class="flex items-center justify-between mb-1">
-                                <code class="text-green-400 font-mono font-medium">${cmd.cmd}</code>
-                                <button onclick="copyToClipboard('${cmd.example}')" class="text-xs text-gray-400 hover:text-purple-400 transition-colors">
-                                    📋
-                                </button>
-                            </div>
-                            <p class="text-sm text-gray-300 mb-1">${cmd.desc}</p>
-                            <code class="text-xs text-blue-300 font-mono bg-slate-800/50 px-2 py-1 rounded">${cmd.example}</code>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-            
-            container.appendChild(categoryDiv);
-        }
-        
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                showNotification('Command copied to clipboard! 📋');
-            });
-        }
-        
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'fixed top-4 right-4 bg-purple-600 text-white px-4 py-2 rounded-lg shadow-lg z-50 aurora-glow';
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.remove();
-            }, 2000);
-        }
-        
+        ];
+
         // Search functionality
-        document.getElementById('searchInput').addEventListener('input', function(e) {
-            const query = e.target.value.toLowerCase();
-            if (query.length < 2) {
-                renderCommands(currentOS);
-                return;
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+                showNotification(`Searching for: "${query}" with safety filters enabled`, 'success');
+                displaySearchResults(query);
+                // In a real implementation, this would fetch actual results
+                console.log(`Searching for: ${query}`);
             }
-            const filtered = allCommands.filter(cmd => 
-                cmd.cmd.toLowerCase().includes(query) ||
-                cmd.desc.toLowerCase().includes(query) ||
-                cmd.category.toLowerCase().includes(query)
-            );
-            renderSearchResults(filtered);
-        });
-        
-        function renderSearchResults(results) {
-            const container = document.getElementById('commandsContainer');
-            container.innerHTML = '';
-            if (results.length === 0) {
-                container.innerHTML = `
-                    <div class="col-span-full text-center py-12">
-                        <div class="text-6xl mb-4">🔍</div>
-                        <p class="text-gray-400">No commands found matching your search.</p>
-                    </div>
-                `;
-                return;
-            }
-            const groupedResults = {};
-            results.forEach(cmd => {
-                const key = `${cmd.os}-${cmd.category}`;
-                if (!groupedResults[key]) {
-                    groupedResults[key] = {
-                        os: cmd.os,
-                        category: cmd.category,
-                        commands: []
-                    };
-                }
-                groupedResults[key].commands.push(cmd);
-            });
-            Object.values(groupedResults).forEach(group => {
-                const categoryDiv = document.createElement('div');
-                categoryDiv.className = 'command-card rounded-xl p-6';
-                
-                categoryDiv.innerHTML = `
-                    <h3 class="text-lg font-semibold mb-2 text-purple-300">${group.category}</h3>
-                    <p class="text-xs text-gray-400 mb-4">${group.os.toUpperCase()}</p>
-                    <div class="space-y-3">
-                        ${group.commands.map(cmd => `
-                            <div class="border-l-2 border-purple-500/30 pl-4 hover:border-purple-500/60 transition-colors">
-                                <div class="flex items-center justify-between mb-1">
-                                    <code class="text-green-400 font-mono font-medium">${cmd.cmd}</code>
-                                    <button onclick="copyToClipboard('${cmd.example}')" class="text-xs text-gray-400 hover:text-purple-400 transition-colors">
-                                        📋
-                                    </button>
-                                </div>
-                                <p class="text-sm text-gray-300 mb-1">${cmd.desc}</p>
-                                <code class="text-xs text-blue-300 font-mono bg-slate-800/50 px-2 py-1 rounded">${cmd.example}</code>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-                
-                container.appendChild(categoryDiv);
-            });
         }
-        
-        // Terminal simulator with command history
-        document.getElementById('terminalInput').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                const command = e.target.value.trim();
-                if (command) {
-                    commandHistory.push(command);
-                    historyIndex = commandHistory.length;
-                    executeCommand(command);
-                    e.target.value = '';
-                }
-            } else if (e.key === 'ArrowUp') {
-                if (historyIndex > 0) {
-                    historyIndex--;
-                    e.target.value = commandHistory[historyIndex];
-                }
-                e.preventDefault();
-            } else if (e.key === 'ArrowDown') {
-                if (historyIndex < commandHistory.length - 1) {
-                    historyIndex++;
-                    e.target.value = commandHistory[historyIndex];
-                } else {
-                    historyIndex = commandHistory.length;
-                    e.target.value = '';
-                }
-                e.preventDefault();
+
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') performSearch();
+        });
+
+        // Voice search functionality
+        let isListening = false;
+        voiceBtn.addEventListener('click', () => {
+            if (!isListening) {
+                startVoiceSearch();
+            } else {
+                stopVoiceSearch();
             }
         });
-        
-        function executeCommand(command) {
-            const output = document.getElementById('terminalOutput');
-            const commandLine = document.createElement('div');
-            commandLine.innerHTML = `<span class="text-green-400 neon-text">root@matrix-hub:${currentDir}$</span> <span class="text-green-300">${command}</span>`;
-            output.appendChild(commandLine);
-            const result = document.createElement('div');
-            result.className = 'mb-2';
+
+        function startVoiceSearch() {
+            isListening = true;
+            voiceBtn.classList.add('listening');
+            voiceBtn.innerHTML = '<i class="fas fa-stop"></i>';
+            showNotification('Listening... Speak now', 'warning');
             
-            // Parse command and arguments
-            const cmdParts = command.split(' ');
-            const cmd = cmdParts[0].toLowerCase();
-            const args = cmdParts.slice(1);
+            // Simulate voice recognition
+            setTimeout(() => {
+                searchInput.value = 'cybersecurity best practices';
+                stopVoiceSearch();
+                showNotification('Voice search completed', 'success');
+                performSearch();
+            }, 3000);
+        }
+
+        function stopVoiceSearch() {
+            isListening = false;
+            voiceBtn.classList.remove('listening');
+            voiceBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+        }
+
+        // Filter buttons
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                let filterName = btn.textContent.trim();
+                updateSafetyIndicator(filter);
+                showNotification(`${filterName} filter activated`, 'success');
+            });
+        });
+
+        // Update safety indicator
+        function updateSafetyIndicator(filter) {
+            safetyIndicator.className = 'safety-indicator';
             
-            // Enhanced command responses
-            switch(cmd) {
-                case 'help':
-                    result.innerHTML = `
-                        <div class="text-green-400 neon-text">╔═══ AVAILABLE COMMANDS ═══╗</div>
-                        <div class="text-green-300">║ help     - Show commands  ║</div>
-                        <div class="text-green-300">║ clear    - Clear screen   ║</div>
-                        <div class="text-green-300">║ whoami   - User info      ║</div>
-                        <div class="text-green-300">║ date     - System time    ║</div>
-                        <div class="text-green-300">║ matrix   - Enter Matrix   ║</div>
-                        <div class="text-green-300">║ hack     - Hacking sim    ║</div>
-                        <div class="text-green-300">║ status   - System status  ║</div>
-                        <div class="text-green-300">║ nmap     - Network scan   ║</div>
-                        <div class="text-green-300">║ ssh      - Connect to host║</div>
-                        <div class="text-green-300">║ ps       - Process list    ║</div>
-                        <div class="text-green-300">║ netstat  - Network stats  ║</div>
-                        <div class="text-green-300">║ pentest  - Security test  ║</div>
-                        <div class="text-green-300">║ ls/dir   - List files     ║</div>
-                        <div class="text-green-300">║ cd       - Change dir     ║</div>
-                        <div class="text-green-300">║ cat      - View file      ║</div>
-                        <div class="text-green-400 neon-text">╚═══════════════════════════╝</div>
-                    `;
+            switch(filter) {
+                case 'safe':
+                    safetyIndicator.classList.add('moderate');
+                    safetyIndicator.innerHTML = '<i class="fas fa-child"></i><span>Family Safe</span>';
                     break;
-                case 'clear':
-                    output.innerHTML = `
-                        <div class="text-green-400 neon-text">╔══════════════════════════════════════════════════════════════╗</div>
-                        <div class="text-green-400 neon-text">║                    WELCOME TO THE MATRIX                     ║</div>
-                        <div class="text-green-400 neon-text">╚══════════════════════════════════════════════════════════════╝</div>
-                        <div class="text-green-300 mt-2">SYSTEM REINITIALIZED... ✓</div>
-                    `;
-                    return;
-                case 'matrix':
-                    result.innerHTML = `
-                        <div class="text-green-400 neon-text animate-pulse">ENTERING THE MATRIX...</div>
-                        <div class="text-green-300">Wake up, Neo...</div>
-                        <div class="text-green-300">The Matrix has you...</div>
-                        <div class="text-green-300">Follow the white rabbit 🐰</div>
-                        <div class="text-red-400">You take the red pill... 💊</div>
-                    `;
+                case 'verified':
+                    safetyIndicator.innerHTML = '<i class="fas fa-check-circle"></i><span>Verified Only</span>';
                     break;
-                case 'hack':
-                    result.innerHTML = `
-                        <div class="text-green-400 neon-text">INITIATING HACK SEQUENCE...</div>
-                        <div class="progress-bar"><div class="progress-fill" id="hackProgress"></div></div>
-                        <div class="text-green-300">Scanning network... </div>
-                        <div class="text-green-300">Bypassing firewall... </div>
-                        <div class="text-green-300">Accessing mainframe... </div>
-                        <div class="text-green-400 neon-text">ACCESS GRANTED ✓</div>
-                        <div class="text-yellow-400">Warning: This is just a simulation!</div>
-                    `;
-                    // Animate progress bar
-                    setTimeout(() => {
-                        document.getElementById('hackProgress').style.width = '100%';
-                    }, 100);
+                case 'news':
+                    safetyIndicator.classList.add('moderate');
+                    safetyIndicator.innerHTML = '<i class="fas fa-newspaper"></i><span>News Filter</span>';
                     break;
-                case 'status':
-                    result.innerHTML = `
-                        <div class="text-green-400 neon-text">SYSTEM STATUS REPORT</div>
-                        <div class="text-green-300">CPU: ████████████ 87% OPTIMAL</div>
-                        <div class="text-green-300">RAM: ████████████ 64% AVAILABLE</div>
-                        <div class="text-green-300">NET: ████████████ CONNECTED</div>
-                        <div class="text-green-300">SEC: ████████████ SECURE</div>
-                        <div class="text-green-400">All systems operational ✓</div>
-                    `;
-                    break;
-                case 'whoami':
-                    result.innerHTML = `
-                        <div class="text-green-400 neon-text">USER PROFILE LOADED</div>
-                        <div class="text-green-300">Identity: matrix-terminal-user</div>
-                        <div class="text-green-300">Access Level: ROOT</div>
-                        <div class="text-green-300">Location: The Matrix</div>
-                    `;
-                    break;
-                case 'date':
-                    const now = new Date();
-                    result.innerHTML = `
-                        <div class="text-green-400 neon-text">TEMPORAL COORDINATES</div>
-                        <div class="text-green-300">${now.toString()}</div>
-                        <div class="text-green-300">Matrix Time: ${now.getTime()}</div>
-                    `;
-                    break;
-                case 'pwd':
-                    result.innerHTML = `<div class="text-green-300">${currentDir}</div>`;
-                    break;
-                case 'ls':
-                case 'dir':
-                    result.innerHTML = listDirectory(currentDir);
-                    break;
-                case 'cd':
-                    if (args.length === 0) {
-                        currentDir = '/home/user';
-                    } else {
-                        const targetDir = args[0];
-                        if (targetDir === '..') {
-                            const parts = currentDir.split('/').filter(p => p);
-                            if (parts.length > 0) {
-                                parts.pop();
-                                currentDir = '/' + parts.join('/');
-                            }
-                        } else if (targetDir.startsWith('/')) {
-                            currentDir = targetDir;
-                        } else {
-                            currentDir = currentDir.endsWith('/') ? currentDir + targetDir : currentDir + '/' + targetDir;
-                        }
-                    }
-                    result.innerHTML = `<div class="text-green-300">Changed directory to: ${currentDir}</div>`;
-                    break;
-                case 'cat':
-                    if (args.length === 0) {
-                        result.innerHTML = `<div class="text-red-400">Usage: cat [filename]</div>`;
-                    } else {
-                        const filename = args[0];
-                        const content = getFileContent(currentDir, filename);
-                        if (content) {
-                            result.innerHTML = `<div class="text-green-300">${content}</div>`;
-                        } else {
-                            result.innerHTML = `<div class="text-red-400">File not found: ${filename}</div>`;
-                        }
-                    }
-                    break;
-                case 'nmap':
-                    result.innerHTML = `
-                        <div class="text-green-400 neon-text">Starting Nmap 7.92...</div>
-                        <div class="text-green-300">Nmap scan report for 192.168.1.1</div>
-                        <div class="text-green-300">Host is up (0.021s latency).</div>
-                        <div class="text-green-300">Not shown: 998 closed ports</div>
-                        <div class="text-green-300">PORT   STATE SERVICE</div>
-                        <div class="text-green-300">22/tcp open  ssh</div>
-                        <div class="text-green-300">80/tcp open  http</div>
-                        <div class="text-green-300">443/tcp open https</div>
-                        <div class="text-green-400 neon-text">Nmap done: 1 IP address (1 host up) scanned in 2.45 seconds</div>
-                    `;
-                    break;
-                case 'ssh':
-                    if (args.length === 0) {
-                        result.innerHTML = `<div class="text-red-400">Usage: ssh [user@hostname]</div>`;
-                    } else {
-                        const target = args[0];
-                        result.innerHTML = `
-                            <div class="text-green-400 neon-text">Connecting to ${target}...</div>
-                            <div class="text-green-300">The authenticity of host '${target.split('@')[1]}' can't be established.</div>
-                            <div class="text-green-300">ECDSA key fingerprint is SHA256:abc123def456ghi789jkl012mno345pqr678stu901.</div>
-                            <div class="text-green-300">Are you sure you want to continue connecting (yes/no)?</div>
-                            <div class="text-green-400 neon-text">Connection established.</div>
-                        `;
-                    }
-                    break;
-                case 'ps':
-                    result.innerHTML = `
-                        <div class="text-green-400 neon-text">PID TTY      TIME CMD</div>
-                        <div class="text-green-300">1234 pts/0  00:00:01 bash</div>
-                        <div class="text-green-300">5678 pts/0  00:00:02 terminal-hub</div>
-                        <div class="text-green-300">9012 pts/0  00:00:00 ps</div>
-                        <div class="text-green-300">3456 pts/0  00:00:05 chrome</div>
-                        <div class="text-green-300">7890 pts/0  00:00:03 code</div>
-                    `;
-                    break;
-                case 'netstat':
-                    result.innerHTML = `
-                        <div class="text-green-400 neon-text">Active Internet connections</div>
-                        <div class="text-green-300">Proto Recv-Q Send-Q Local Address           Foreign Address         State</div>
-                        <div class="text-green-300">tcp        0      0 192.168.1.100:22       192.168.1.1:54321      ESTABLISHED</div>
-                        <div class="text-green-300">tcp        0      0 192.168.1.100:54321    104.16.1.1:443         ESTABLISHED</div>
-                        <div class="text-green-300">tcp6       0      0 :::80                   :::*                    LISTEN</div>
-                        <div class="text-green-300">tcp6       0      0 :::22                   :::*                    LISTEN</div>
-                    `;
-                    break;
-                case 'pentest':
-                    result.innerHTML = `
-                        <div class="text-green-400 neon-text">INITIATING PENETRATION TEST...</div>
-                        <div class="progress-bar"><div class="progress-fill" id="pentestProgress"></div></div>
-                        <div class="text-green-300">Scanning target network... </div>
-                        <div class="text-green-300">Identifying vulnerabilities... </div>
-                        <div class="text-green-300">Exploiting vulnerabilities... </div>
-                        <div class="text-yellow-400">3 vulnerabilities found:</div>
-                        <div class="text-yellow-300">- SQL Injection in login form</div>
-                        <div class="text-yellow-300">- Outdated SSL certificate</div>
-                        <div class="text-yellow-300">- Weak admin password</div>
-                        <div class="text-green-400 neon-text">PENETRATION TEST COMPLETE</div>
-                    `;
-                    // Animate progress bar
-                    setTimeout(() => {
-                        document.getElementById('pentestProgress').style.width = '100%';
-                    }, 100);
+                case 'images':
+                    safetyIndicator.innerHTML = '<i class="fas fa-images"></i><span>Image Search</span>';
                     break;
                 default:
-                    if (cmd.startsWith('echo ')) {
-                        result.innerHTML = `<div class="text-green-300">${command.substring(5)}</div>`;
-                    } else {
-                        result.innerHTML = `
-                            <div class="text-red-400 neon-text">ERROR: Command not found</div>
-                            <div class="text-gray-400">Type 'help' for available commands</div>
-                        `;
-                    }
+                    safetyIndicator.innerHTML = '<i class="fas fa-shield-alt"></i><span>Safe Mode</span>';
             }
-            output.appendChild(result);
-            output.scrollTop = output.scrollHeight;
         }
-        
-        // File system helper functions
-        function listDirectory(path) {
-            const pathParts = path.split('/').filter(p => p);
-            let current = fileSystem['/'];
-            
-            for (const part of pathParts) {
-                if (current[part]) {
-                    current = current[part];
-                } else {
-                    return `<div class="text-red-400">Directory not found: ${path}</div>`;
-                }
+
+        // Theme toggle
+        let isDarkTheme = true;
+        themeToggle.addEventListener('click', () => {
+            isDarkTheme = !isDarkTheme;
+            if (isDarkTheme) {
+                document.body.style.filter = 'none';
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                showNotification('Dark theme activated', 'success');
+            } else {
+                document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                showNotification('Light theme activated', 'success');
             }
+        });
+
+        // Trending searches
+        trendingItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const searchText = item.querySelector('span:last-child').textContent;
+                searchInput.value = searchText;
+                performSearch();
+            });
+        });
+
+        // Display search results
+        function displaySearchResults(query) {
+            searchResults.style.display = 'block';
+            searchResults.innerHTML = `
+                <h3 style="margin-bottom: 20px; color: var(--text-secondary);">
+                    Search results for "${query}"
+                </h3>
+            `;
             
-            let result = '';
-            for (const item in current) {
-                if (typeof current[item] === 'object') {
-                    result += `<div class="text-blue-400">drwxr-xr-x  ${item}/</div>`;
-                } else {
-                    result += `<div class="text-green-300">-rw-r--r--  ${item}</div>`;
-                }
-            }
-            
-            return result || '<div class="text-gray-400">Directory empty</div>';
+            mockResults.forEach(result => {
+                const resultItem = document.createElement('div');
+                resultItem.className = 'result-item';
+                resultItem.innerHTML = `
+                    <div class="result-title">${result.title}
+                        <span class="safety-badge">${result.safety}</span>
+                    </div>
+                    <div class="result-url">${result.url}</div>
+                    <div class="result-description">${result.description}</div>
+                `;
+                searchResults.appendChild(resultItem);
+            });
         }
-        
-        function getFileContent(path, filename) {
-            const pathParts = path.split('/').filter(p => p);
-            let current = fileSystem['/'];
+
+        // Notification system
+        function showNotification(message, type = 'default') {
+            notification.className = 'notification';
+            if (type === 'success') notification.classList.add('success');
+            if (type === 'warning') notification.classList.add('warning');
             
-            for (const part of pathParts) {
-                if (current[part]) {
-                    current = current[part];
-                } else {
-                    return null;
-                }
-            }
+            notificationText.textContent = message;
+            notification.classList.add('show');
             
-            return current[filename] || null;
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
         }
-        
-        // Matrix Rain Effect
-        function createMatrixRain() {
-            const matrixContainer = document.getElementById('matrixRain');
-            const characters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-            
-            function createColumn() {
-                const column = document.createElement('div');
-                column.className = 'matrix-column';
-                column.style.left = Math.random() * 100 + '%';
-                column.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                column.style.fontSize = (Math.random() * 6 + 10) + 'px';
-                
-                let text = '';
-                const length = Math.random() * 20 + 10;
-                for (let i = 0; i < length; i++) {
-                    text += characters[Math.floor(Math.random() * characters.length)] + '<br>';
-                }
-                column.innerHTML = text;
-                
-                matrixContainer.appendChild(column);
-                
-                setTimeout(() => {
-                    if (column.parentNode) {
-                        column.parentNode.removeChild(column);
-                    }
-                }, 5000);
-            }
-            
-            // Create initial columns
-            for (let i = 0; i < 15; i++) {
-                setTimeout(createColumn, i * 200);
-            }
-            
-            // Continue creating columns
-            setInterval(createColumn, 300);
-        }
-        
-        // Initialize
-        initializeCommands();
-        renderCommands('windows');
-        createMatrixRain();
+
+        // Initial notification
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                showNotification("Welcome to Red Light! Your safety is our priority.", 'success');
+            }, 1000);
+        });
     </script>
 </body>
 </html>
