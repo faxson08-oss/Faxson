@@ -132,25 +132,6 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
-        .theme-toggle {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .theme-toggle:hover {
-            background: var(--primary);
-            transform: rotate(180deg);
-        }
-
         /* Main Content */
         main {
             flex: 1;
@@ -1005,9 +986,6 @@
                 <li><a href="#" id="settingsBtn"><i class="fas fa-cog"></i> Settings</a></li>
             </ul>
         </nav>
-        <button class="theme-toggle" id="themeToggle">
-            <i class="fas fa-moon"></i>
-        </button>
     </header>
 
     <main>
@@ -1060,19 +1038,19 @@
             <div class="trending-list" id="trendingList">
                 <div class="trending-item">
                     <span class="trending-number">1</span>
-                    <span>AI Safety Guidelines</span>
+                    <span>Artificial Intelligence</span>
                 </div>
                 <div class="trending-item">
                     <span class="trending-number">2</span>
-                    <span>Cybersecurity Best Practices</span>
+                    <span>Cybersecurity</span>
                 </div>
                 <div class="trending-item">
                     <span class="trending-number">3</span>
-                    <span>Privacy Protection Tools</span>
+                    <span>Privacy Protection</span>
                 </div>
                 <div class="trending-item">
                     <span class="trending-number">4</span>
-                    <span>Safe Browsing Tips</span>
+                    <span>Online Safety</span>
                 </div>
                 <div class="trending-item">
                     <span class="trending-number">5</span>
@@ -1146,7 +1124,7 @@
             <a href="#">Contact</a>
             <a href="#">Developers</a>
         </div>
-        <p>© 2023 Red Light Search Engine. Keeping your digital journey safe since 2023.</p>
+        <p>© 2023 Red Light Search Engine. Powered by Wikipedia API. Keeping your digital journey safe since 2023.</p>
     </footer>
 
     <!-- Settings Modal -->
@@ -1261,27 +1239,6 @@
                     
                     <div class="setting-item">
                         <div class="setting-label">
-                            <strong>Theme</strong>
-                            <span>Choose your preferred theme</span>
-                        </div>
-                        <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="radio" name="theme" value="dark" checked>
-                                <span>Dark</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="theme" value="light">
-                                <span>Light</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="theme" value="auto">
-                                <span>Auto</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
                             <strong>Results Per Page</strong>
                             <span>Number of search results to display</span>
                         </div>
@@ -1375,7 +1332,6 @@
         const notification = document.getElementById('notification');
         const notificationText = document.getElementById('notificationText');
         const filterBtns = document.querySelectorAll('.filter-btn');
-        const themeToggle = document.getElementById('themeToggle');
         const safetyIndicator = document.getElementById('safetyIndicator');
         const searchResultsContainer = document.getElementById('searchResultsContainer');
         const resultsGrid = document.getElementById('resultsGrid');
@@ -1404,49 +1360,19 @@
         const experimentalToggle = document.getElementById('experimentalToggle');
         const debugToggle = document.getElementById('debugToggle');
 
-        // Mock search results data
-        const mockResults = [
-            {
-                title: "Understanding Online Safety - Complete Guide",
-                url: "https://example.com/online-safety-guide",
-                description: "Learn essential online safety practices to protect yourself and your family from digital threats. This comprehensive guide covers everything from password security to social media privacy.",
-                safety: "Verified Safe",
-                date: "2 days ago",
-                icon: "fas fa-shield-alt"
-            },
-            {
-                title: "Top 10 Cybersecurity Tips for 2023",
-                url: "https://example.com/cybersecurity-tips",
-                description: "Stay protected with the latest cybersecurity best practices and tools recommended by experts. Includes practical advice for both individuals and businesses.",
-                safety: "Family Safe",
-                date: "1 week ago",
-                icon: "fas fa-lock"
-            },
-            {
-                title: "Privacy Protection Tools Comparison",
-                url: "https://example.com/privacy-tools",
-                description: "Comprehensive review of the best privacy protection tools available for secure browsing. Compare VPNs, password managers, and encryption software.",
-                safety: "Verified Safe",
-                date: "3 days ago",
-                icon: "fas fa-user-secret"
-            },
-            {
-                title: "Safe Browsing Tips for Parents",
-                url: "https://example.com/safe-browsing-parents",
-                description: "Essential guide for parents to ensure their children's safety online. Learn about parental controls, monitoring tools, and how to talk to kids about internet safety.",
-                safety: "Family Safe",
-                date: "5 days ago",
-                icon: "fas fa-child"
-            },
-            {
-                title: "Digital Wellness in the Modern Age",
-                url: "https://example.com/digital-wellness",
-                description: "Explore strategies for maintaining mental and physical health in our connected world. Includes tips for digital detox and mindful technology use.",
-                safety: "Verified Safe",
-                date: "1 week ago",
-                icon: "fas fa-heart"
+        // Wikipedia API integration
+        async function searchWikipedia(query) {
+            const apiUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=${encodeURIComponent(query)}&srlimit=20`;
+            
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                return data.query.search;
+            } catch (error) {
+                console.error('Error fetching Wikipedia data:', error);
+                return [];
             }
-        ];
+        }
 
         // Settings functionality
         settingsBtn.addEventListener('click', () => {
@@ -1496,7 +1422,6 @@
                 personalized: personalizedToggle.classList.contains('active'),
                 anonymous: anonymousToggle.classList.contains('active'),
                 cookiePolicy: document.getElementById('cookiePolicySelect').value,
-                theme: document.querySelector('input[name="theme"]:checked').value,
                 resultsPerPage: document.getElementById('resultsPerPageSelect').value,
                 links: document.querySelector('input[name="links"]:checked').value,
                 experimental: experimentalToggle.classList.contains('active'),
@@ -1507,13 +1432,6 @@
             // Save to localStorage
             localStorage.setItem('redLightSettings', JSON.stringify(settings));
             
-            // Apply theme if changed
-            if (settings.theme === 'light') {
-                document.body.style.filter = 'invert(1) hue-rotate(180deg)';
-            } else {
-                document.body.style.filter = 'none';
-            }
-
             showNotification('Settings saved successfully!', 'success');
             closeSettingsModal();
         });
@@ -1541,16 +1459,8 @@
                 document.getElementById('searchRegionSelect').value = settings.searchRegion || 'auto';
                 
                 // Apply radio values
-                const themeRadio = document.querySelector(`input[name="theme"][value="${settings.theme || 'dark'}"]`);
-                if (themeRadio) themeRadio.checked = true;
-                
                 const linksRadio = document.querySelector(`input[name="links"][value="${settings.links || 'new'}"]`);
                 if (linksRadio) linksRadio.checked = true;
-                
-                // Apply theme
-                if (settings.theme === 'light') {
-                    document.body.style.filter = 'invert(1) hue-rotate(180deg)';
-                }
             }
         }
 
@@ -1563,7 +1473,7 @@
         });
 
         // Search functionality
-        function performSearch() {
+        async function performSearch() {
             const query = searchInput.value.trim();
             if (query) {
                 // Show loading spinner
@@ -1578,12 +1488,32 @@
                 searchResultsContainer.style.display = 'block';
                 searchQuery.textContent = query;
                 
-                // Simulate search delay
-                setTimeout(() => {
+                const startTime = performance.now();
+                
+                try {
+                    // Fetch Wikipedia results
+                    const wikiResults = await searchWikipedia(query);
+                    const endTime = performance.now();
+                    
+                    // Hide loading spinner
                     loadingSpinner.style.display = 'none';
-                    displaySearchResults(query);
-                    showNotification(`Found ${mockResults.length} results for "${query}"`, 'success');
-                }, 1500);
+                    
+                    // Update search time
+                    searchTime.textContent = `${((endTime - startTime) / 1000).toFixed(2)}s`;
+                    
+                    // Display results
+                    displaySearchResults(query, wikiResults);
+                    
+                    if (wikiResults.length > 0) {
+                        showNotification(`Found ${wikiResults.length} results from Wikipedia`, 'success');
+                    } else {
+                        showNotification('No results found', 'warning');
+                    }
+                } catch (error) {
+                    loadingSpinner.style.display = 'none';
+                    showNotification('Error fetching results', 'warning');
+                    console.error('Search error:', error);
+                }
             }
         }
 
@@ -1629,7 +1559,7 @@
             
             // Simulate voice recognition
             setTimeout(() => {
-                searchInput.value = 'cybersecurity best practices';
+                searchInput.value = 'artificial intelligence';
                 stopVoiceSearch();
                 showNotification('Voice search completed', 'success');
                 performSearch();
@@ -1684,11 +1614,6 @@
             }
         }
 
-        // Theme toggle (now just for show since we're in monochrome)
-        themeToggle.addEventListener('click', () => {
-            showNotification('Monochrome theme activated', 'success');
-        });
-
         // Trending searches
         trendingItems.forEach(item => {
             item.addEventListener('click', () => {
@@ -1699,45 +1624,60 @@
         });
 
         // Display search results
-        function displaySearchResults(query) {
+        function displaySearchResults(query, results) {
             resultsGrid.innerHTML = '';
             
-            // Update stats
-            resultCount.textContent = `${mockResults.length} results`;
-            searchTime.textContent = `${(Math.random() * 0.5 + 0.1).toFixed(2)}s`;
+            // Update result count
+            resultCount.textContent = `${results.length} results`;
             
-            mockResults.forEach((result, index) => {
+            if (results.length === 0) {
+                resultsGrid.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: var(--text-secondary);">
+                        <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <p>No results found for "${query}"</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Try different keywords or check your spelling</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            results.forEach((result, index) => {
                 const resultItem = document.createElement('div');
                 resultItem.className = 'result-item';
                 resultItem.style.animationDelay = `${index * 0.1}s`;
                 
-                const safetyClass = result.safety === 'Family Safe' ? 'moderate' : '';
+                // Create Wikipedia URL
+                const wikiUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(result.title.replace(/ /g, '_'))}`;
+                
+                // Get page ID for thumbnail
+                const pageId = result.pageid;
+                const thumbnailUrl = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&pithumbsize=120&pageids=${pageId}`;
                 
                 resultItem.innerHTML = `
-                    <div class="result-thumbnail">
-                        <i class="${result.icon}"></i>
+                    <div class="result-thumbnail" id="thumb-${pageId}">
+                        <i class="fas fa-book"></i>
                     </div>
                     <div class="result-content">
-                        <div class="result-title">${result.title}</div>
+                        <div class="result-title" onclick="window.open('${wikiUrl}', '_blank')">${result.title}</div>
                         <div class="result-url">
                             <i class="fas fa-link"></i>
-                            ${result.url}
+                            ${wikiUrl}
                         </div>
-                        <div class="result-description">${result.description}</div>
+                        <div class="result-description">${result.snippet.replace(/<[^>]*>/g, '')}</div>
                         <div class="result-meta">
-                            <span class="safety-badge ${safetyClass}">
+                            <span class="safety-badge">
                                 <i class="fas fa-shield-alt"></i>
-                                ${result.safety}
+                                Wikipedia Verified
                             </span>
                             <span class="result-date">
                                 <i class="fas fa-calendar"></i>
-                                ${result.date}
+                                Updated recently
                             </span>
                             <div class="result-actions">
-                                <button class="action-btn" title="Save">
+                                <button class="action-btn" title="Save" onclick="saveResult('${result.title}', '${wikiUrl}')">
                                     <i class="fas fa-bookmark"></i>
                                 </button>
-                                <button class="action-btn" title="Share">
+                                <button class="action-btn" title="Share" onclick="shareResult('${wikiUrl}')">
                                     <i class="fas fa-share"></i>
                                 </button>
                             </div>
@@ -1746,7 +1686,39 @@
                 `;
                 
                 resultsGrid.appendChild(resultItem);
+                
+                // Fetch thumbnail if available
+                fetch(thumbnailUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        const thumbnail = data.query.pages[pageId].thumbnail;
+                        if (thumbnail) {
+                            const thumbElement = document.getElementById(`thumb-${pageId}`);
+                            thumbElement.innerHTML = `<img src="${thumbnail.source}" alt="${result.title}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">`;
+                        }
+                    })
+                    .catch(error => {
+                        console.log('No thumbnail available for this result');
+                    });
             });
+        }
+
+        // Save result function
+        function saveResult(title, url) {
+            showNotification(`"${title}" saved to bookmarks`, 'success');
+        }
+
+        // Share result function
+        function shareResult(url) {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Check out this article from Red Light Search',
+                    url: url
+                });
+            } else {
+                navigator.clipboard.writeText(url);
+                showNotification('Link copied to clipboard', 'success');
+            }
         }
 
         // Notification system
