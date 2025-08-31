@@ -25,6 +25,7 @@
             --border: rgba(255, 255, 255, 0.1);
             --success: #4a4a4a;
             --warning: #666666;
+            --red-light: #e74c3c;
         }
 
         body {
@@ -59,12 +60,12 @@
         .logo-icon {
             width: 50px;
             height: 50px;
-            background: var(--primary);
+            background: var(--red-light);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.5);
             animation: pulse 2s infinite;
             position: relative;
             overflow: hidden;
@@ -77,7 +78,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
             transform: rotate(45deg);
             animation: shine 3s infinite;
         }
@@ -88,15 +89,15 @@
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.2); }
-            70% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(231, 76, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
         }
 
         .logo h1 {
             font-size: 2.2rem;
             font-weight: 700;
-            background: linear-gradient(90deg, var(--text-primary), var(--text-secondary));
+            background: var(--red-light);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -1px;
@@ -737,7 +738,7 @@
                 <li><a href="#"><i class="fas fa-shield-alt"></i> Safe Search</a></li>
                 <li><a href="#"><i class="fas fa-history"></i> History</a></li>
                 <li><a href="#"><i class="fas fa-chart-line"></i> Analytics</a></li>
-                <li><a href="google.com"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
             </ul>
         </nav>
         <button class="theme-toggle" id="themeToggle">
