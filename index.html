@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#8B0000">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Red Light Search">
+    <meta name="apple-mobile-web-app-title" content="Red Crow Search">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Red Light Search">
-    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="application-name" content="Red Crow Search">
+    <meta name="msapplication-TileColor" content="#8B0000">
     <meta name="msapplication-config" content="browserconfig.xml">
     
-    <title>Red Light - Advanced Safety Search Engine</title>
+    <title>Red Crow - Advanced Safety Search Engine</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -28,22 +28,22 @@
         }
         
         :root {
-            --primary: #333333;
-            --primary-dark: #000000;
-            --secondary: #666666;
-            --bg-dark: #000000;
-            --bg-light: #1a1a1a;
+            --primary: #8B0000;
+            --primary-dark: #660000;
+            --secondary: #A0522D;
+            --bg-dark: #1a1a1a;
+            --bg-light: #2d2d2d;
             --text-primary: #ffffff;
             --text-secondary: #cccccc;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 255, 255, 0.1);
-            --success: #4a4a4a;
-            --warning: #666666;
-            --red-light: #e74c3c;
-            --accent: #3498db;
-            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --card-bg: rgba(139, 0, 0, 0.1);
+            --border: rgba(139, 0, 0, 0.3);
+            --success: #228B22;
+            --warning: #DAA520;
+            --red-light: #DC143C;
+            --accent: #4682B4;
+            --gradient-1: linear-gradient(135deg, #8B0000 0%, #A0522D 100%);
+            --gradient-2: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+            --gradient-3: linear-gradient(135deg, #4682B4 0%, #8B0000 100%);
             --transition-speed: 0.3s;
             --border-radius: 15px;
             --header-height: 70px;
@@ -52,15 +52,15 @@
 
         /* Light theme variables */
         .light-theme {
-            --primary: #2c3e50;
-            --primary-dark: #34495e;
-            --secondary: #7f8c8d;
-            --bg-dark: #ecf0f1;
+            --primary: #8B0000;
+            --primary-dark: #660000;
+            --secondary: #A0522D;
+            --bg-dark: #f5f5f5;
             --bg-light: #ffffff;
             --text-primary: #2c3e50;
             --text-secondary: #7f8c8d;
-            --card-bg: rgba(255, 255, 255, 0.8);
-            --border: rgba(0, 0, 0, 0.1);
+            --card-bg: rgba(139, 0, 0, 0.05);
+            --border: rgba(139, 0, 0, 0.1);
             --success: #27ae60;
             --warning: #f39c12;
             --red-light: #e74c3c;
@@ -130,7 +130,7 @@
             position: absolute;
             width: 3px;
             height: 3px;
-            background: rgba(231, 76, 60, 0.4);
+            background: rgba(139, 0, 0, 0.4);
             border-radius: 50%;
             animation: float 20s infinite linear;
             will-change: transform, opacity;
@@ -161,7 +161,7 @@
             align-items: center;
             border-bottom: 1px solid var(--border);
             backdrop-filter: blur(15px);
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(26, 26, 26, 0.9);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -180,14 +180,14 @@
         }
 
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--red-light);
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 20px rgba(231, 76, 60, 0.5);
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
             animation: pulse 2s infinite;
             position: relative;
             overflow: hidden;
@@ -212,22 +212,22 @@
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(231, 76, 60, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(139, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0.7); }
         }
 
         .logo h1 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
-            background: var(--red-light);
+            background: var(--primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -1px;
         }
 
         .tagline {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
             margin-top: -5px;
         }
@@ -262,7 +262,7 @@
 
         nav a:hover {
             color: var(--text-primary);
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(139, 0, 0, 0.1);
         }
 
         /* Theme Toggle */
@@ -340,14 +340,14 @@
         }
 
         .dropdown-item:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(139, 0, 0, 0.1);
             color: var(--text-primary);
         }
 
         .dropdown-item i {
             width: 20px;
             text-align: center;
-            color: var(--red-light);
+            color: var(--primary);
         }
 
         .dropdown-divider {
@@ -404,7 +404,7 @@
 
         .search-input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1), 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .search-actions {
@@ -489,7 +489,7 @@
         }
 
         .suggestion-item:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(139, 0, 0, 0.1);
         }
 
         .suggestion-item .title {
@@ -528,7 +528,7 @@
         }
 
         .filter-btn:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(139, 0, 0, 0.1);
             border-color: var(--primary);
             color: var(--text-primary);
         }
@@ -548,24 +548,24 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(74, 74, 74, 0.2);
+            background: rgba(139, 0, 0, 0.2);
             padding: 5px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
-            color: #cccccc;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(139, 0, 0, 0.3);
         }
 
         .safety-indicator.moderate {
-            background: rgba(102, 102, 102, 0.2);
-            color: #cccccc;
-            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(160, 82, 45, 0.2);
+            color: #ffffff;
+            border-color: rgba(160, 82, 45, 0.3);
         }
 
         .safety-indicator.high {
-            background: rgba(51, 51, 51, 0.2);
+            background: rgba(139, 0, 0, 0.3);
             color: #ffffff;
-            border-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(139, 0, 0, 0.5);
         }
 
         /* Trending Searches - Responsive */
@@ -603,7 +603,7 @@
         }
 
         .trending-item:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(139, 0, 0, 0.1);
             border-color: var(--secondary);
             transform: translateY(-3px);
         }
@@ -686,7 +686,7 @@
         }
 
         .result-item:hover {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(139, 0, 0, 0.1);
             border-color: var(--primary);
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
@@ -759,19 +759,19 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            background: rgba(74, 74, 74, 0.2);
-            color: #cccccc;
+            background: rgba(139, 0, 0, 0.2);
+            color: #ffffff;
             padding: 4px 10px;
             border-radius: 12px;
             font-size: 0.75rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(139, 0, 0, 0.3);
             white-space: nowrap;
         }
 
         .safety-badge.moderate {
-            background: rgba(102, 102, 102, 0.2);
-            color: #cccccc;
-            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(160, 82, 45, 0.2);
+            color: #ffffff;
+            border-color: rgba(160, 82, 45, 0.3);
         }
 
         .result-date {
@@ -847,7 +847,7 @@
 
         .feature-card:hover {
             transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(139, 0, 0, 0.1);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
 
@@ -878,7 +878,7 @@
             border-top: 1px solid var(--border);
             color: var(--text-secondary);
             font-size: 0.85rem;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(26, 26, 26, 0.5);
             position: relative;
             z-index: 1;
             width: 100%;
@@ -1025,7 +1025,7 @@
 
         .close-settings:hover {
             color: var(--red-light);
-            background: rgba(231, 76, 60, 0.1);
+            background: rgba(220, 20, 60, 0.1);
         }
 
         .settings-content {
@@ -1050,7 +1050,7 @@
         }
 
         .section-title i {
-            color: var(--red-light);
+            color: var(--primary);
         }
 
         .setting-item {
@@ -1058,7 +1058,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(139, 0, 0, 0.1);
         }
 
         .setting-item:last-child {
@@ -1089,7 +1089,7 @@
         }
 
         .toggle-switch.active {
-            background: var(--red-light);
+            background: var(--primary);
         }
 
         .toggle-switch::after {
@@ -1139,7 +1139,7 @@
             transform: translate(-50%, -50%);
             width: 8px;
             height: 8px;
-            background: var(--red-light);
+            background: var(--primary);
             border-radius: 50%;
         }
 
@@ -1199,16 +1199,16 @@
         }
 
         .btn-cancel:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(139, 0, 0, 0.1);
         }
 
         .btn-save {
-            background: var(--red-light);
+            background: var(--primary);
             color: white;
         }
 
         .btn-save:hover {
-            background: #c0392b;
+            background: var(--primary-dark);
             transform: translateY(-2px);
         }
 
@@ -1282,7 +1282,7 @@
         }
 
         .history-item:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(139, 0, 0, 0.1);
             transform: translateX(5px);
         }
 
@@ -1296,7 +1296,7 @@
         }
 
         .history-query:hover {
-            color: var(--red-light);
+            color: var(--primary);
         }
 
         .history-time {
@@ -1326,8 +1326,8 @@
         }
 
         .history-btn:hover {
-            background: var(--red-light);
-            border-color: var(--red-light);
+            background: var(--primary);
+            border-color: var(--primary);
             color: white;
         }
 
@@ -1370,7 +1370,7 @@
         }
 
         .help-question i {
-            color: var(--red-light);
+            color: var(--primary);
         }
 
         .help-answer {
@@ -1454,6 +1454,32 @@
             font-size: 0.9rem;
             outline: none;
             width: 100%;
+        }
+
+        /* API Key Input */
+        .api-key-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border);
+        }
+
+        .api-key-input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-light);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .api-key-info {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 10px;
         }
 
         /* Responsive Design */
@@ -1674,8 +1700,8 @@
             }
             
             .logo-icon {
-                width: 35px;
-                height: 35px;
+                width: 40px;
+                height: 40px;
             }
             
             .logo h1 {
@@ -1730,7 +1756,7 @@
 
         /* Focus styles for better accessibility */
         button:focus, input:focus, select:focus, a:focus {
-            outline: 2px solid var(--red-light);
+            outline: 2px solid var(--primary);
             outline-offset: 2px;
         }
 
@@ -1789,10 +1815,10 @@
     <header>
         <div class="logo">
             <div class="logo-icon">
-                <i class="fas fa-traffic-light"></i>
+                <i class="fas fa-crow"></i>
             </div>
             <div>
-                <h1>Red Light</h1>
+                <h1>Red Crow</h1>
                 <div class="tagline">Advanced Safety Search Engine</div>
             </div>
         </div>
@@ -1890,7 +1916,7 @@
                         <i class="fas fa-shield-alt"></i>
                         <span>Safe Mode</span>
                     </div>
-                    <input type="text" class="search-input" placeholder="Search safely with Red Light..." id="searchInput" autocomplete="off" aria-label="Search input">
+                    <input type="text" class="search-input" placeholder="Search safely with Red Crow..." id="searchInput" autocomplete="off" aria-label="Search input">
                     <div class="search-actions">
                         <button class="voice-btn" id="voiceBtn" aria-label="Voice search">
                             <i class="fas fa-microphone"></i>
@@ -2034,10 +2060,10 @@
         <div class="features" id="featuresSection">
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-shield-alt"></i>
+                    <i class="fas fa-crow"></i>
                 </div>
-                <h3>Advanced Protection</h3>
-                <p>AI-powered filtering blocks harmful content, phishing attempts, and malicious sites in real-time.</p>
+                <h3>Intelligent Search</h3>
+                <p>Advanced AI-powered search that understands context and delivers relevant results with unmatched accuracy.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
@@ -2055,10 +2081,10 @@
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-brain"></i>
+                    <i class="fas fa-shield-alt"></i>
                 </div>
-                <h3>Smart AI</h3>
-                <p>Our AI understands context and intent, delivering safer and more relevant results every time.</p>
+                <h3>Advanced Protection</h3>
+                <p>AI-powered filtering blocks harmful content, phishing attempts, and malicious sites in real-time.</p>
             </div>
         </div>
     </main>
@@ -2072,7 +2098,7 @@
             <a href="#">Contact</a>
             <a href="#">Developers</a>
         </div>
-        <p>© 2023 Red Light Search Engine. Powered by Wikipedia API. Keeping your digital journey safe since 2023.</p>
+        <p>© 2023 Red Crow Search Engine. Powered by Wikipedia API and Google Custom Search. Your safety, our priority.</p>
     </footer>
     
     <!-- Settings Modal -->
@@ -2086,6 +2112,40 @@
             </div>
             
             <div class="settings-content">
+                <!-- API Key Section -->
+                <div class="settings-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-key"></i>
+                        API Configuration
+                    </h3>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Google Custom Search API Key</strong>
+                            <span>Enter your Google API key for enhanced search results</span>
+                        </div>
+                        <div style="width: 100%;">
+                            <input type="password" class="api-key-input" id="googleApiKey" placeholder="Enter your Google API key">
+                            <div class="api-key-info">
+                                Get your API key from the <a href="https://developers.google.com/custom-search/v1/introduction" target="_blank" style="color: var(--accent);">Google Cloud Console</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Search Engine ID</strong>
+                            <span>Enter your Custom Search Engine ID</span>
+                        </div>
+                        <div style="width: 100%;">
+                            <input type="text" class="api-key-input" id="searchEngineId" placeholder="Enter your Search Engine ID">
+                            <div class="api-key-info">
+                                Create a custom search engine at <a href="https://programmablesearchengine.google.com/" target="_blank" style="color: var(--accent);">Programmable Search Engine</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- Safety Settings -->
                 <div class="settings-section">
                     <h3 class="section-title">
@@ -2299,7 +2359,7 @@
                                 <i class="fas fa-shield-alt"></i> Safety Features
                             </div>
                             <div class="help-answer">
-                                Red Light automatically filters harmful content, blocks malicious sites, and provides family-safe browsing. You can adjust safety levels in the Safety Settings.
+                                Red Crow automatically filters harmful content, blocks malicious sites, and provides family-safe browsing. You can adjust safety levels in the Safety Settings.
                             </div>
                         </div>
                         
@@ -2375,6 +2435,8 @@
         const closeSettings = document.getElementById('closeSettings');
         const cancelSettings = document.getElementById('cancelSettings');
         const saveSettings = document.getElementById('saveSettings');
+        const googleApiKey = document.getElementById('googleApiKey');
+        const searchEngineId = document.getElementById('searchEngineId');
         
         // History elements
         const historyModal = document.getElementById('historyModal');
@@ -2398,6 +2460,8 @@
         let isListening = false;
         let recognition = null;
         let isMobileMenuOpen = false;
+        let googleApiKeyStored = '';
+        let searchEngineIdStored = '';
         
         // Device detection
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -2503,15 +2567,27 @@
             setupLazyLoading();
             
             // Check for saved theme
-            const savedTheme = localStorage.getItem('redLightTheme');
+            const savedTheme = localStorage.getItem('redCrowTheme');
             if (savedTheme === 'light') {
                 document.body.classList.add('light-theme');
                 themeToggle.innerHTML = '<i class="fas fa-sun"></i><span>Light</span>';
             }
             
+            // Load API keys
+            googleApiKeyStored = localStorage.getItem('googleApiKey') || '';
+            searchEngineIdStored = localStorage.getItem('searchEngineId') || '';
+            
+            if (googleApiKeyStored) {
+                googleApiKey.value = googleApiKeyStored;
+            }
+            
+            if (searchEngineIdStored) {
+                searchEngineId.value = searchEngineIdStored;
+            }
+            
             // Show welcome message
             setTimeout(() => {
-                showNotification("Welcome to Red Light! Your safety is our priority.", 'success');
+                showNotification("Welcome to Red Crow! Your safety is our priority.", 'success');
             }, 1000);
         });
         
@@ -2593,17 +2669,17 @@
                 
                 if (isLight) {
                     themeToggle.innerHTML = '<i class="fas fa-sun"></i><span>Light</span>';
-                    localStorage.setItem('redLightTheme', 'light');
+                    localStorage.setItem('redCrowTheme', 'light');
                 } else {
                     themeToggle.innerHTML = '<i class="fas fa-moon"></i><span>Dark</span>';
-                    localStorage.setItem('redLightTheme', 'dark');
+                    localStorage.setItem('redCrowTheme', 'dark');
                 }
                 
                 showNotification(`Switched to ${isLight ? 'light' : 'dark'} theme`, 'success');
             });
         }
         
-        // Enhanced search functionality with multiple sources
+        // Enhanced search functionality with Google API
         async function performSearch() {
             const query = searchInput.value.trim();
             if (!query) return;
@@ -2630,9 +2706,10 @@
                 const searchOptions = getAdvancedSearchOptions();
                 
                 // Fetch results from multiple sources
-                const [wikiResults, newsResults] = await Promise.all([
+                const [wikiResults, newsResults, googleResults] = await Promise.allSettled([
                     searchWikipedia(query, searchOptions),
-                    searchNews(query, searchOptions)
+                    searchNews(query, searchOptions),
+                    searchGoogle(query, searchOptions)
                 ]);
                 
                 const endTime = performance.now();
@@ -2643,8 +2720,29 @@
                 // Update search time
                 searchTime.textContent = `${((endTime - startTime) / 1000).toFixed(2)}s`;
                 
-                // Combine and display results
-                const allResults = [...wikiResults, ...newsResults];
+                // Process results
+                const allResults = [];
+                
+                // Add Wikipedia results
+                if (wikiResults.status === 'fulfilled' && wikiResults.value) {
+                    allResults.push(...wikiResults.value);
+                }
+                
+                // Add news results
+                if (newsResults.status === 'fulfilled' && newsResults.value) {
+                    allResults.push(...newsResults.value);
+                }
+                
+                // Add Google results
+                if (googleResults.status === 'fulfilled' && googleResults.value) {
+                    allResults.push(...googleResults.value);
+                } else if (googleResults.status === 'rejected') {
+                    console.error('Google search error:', googleResults.reason);
+                    // Show a notification about Google API issues
+                    showNotification('Google search unavailable. Configure API keys in settings.', 'warning');
+                }
+                
+                // Display results
                 displaySearchResults(query, allResults);
                 
                 if (allResults.length > 0) {
@@ -2656,6 +2754,111 @@
                 loadingSpinner.style.display = 'none';
                 showNotification('Error fetching results', 'error');
                 console.error('Search error:', error);
+            }
+        }
+        
+        // Google Custom Search API integration
+        async function searchGoogle(query, options = {}) {
+            // Check if API keys are available
+            if (!googleApiKeyStored || !searchEngineIdStored) {
+                // Return empty array if API keys are not configured
+                return [];
+            }
+            
+            const apiUrl = `https://www.googleapis.com/customsearch/v1?key=${googleApiKeyStored}&cx=${searchEngineIdStored}&q=${encodeURIComponent(query)}&num=10`;
+            
+            // Add search parameters based on options
+            const params = new URLSearchParams();
+            
+            // Add language parameter if specified
+            if (options.language && options.language !== 'en') {
+                params.append('lr', `lang_${options.language}`);
+            }
+            
+            // Add safe search based on settings
+            const safeSearchLevel = document.getElementById('safetyLevelSelect')?.value || 'moderate';
+            if (safeSearchLevel === 'strict') {
+                params.append('safe', 'active');
+            } else if (safeSearchLevel === 'moderate') {
+                params.append('safe', 'moderate');
+            } else {
+                params.append('safe', 'off');
+            }
+            
+            // Add region if specified
+            if (options.region && options.region !== 'all') {
+                params.append('gl', options.region);
+            }
+            
+            // Add date range if specified
+            if (options.date && options.date !== 'anytime') {
+                const now = new Date();
+                let dateRestrict = '';
+                
+                switch (options.date) {
+                    case 'day':
+                        dateRestrict = 'd1';
+                        break;
+                    case 'week':
+                        dateRestrict = 'w1';
+                        break;
+                    case 'month':
+                        dateRestrict = 'm1';
+                        break;
+                    case 'year':
+                        dateRestrict = 'y1';
+                        break;
+                }
+                
+                if (dateRestrict) {
+                    params.append('dateRestrict', dateRestrict);
+                }
+            }
+            
+            // Add content type filter if specified
+            if (options.type && options.type !== 'all') {
+                switch (options.type) {
+                    case 'news':
+                        params.append('tbm', 'nws');
+                        break;
+                    case 'images':
+                        params.append('tbm', 'isch');
+                        break;
+                    case 'videos':
+                        params.append('tbm', 'vid');
+                        break;
+                }
+            }
+            
+            // Build final URL with parameters
+            const finalUrl = `${apiUrl}&${params.toString()}`;
+            
+            try {
+                const response = await fetch(finalUrl);
+                const data = await response.json();
+                
+                if (data.error) {
+                    console.error('Google API error:', data.error);
+                    throw new Error(data.error.message);
+                }
+                
+                if (data.items && data.items.length > 0) {
+                    return data.items.map(item => ({
+                        title: item.title,
+                        snippet: item.snippet || '',
+                        url: item.link,
+                        displayUrl: item.displayLink || '',
+                        type: options.type || 'web',
+                        source: 'Google',
+                        thumbnail: item.pagemap?.cse_thumbnail?.[0]?.src || null,
+                        timestamp: new Date().toISOString()
+                    }));
+                }
+                
+                return [];
+            } catch (error) {
+                console.error('Error fetching Google data:', error);
+                throw error;
             }
         }
         
@@ -2727,6 +2930,19 @@
         
         // Get search suggestions
         async function getSearchSuggestions(query) {
+            // Try Google suggestions first if API key is available
+            if (googleApiKeyStored && searchEngineIdStored) {
+                try {
+                    const suggestions = await getGoogleSuggestions(query);
+                    if (suggestions.length > 0) {
+                        return suggestions;
+                    }
+                } catch (error) {
+                    console.error('Error fetching Google suggestions:', error);
+                }
+            }
+            
+            // Fallback to Wikipedia suggestions
             const apiUrl = `https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=${encodeURIComponent(query)}&limit=5&origin=*`;
             
             try {
@@ -2739,6 +2955,32 @@
             } catch (error) {
                 console.error('Error fetching suggestions:', error);
                 return [];
+            }
+        }
+        
+        // Get Google search suggestions
+        async function getGoogleSuggestions(query) {
+            const apiUrl = `https://www.googleapis.com/customsearch/v1/siterestrict?key=${googleApiKeyStored}&cx=${searchEngineIdStored}&q=${encodeURIComponent(query)}`;
+            
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error.message);
+                }
+                
+                if (data.items && data.items.length > 0) {
+                    return data.items.slice(0, 5).map(item => ({
+                        title: item.title,
+                        description: item.snippet || ''
+                    }));
+                }
+                
+                return [];
+            } catch (error) {
+                console.error('Error fetching Google suggestions:', error);
+                throw error;
             }
         }
         
@@ -2799,6 +3041,13 @@
         
         // Save settings
         saveSettings.addEventListener('click', () => {
+            // Save API keys
+            googleApiKeyStored = googleApiKey.value;
+            searchEngineIdStored = searchEngineId.value;
+            
+            localStorage.setItem('googleApiKey', googleApiKeyStored);
+            localStorage.setItem('searchEngineId', searchEngineIdStored);
+            
             const settings = {
                 safeSearch: safeSearchToggle.classList.contains('active'),
                 familyFilter: familyFilterToggle.classList.contains('active'),
@@ -2817,7 +3066,7 @@
             };
             
             // Save to localStorage
-            localStorage.setItem('redLightSettings', JSON.stringify(settings));
+            localStorage.setItem('redCrowSettings', JSON.stringify(settings));
             
             showNotification('Settings saved successfully!', 'success');
             closeModal(settingsModal);
@@ -2825,7 +3074,7 @@
         
         // Load saved settings
         function loadSettings() {
-            const savedSettings = localStorage.getItem('redLightSettings');
+            const savedSettings = localStorage.getItem('redCrowSettings');
             if (savedSettings) {
                 const settings = JSON.parse(savedSettings);
                 
@@ -3031,6 +3280,8 @@
                         <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
                         <p>No results found for "${query}"</p>
                         <p style="margin-top: 10px; font-size: 0.9rem;">Try different keywords or check your spelling</p>
+                        ${!googleApiKeyStored || !searchEngineIdStored ? 
+                            '<p style="margin-top: 10px; font-size: 0.9rem; color: var(--warning);">Configure Google API keys in settings for more results</p>' : ''}
                     </div>
                 `;
                 return;
@@ -3041,8 +3292,8 @@
                 resultItem.className = 'result-item hardware-accelerated';
                 
                 // Get thumbnail for Wikipedia articles
-                let thumbnail = null;
-                if (result.source === 'Wikipedia' && result.pageid) {
+                let thumbnail = result.thumbnail;
+                if (!thumbnail && result.source === 'Wikipedia' && result.pageid) {
                     thumbnail = await getPageThumbnail(result.pageid);
                 }
                 
@@ -3054,18 +3305,19 @@
                         ${thumbnail ? `<img src="${thumbnail}" alt="${result.title}" loading="lazy">` : 
                           result.type === 'news' ? '<i class="fas fa-newspaper"></i>' :
                           result.type === 'video' ? '<i class="fas fa-video"></i>' :
+                          result.type === 'image' ? '<i class="fas fa-images"></i>' :
                           '<i class="fas fa-book"></i>'}
                     </div>
                     <div class="result-content">
                         <div class="result-title" onclick="window.open('${resultUrl}', '_blank')">${result.title}</div>
                         <div class="result-url">
                             <i class="fas fa-link"></i>
-                            ${resultUrl}
+                            ${result.displayUrl || resultUrl}
                         </div>
                         <div class="result-description">${result.snippet ? result.snippet.replace(/<[^>]*>/g, '') : 'No description available'}</div>
                         <div class="result-meta">
                             <span class="safety-badge">
-                                <i class="fas fa-${result.source === 'Wikipedia' ? 'shield-alt' : 'check-circle'}"></i>
+                                <i class="fas fa-${result.source === 'Wikipedia' ? 'shield-alt' : result.source === 'Google' ? 'search' : 'check-circle'}"></i>
                                 ${result.source || 'Verified Source'}
                             </span>
                             ${result.timestamp ? `<span class="result-date"><i class="fas fa-calendar"></i>${formatDate(result.timestamp)}</span>` : ''}
@@ -3110,7 +3362,7 @@
         
         // Search history management
         function loadSearchHistory() {
-            const savedHistory = localStorage.getItem('redLightSearchHistory');
+            const savedHistory = localStorage.getItem('redCrowSearchHistory');
             if (savedHistory) {
                 try {
                     searchHistory = JSON.parse(savedHistory);
@@ -3139,7 +3391,7 @@
             }
             
             // Save to localStorage
-            localStorage.setItem('redLightSearchHistory', JSON.stringify(searchHistory));
+            localStorage.setItem('redCrowSearchHistory', JSON.stringify(searchHistory));
         }
         
         function showHistoryModal() {
@@ -3183,7 +3435,7 @@
         
         function removeFromHistory(index) {
             searchHistory.splice(index, 1);
-            localStorage.setItem('redLightSearchHistory', JSON.stringify(searchHistory));
+            localStorage.setItem('redCrowSearchHistory', JSON.stringify(searchHistory));
             displaySearchHistory();
             showNotification('Removed from history', 'success');
         }
@@ -3191,7 +3443,7 @@
         function clearSearchHistory() {
             if (confirm('Are you sure you want to clear all search history?')) {
                 searchHistory = [];
-                localStorage.removeItem('redLightSearchHistory');
+                localStorage.removeItem('redCrowSearchHistory');
                 showNotification('Search history cleared', 'success');
                 displaySearchHistory();
             }
@@ -3218,9 +3470,9 @@
         
         // Save result function
         function saveResult(title, url) {
-            const savedResults = JSON.parse(localStorage.getItem('redLightSavedResults') || '[]');
+            const savedResults = JSON.parse(localStorage.getItem('redCrowSavedResults') || '[]');
             savedResults.push({ title, url, timestamp: new Date().toISOString() });
-            localStorage.setItem('redLightSavedResults', JSON.stringify(savedResults));
+            localStorage.setItem('redCrowSavedResults', JSON.stringify(savedResults));
             showNotification(`"${title}" saved to bookmarks`, 'success');
         }
         
@@ -3228,7 +3480,7 @@
         function shareResult(url) {
             if (navigator.share) {
                 navigator.share({
-                    title: 'Check out this article from Red Light Search',
+                    title: 'Check out this article from Red Crow Search',
                     url: url
                 }).catch(err => {
                     console.log('Error sharing:', err);
@@ -3346,7 +3598,7 @@
         }
         
         function showSavedResults() {
-            const savedResults = JSON.parse(localStorage.getItem('redLightSavedResults') || '[]');
+            const savedResults = JSON.parse(localStorage.getItem('redCrowSavedResults') || '[]');
             if (savedResults.length === 0) {
                 showNotification('No saved results yet', 'warning');
                 return;
@@ -3395,8 +3647,8 @@
         function exportData() {
             const data = {
                 searchHistory: searchHistory,
-                savedResults: JSON.parse(localStorage.getItem('redLightSavedResults') || '[]'),
-                settings: JSON.parse(localStorage.getItem('redLightSettings') || '{}'),
+                savedResults: JSON.parse(localStorage.getItem('redCrowSavedResults') || '[]'),
+                settings: JSON.parse(localStorage.getItem('redCrowSettings') || '{}'),
                 exportDate: new Date().toISOString()
             };
             
@@ -3404,7 +3656,7 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'redlight-data-export.json';
+            a.download = 'redcrow-data-export.json';
             a.click();
             URL.revokeObjectURL(url);
             
