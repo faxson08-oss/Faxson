@@ -113,6 +113,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            cursor: pointer;
         }
         
         .logo-icon {
@@ -1231,7 +1232,7 @@
     <!-- Skip to content link for accessibility -->
     <a href="#main-content" class="sr-only">Skip to main content</a>
     <header>
-        <div class="logo">
+        <div class="logo" id="logo" onclick="refreshPage()">
             <div class="logo-icon">
                 <i class="fas fa-search"></i>
             </div>
@@ -1581,6 +1582,7 @@
         const searchSuggestions = document.getElementById('searchSuggestions');
         const mobileMenuToggle = document.getElementById('mobileMenuToggle');
         const mainNav = document.getElementById('mainNav');
+        const logo = document.getElementById('logo');
         
         // Settings elements
         const settingsBtn = document.getElementById('settingsBtn');
@@ -1660,7 +1662,7 @@
             setupKeyboardShortcuts();
             setupTouchEvents();
             
-            // Show welcome message
+            // Show welcome message that disappears after a while
             setTimeout(() => {
                 showNotification("Welcome to Red Crow! Your safety is our priority.", 'success');
             }, 1000);
@@ -2585,6 +2587,11 @@
             }
         `;
         document.head.appendChild(style);
+        
+        // Refresh page function
+        function refreshPage() {
+            location.reload();
+        }
     </script>
 </body>
 </html>
