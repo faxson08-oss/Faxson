@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="theme-color" content="#8B0000">
+    <meta name="theme-color" content="#000000">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Red Crow Search">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Red Crow Search">
-    <meta name="msapplication-TileColor" content="#8B0000">
+    <meta name="msapplication-TileColor" content="#000000">
     <meta name="msapplication-config" content="browserconfig.xml">
     
     <title>Red Crow - Advanced Safety Search Engine</title>
@@ -28,45 +28,28 @@
         }
         
         :root {
-            --primary: #8B0000;
-            --primary-dark: #660000;
-            --secondary: #A0522D;
-            --bg-dark: #1a1a1a;
-            --bg-light: #2d2d2d;
+            --primary: #ff0000;
+            --primary-dark: #cc0000;
+            --secondary: #ff0000;
+            --bg-dark: #000000;
+            --bg-light: #1a1a1a;
             --text-primary: #ffffff;
             --text-secondary: #cccccc;
-            --card-bg: rgba(139, 0, 0, 0.1);
-            --border: rgba(139, 0, 0, 0.3);
-            --success: #228B22;
-            --warning: #DAA520;
-            --red-light: #DC143C;
-            --accent: #4682B4;
-            --gradient-1: linear-gradient(135deg, #8B0000 0%, #A0522D 100%);
-            --gradient-2: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
-            --gradient-3: linear-gradient(135deg, #4682B4 0%, #8B0000 100%);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --red-light: #ff6666;
+            --accent: #ff0000;
+            --gradient-1: linear-gradient(135deg, #ff0000 0%, #ff0000 100%);
+            --gradient-2: linear-gradient(135deg, #ff6666 0%, #ff0000 100%);
+            --gradient-3: linear-gradient(135deg, #ff0000 0%, #ff0000 100%);
             --transition-speed: 0.3s;
             --border-radius: 15px;
             --header-height: 70px;
             --mobile-header-height: 120px;
         }
-
-        /* Light theme variables */
-        .light-theme {
-            --primary: #8B0000;
-            --primary-dark: #660000;
-            --secondary: #A0522D;
-            --bg-dark: #f5f5f5;
-            --bg-light: #ffffff;
-            --text-primary: #2c3e50;
-            --text-secondary: #7f8c8d;
-            --card-bg: rgba(139, 0, 0, 0.05);
-            --border: rgba(139, 0, 0, 0.1);
-            --success: #27ae60;
-            --warning: #f39c12;
-            --red-light: #e74c3c;
-            --accent: #3498db;
-        }
-
+        
         /* Base Styles */
         html {
             scroll-behavior: smooth;
@@ -74,7 +57,7 @@
             -webkit-text-size-adjust: 100%;
             -ms-text-size-adjust: 100%;
         }
-
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-primary);
@@ -89,8 +72,8 @@
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
         }
-
-        /* Animated Background - Performance Optimized */
+        
+        /* Animated Background - Simplified for B&W */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -98,62 +81,24 @@
             width: 100%;
             height: 100%;
             z-index: -2;
-            background: linear-gradient(45deg, var(--bg-dark), var(--bg-light), var(--primary-dark), var(--bg-light));
+            background: linear-gradient(45deg, #000000, #1a1a1a, #000000, #1a1a1a);
             background-size: 400% 400%;
             animation: gradientShift 20s ease infinite;
             will-change: background-position;
         }
-
+        
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-
-        /* Floating Particles - Reduced for performance */
+        
+        /* Floating Particles - Disabled for B&W theme */
         .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-            display: none; /* Hidden by default for performance */
+            display: none;
         }
-
-        .performance-mode .particles {
-            display: block;
-        }
-
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: rgba(139, 0, 0, 0.4);
-            border-radius: 50%;
-            animation: float 20s infinite linear;
-            will-change: transform, opacity;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(100px);
-                opacity: 0;
-            }
-        }
-
-        /* Header Styles - Responsive */
+        
+        /* Header Styles - B&W */
         header {
             padding: 15px 20px;
             display: flex;
@@ -161,24 +106,20 @@
             align-items: center;
             border-bottom: 1px solid var(--border);
             backdrop-filter: blur(15px);
-            background: rgba(26, 26, 26, 0.9);
+            background: rgba(0, 0, 0, 0.9);
             position: sticky;
             top: 0;
             z-index: 100;
             transition: all var(--transition-speed) ease;
             height: var(--header-height);
         }
-
-        .light-theme header {
-            background: rgba(255, 255, 255, 0.9);
-        }
-
+        
         .logo {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-
+        
         .logo-icon {
             width: 50px;
             height: 50px;
@@ -187,13 +128,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
             animation: pulse 2s infinite;
             position: relative;
             overflow: hidden;
             flex-shrink: 0;
         }
-
+        
         .logo-icon::before {
             content: '';
             position: absolute;
@@ -205,18 +146,18 @@
             transform: rotate(45deg);
             animation: shine 3s infinite;
         }
-
+        
         @keyframes shine {
             0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
             100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
-
+        
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(139, 0, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0.7); }
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
         }
-
+        
         .logo h1 {
             font-size: 2rem;
             font-weight: 700;
@@ -225,28 +166,28 @@
             -webkit-text-fill-color: transparent;
             letter-spacing: -1px;
         }
-
+        
         .tagline {
             font-size: 0.9rem;
             color: var(--text-secondary);
             margin-top: -5px;
         }
-
-        /* Navigation - Responsive */
+        
+        /* Navigation - B&W */
         nav {
             position: relative;
         }
-
+        
         nav ul {
             display: flex;
             list-style: none;
             gap: 15px;
         }
-
+        
         nav li {
             position: relative;
         }
-
+        
         nav a {
             color: var(--text-secondary);
             text-decoration: none;
@@ -259,35 +200,12 @@
             border-radius: 8px;
             font-size: 0.9rem;
         }
-
+        
         nav a:hover {
             color: var(--text-primary);
-            background: rgba(139, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.1);
         }
-
-        /* Theme Toggle */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            padding: 8px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: all var(--transition-speed) ease;
-            font-size: 0.9rem;
-        }
-
-        .theme-toggle:hover {
-            background: var(--primary);
-            transform: scale(1.05);
-        }
-
+        
         /* Mobile Menu Toggle */
         .mobile-menu-toggle {
             display: none;
@@ -298,8 +216,8 @@
             cursor: pointer;
             padding: 5px;
         }
-
-        /* Dropdown Menu Styles - Touch Friendly */
+        
+        /* Dropdown Menu Styles - B&W */
         .dropdown {
             position: absolute;
             top: 100%;
@@ -316,7 +234,7 @@
             z-index: 1000;
             margin-top: 5px;
         }
-
+        
         nav li:hover .dropdown,
         nav li:focus-within .dropdown,
         nav li .dropdown:focus-within {
@@ -324,7 +242,7 @@
             visibility: visible;
             transform: translateY(0);
         }
-
+        
         .dropdown-item {
             display: flex;
             align-items: center;
@@ -338,24 +256,24 @@
             cursor: pointer;
             font-size: 0.9rem;
         }
-
+        
         .dropdown-item:hover {
-            background: rgba(139, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             color: var(--text-primary);
         }
-
+        
         .dropdown-item i {
             width: 20px;
             text-align: center;
             color: var(--primary);
         }
-
+        
         .dropdown-divider {
             height: 1px;
             background: var(--border);
             margin: 8px 16px;
         }
-
+        
         /* Main Content */
         main {
             flex: 1;
@@ -369,44 +287,43 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
-        /* Search Container - Responsive */
+        
+        /* Search Container - Red Accent */
         .search-container {
             width: 100%;
             margin-top: 20px;
             position: relative;
         }
-
+        
         .search-box {
             position: relative;
             margin-bottom: 25px;
         }
-
+        
         .search-input-wrapper {
             position: relative;
             display: flex;
             align-items: center;
         }
-
+        
         .search-input {
             width: 100%;
             padding: 18px 60px 18px 20px;
             border-radius: 50px;
-            border: 2px solid var(--border);
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
+            border: 2px solid var(--primary);
+            background: rgba(0, 0, 0, 0.7);
             color: var(--text-primary);
             font-size: 1rem;
             outline: none;
             transition: all var(--transition-speed);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
-
+        
         .search-input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.5);
         }
-
+        
         .search-actions {
             position: absolute;
             right: 10px;
@@ -415,8 +332,8 @@
             display: flex;
             gap: 10px;
         }
-
-        .voice-btn, .search-btn, .clear-btn, .theme-btn {
+        
+        .voice-btn, .search-btn, .clear-btn {
             background: var(--primary);
             border: none;
             border-radius: 50%;
@@ -431,79 +348,32 @@
             justify-content: center;
             flex-shrink: 0;
         }
-
+        
         .voice-btn {
             background: var(--secondary);
         }
-
+        
         .clear-btn {
             background: var(--warning);
             display: none;
         }
-
-        .theme-btn {
-            background: var(--accent);
-        }
-
-        .voice-btn:hover, .search-btn:hover, .clear-btn:hover, .theme-btn:hover {
+        
+        .voice-btn:hover, .search-btn:hover, .clear-btn:hover {
             transform: scale(1.1);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-
+        
         .voice-btn.listening {
             animation: listening 1.5s infinite;
             background: var(--red-light);
         }
-
+        
         @keyframes listening {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.2); }
         }
-
-        /* Search Suggestions - Touch Optimized */
-        .search-suggestions {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--bg-light);
-            border: 1px solid var(--border);
-            border-radius: var(--border-radius);
-            margin-top: 10px;
-            max-height: 300px;
-            overflow-y: auto;
-            display: none;
-            z-index: 100;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .suggestion-item {
-            padding: 12px 20px;
-            cursor: pointer;
-            transition: background 0.2s;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .suggestion-item:last-child {
-            border-bottom: none;
-        }
-
-        .suggestion-item:hover {
-            background: rgba(139, 0, 0, 0.1);
-        }
-
-        .suggestion-item .title {
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-
-        .suggestion-item .description {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-top: 4px;
-        }
-
-        /* Safety Filters - Responsive */
+        
+        /* Safety Filters - B&W */
         .safety-filters {
             display: flex;
             justify-content: center;
@@ -511,7 +381,7 @@
             margin-bottom: 30px;
             flex-wrap: wrap;
         }
-
+        
         .filter-btn {
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -526,20 +396,20 @@
             gap: 8px;
             white-space: nowrap;
         }
-
+        
         .filter-btn:hover {
-            background: rgba(139, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             border-color: var(--primary);
             color: var(--text-primary);
         }
-
+        
         .filter-btn.active {
             background: var(--primary);
             border-color: var(--primary);
             color: white;
         }
-
-        /* Safety Indicator */
+        
+        /* Safety Indicator - B&W */
         .safety-indicator {
             position: absolute;
             left: 20px;
@@ -548,33 +418,33 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(139, 0, 0, 0.2);
+            background: rgba(255, 0, 0, 0.2);
             padding: 5px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
             color: #ffffff;
-            border: 1px solid rgba(139, 0, 0, 0.3);
+            border: 1px solid rgba(255, 0, 0, 0.3);
         }
-
+        
         .safety-indicator.moderate {
-            background: rgba(160, 82, 45, 0.2);
+            background: rgba(255, 0, 0, 0.2);
             color: #ffffff;
-            border-color: rgba(160, 82, 45, 0.3);
+            border-color: rgba(255, 0, 0, 0.3);
         }
-
+        
         .safety-indicator.high {
-            background: rgba(139, 0, 0, 0.3);
+            background: rgba(255, 0, 0, 0.3);
             color: #ffffff;
-            border-color: rgba(139, 0, 0, 0.5);
+            border-color: rgba(255, 0, 0, 0.5);
         }
-
-        /* Trending Searches - Responsive */
+        
+        /* Trending Searches - B&W */
         .trending-section {
             width: 100%;
             margin-top: 40px;
             display: none;
         }
-
+        
         .trending-header {
             display: flex;
             align-items: center;
@@ -582,13 +452,13 @@
             margin-bottom: 20px;
             color: var(--text-secondary);
         }
-
+        
         .trending-list {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
-
+        
         .trending-item {
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -601,15 +471,15 @@
             gap: 8px;
             font-size: 0.9rem;
         }
-
+        
         .trending-item:hover {
-            background: rgba(139, 0, 0, 0.1);
-            border-color: var(--secondary);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
             transform: translateY(-3px);
         }
-
+        
         .trending-number {
-            background: var(--secondary);
+            background: var(--primary);
             color: white;
             width: 24px;
             height: 24px;
@@ -621,20 +491,20 @@
             font-weight: bold;
             flex-shrink: 0;
         }
-
-        /* Search Results - Responsive */
+        
+        /* Search Results - B&W */
         .search-results-container {
             width: 100%;
             margin-top: 30px;
             display: none;
             animation: fadeIn 0.5s ease-in-out;
         }
-
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
+        
         .results-header {
             display: flex;
             justify-content: space-between;
@@ -644,18 +514,18 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-
+        
         .results-info {
             color: var(--text-secondary);
             font-size: 1rem;
         }
-
+        
         .results-stats {
             display: flex;
             gap: 20px;
             align-items: center;
         }
-
+        
         .stat-item {
             display: flex;
             align-items: center;
@@ -663,16 +533,16 @@
             color: var(--text-secondary);
             font-size: 0.9rem;
         }
-
+        
         .stat-item i {
             color: var(--primary);
         }
-
+        
         .results-grid {
             display: grid;
             gap: 20px;
         }
-
+        
         .result-item {
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -684,14 +554,14 @@
             gap: 15px;
             align-items: start;
         }
-
+        
         .result-item:hover {
-            background: rgba(139, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             border-color: var(--primary);
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
-
+        
         .result-thumbnail {
             width: 100px;
             height: 75px;
@@ -706,17 +576,17 @@
             flex-shrink: 0;
             overflow: hidden;
         }
-
+        
         .result-thumbnail img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-
+        
         .result-content {
             flex: 1;
         }
-
+        
         .result-title {
             color: var(--text-primary);
             font-size: 1.1rem;
@@ -726,11 +596,11 @@
             align-items: center;
             gap: 10px;
         }
-
+        
         .result-title:hover {
             text-decoration: underline;
         }
-
+        
         .result-url {
             color: var(--text-secondary);
             font-size: 0.85rem;
@@ -740,40 +610,40 @@
             gap: 8px;
             word-break: break-all;
         }
-
+        
         .result-description {
             color: var(--text-secondary);
             line-height: 1.5;
             margin-bottom: 15px;
             font-size: 0.9rem;
         }
-
+        
         .result-meta {
             display: flex;
             gap: 10px;
             align-items: center;
             flex-wrap: wrap;
         }
-
+        
         .safety-badge {
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            background: rgba(139, 0, 0, 0.2);
+            background: rgba(255, 0, 0, 0.2);
             color: #ffffff;
             padding: 4px 10px;
             border-radius: 12px;
             font-size: 0.75rem;
-            border: 1px solid rgba(139, 0, 0, 0.3);
+            border: 1px solid rgba(255, 0, 0, 0.3);
             white-space: nowrap;
         }
-
+        
         .safety-badge.moderate {
-            background: rgba(160, 82, 45, 0.2);
+            background: rgba(255, 0, 0, 0.2);
             color: #ffffff;
-            border-color: rgba(160, 82, 45, 0.3);
+            border-color: rgba(255, 0, 0, 0.3);
         }
-
+        
         .result-date {
             color: var(--text-secondary);
             font-size: 0.8rem;
@@ -781,13 +651,13 @@
             align-items: center;
             gap: 5px;
         }
-
+        
         .result-actions {
             display: flex;
             gap: 8px;
             margin-left: auto;
         }
-
+        
         .action-btn {
             background: transparent;
             border: 1px solid var(--border);
@@ -802,14 +672,14 @@
             transition: all var(--transition-speed);
             flex-shrink: 0;
         }
-
+        
         .action-btn:hover {
             background: var(--primary);
             border-color: var(--primary);
             color: white;
         }
-
-        /* Features Grid - Responsive */
+        
+        /* Features Grid - B&W */
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -817,7 +687,7 @@
             width: 100%;
             margin-top: 40px;
         }
-
+        
         .feature-card {
             background: var(--card-bg);
             border-radius: var(--border-radius);
@@ -828,7 +698,7 @@
             position: relative;
             overflow: hidden;
         }
-
+        
         .feature-card::before {
             content: '';
             position: absolute;
@@ -840,17 +710,17 @@
             transform: scaleX(0);
             transition: transform var(--transition-speed);
         }
-
+        
         .feature-card:hover::before {
             transform: scaleX(1);
         }
-
+        
         .feature-card:hover {
             transform: translateY(-10px);
-            background: rgba(139, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
-
+        
         .feature-icon {
             font-size: 2.5rem;
             margin-bottom: 15px;
@@ -858,32 +728,32 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
+        
         .feature-card h3 {
             margin-bottom: 10px;
             color: var(--text-primary);
             font-size: 1.2rem;
         }
-
+        
         .feature-card p {
             color: var(--text-secondary);
             line-height: 1.5;
             font-size: 0.9rem;
         }
-
-        /* Footer - Responsive */
+        
+        /* Footer - B&W */
         footer {
             padding: 20px;
             text-align: center;
             border-top: 1px solid var(--border);
             color: var(--text-secondary);
             font-size: 0.85rem;
-            background: rgba(26, 26, 26, 0.5);
+            background: rgba(0, 0, 0, 0.5);
             position: relative;
             z-index: 1;
             width: 100%;
         }
-
+        
         .footer-links {
             display: flex;
             justify-content: center;
@@ -891,28 +761,28 @@
             margin-bottom: 10px;
             flex-wrap: wrap;
         }
-
+        
         .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
             transition: color var(--transition-speed);
             font-size: 0.85rem;
         }
-
+        
         .footer-links a:hover {
             color: var(--text-primary);
         }
-
-        /* Notification - Mobile Optimized */
+        
+        /* Notification - Fixed for B&W */
         .notification {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: var(--primary);
-            color: white;
+            background: rgba(255, 255, 255, 0.95);
+            color: #000000;
             padding: 15px 20px;
             border-radius: var(--border-radius);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
             transform: translateX(400px);
             transition: transform 0.5s;
             z-index: 10000;
@@ -921,25 +791,19 @@
             gap: 10px;
             max-width: 350px;
             font-size: 0.9rem;
+            border: 1px solid #cccccc;
         }
-
+        
         .notification.show {
             transform: translateX(0);
         }
-
-        .notification.success {
-            background: var(--success);
+        
+        .notification i {
+            color: var(--primary);
+            font-size: 1.2rem;
         }
-
-        .notification.warning {
-            background: var(--warning);
-        }
-
-        .notification.error {
-            background: var(--red-light);
-        }
-
-        /* Loading Spinner */
+        
+        /* Loading Spinner - B&W */
         .loading-spinner {
             display: none;
             width: 40px;
@@ -950,12 +814,12 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-
+        
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-
-        /* Settings Modal - Responsive */
+        
+        /* Settings Modal - B&W */
         .settings-modal {
             position: fixed;
             top: 0;
@@ -972,12 +836,12 @@
             transition: opacity var(--transition-speed);
             padding: 20px;
         }
-
+        
         .settings-modal.show {
             display: flex;
             opacity: 1;
         }
-
+        
         .settings-container {
             background: var(--bg-light);
             border: 1px solid var(--border);
@@ -990,11 +854,11 @@
             transform: scale(0.9);
             transition: transform var(--transition-speed);
         }
-
+        
         .settings-modal.show .settings-container {
             transform: scale(1);
         }
-
+        
         .settings-header {
             padding: 20px;
             border-bottom: 1px solid var(--border);
@@ -1002,12 +866,12 @@
             justify-content: space-between;
             align-items: center;
         }
-
+        
         .settings-header h2 {
             font-size: 1.5rem;
             color: var(--text-primary);
         }
-
+        
         .close-settings {
             background: transparent;
             border: none;
@@ -1022,466 +886,12 @@
             align-items: center;
             justify-content: center;
         }
-
+        
         .close-settings:hover {
-            color: var(--red-light);
-            background: rgba(220, 20, 60, 0.1);
-        }
-
-        .settings-content {
-            padding: 20px;
-        }
-
-        .settings-section {
-            margin-bottom: 30px;
-        }
-
-        .settings-section:last-child {
-            margin-bottom: 0;
-        }
-
-        .section-title {
-            font-size: 1.1rem;
-            color: var(--text-primary);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title i {
             color: var(--primary);
+            background: rgba(255, 0, 0, 0.1);
         }
-
-        .setting-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(139, 0, 0, 0.1);
-        }
-
-        .setting-item:last-child {
-            border-bottom: none;
-        }
-
-        .setting-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .setting-label strong {
-            color: var(--text-primary);
-            display: block;
-            margin-bottom: 5px;
-            font-size: 1rem;
-        }
-
-        /* Toggle Switch */
-        .toggle-switch {
-            position: relative;
-            width: 50px;
-            height: 26px;
-            background: var(--border);
-            border-radius: 13px;
-            cursor: pointer;
-            transition: background var(--transition-speed);
-        }
-
-        .toggle-switch.active {
-            background: var(--primary);
-        }
-
-        .toggle-switch::after {
-            content: '';
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 20px;
-            height: 20px;
-            background: white;
-            border-radius: 50%;
-            transition: transform var(--transition-speed);
-        }
-
-        .toggle-switch.active::after {
-            transform: translateX(24px);
-        }
-
-        /* Radio Buttons */
-        .radio-group {
-            display: flex;
-            gap: 15px;
-        }
-
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-
-        .radio-option input[type="radio"] {
-            appearance: none;
-            width: 18px;
-            height: 18px;
-            border: 2px solid var(--border);
-            border-radius: 50%;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .radio-option input[type="radio"]:checked::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 8px;
-            height: 8px;
-            background: var(--primary);
-            border-radius: 50%;
-        }
-
-        /* Select Dropdown */
-        .select-wrapper {
-            position: relative;
-        }
-
-        .select-wrapper select {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            padding: 8px 35px 8px 12px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            appearance: none;
-            outline: none;
-            width: 100%;
-        }
-
-        .select-wrapper::after {
-            content: '\f107';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
-            color: var(--text-secondary);
-        }
-
-        /* Settings Actions */
-        .settings-actions {
-            padding: 15px 20px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: flex-end;
-            gap: 15px;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all var(--transition-speed);
-            border: none;
-        }
-
-        .btn-cancel {
-            background: transparent;
-            color: var(--text-secondary);
-            border: 1px solid var(--border);
-        }
-
-        .btn-cancel:hover {
-            background: rgba(139, 0, 0, 0.1);
-        }
-
-        .btn-save {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-save:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        /* History Modal - Responsive */
-        .history-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            opacity: 0;
-            transition: opacity var(--transition-speed);
-            padding: 20px;
-        }
-
-        .history-modal.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .history-container {
-            background: var(--bg-light);
-            border: 1px solid var(--border);
-            border-radius: var(--border-radius);
-            width: 100%;
-            max-width: 700px;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            transform: scale(0.9);
-            transition: transform var(--transition-speed);
-        }
-
-        .history-modal.show .history-container {
-            transform: scale(1);
-        }
-
-        .history-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .history-header h2 {
-            font-size: 1.4rem;
-            color: var(--text-primary);
-        }
-
-        .history-content {
-            padding: 15px;
-        }
-
-        .history-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            transition: all var(--transition-speed);
-        }
-
-        .history-item:hover {
-            background: rgba(139, 0, 0, 0.1);
-            transform: translateX(5px);
-        }
-
-        .history-query {
-            color: var(--text-primary);
-            font-weight: 500;
-            cursor: pointer;
-            word-break: break-word;
-            flex: 1;
-            margin-right: 10px;
-        }
-
-        .history-query:hover {
-            color: var(--primary);
-        }
-
-        .history-time {
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            white-space: nowrap;
-        }
-
-        .history-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .history-btn {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all var(--transition-speed);
-            font-size: 0.9rem;
-        }
-
-        .history-btn:hover {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: white;
-        }
-
-        .empty-history {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-secondary);
-        }
-
-        .empty-history i {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            opacity: 0.5;
-        }
-
-        /* Help Section */
-        .help-section {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .help-item {
-            margin-bottom: 20px;
-        }
-
-        .help-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .help-question {
-            color: var(--text-primary);
-            font-weight: 600;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .help-question i {
-            color: var(--primary);
-        }
-
-        .help-answer {
-            color: var(--text-secondary);
-            line-height: 1.5;
-            padding-left: 30px;
-            font-size: 0.9rem;
-        }
-
-        /* Keyboard Shortcuts */
-        .shortcuts-grid {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .shortcut-key {
-            background: var(--primary);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-family: monospace;
-            font-size: 0.9rem;
-            text-align: center;
-        }
-
-        .shortcut-desc {
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            font-size: 0.9rem;
-        }
-
-        /* Advanced Search Panel */
-        .advanced-search {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--border-radius);
-            padding: 15px;
-            margin-top: 15px;
-            display: none;
-        }
-
-        .advanced-search.show {
-            display: block;
-        }
-
-        .advanced-search h3 {
-            color: var(--text-primary);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.1rem;
-        }
-
-        .search-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .search-option {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .search-option label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .search-option input, .search-option select {
-            background: var(--bg-light);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            outline: none;
-            width: 100%;
-        }
-
-        /* API Key Input */
-        .api-key-section {
-            margin-top: 20px;
-            padding: 15px;
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            border: 1px solid var(--border);
-        }
-
-        .api-key-input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background: var(--bg-light);
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            margin-top: 10px;
-        }
-
-        .api-key-info {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-top: 10px;
-        }
-
+        
         /* Responsive Design */
         @media (max-width: 992px) {
             .features {
@@ -1497,7 +907,7 @@
                 height: 150px;
             }
         }
-
+        
         @media (max-width: 768px) {
             :root {
                 --header-height: 60px;
@@ -1564,11 +974,6 @@
                 padding: 8px 10px;
                 margin: 2px 0;
                 font-size: 0.85rem;
-            }
-            
-            .theme-toggle {
-                position: static;
-                margin-top: 10px;
             }
             
             .search-input {
@@ -1672,24 +1077,8 @@
                 align-items: flex-start;
                 gap: 10px;
             }
-            
-            .history-container {
-                width: 95%;
-                max-height: 90vh;
-            }
-            
-            .shortcuts-grid {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-            
-            .notification {
-                right: 10px;
-                left: 10px;
-                max-width: none;
-            }
         }
-
+        
         @media (max-width: 480px) {
             html {
                 font-size: 14px;
@@ -1716,7 +1105,7 @@
                 padding: 12px 50px 12px 12px;
             }
             
-            .voice-btn, .search-btn, .clear-btn, .theme-btn {
+            .voice-btn, .search-btn, .clear-btn {
                 width: 35px;
                 height: 35px;
             }
@@ -1739,8 +1128,14 @@
             .footer-links a {
                 font-size: 0.8rem;
             }
+            
+            .notification {
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
         }
-
+        
         /* Accessibility improvements */
         .sr-only {
             position: absolute;
@@ -1753,32 +1148,32 @@
             white-space: nowrap;
             border: 0;
         }
-
+        
         /* Focus styles for better accessibility */
         button:focus, input:focus, select:focus, a:focus {
             outline: 2px solid var(--primary);
             outline-offset: 2px;
         }
-
+        
         /* Loading animation */
         .skeleton-loader {
             background: linear-gradient(90deg, var(--border) 25%, var(--primary) 50%, var(--border) 75%);
             background-size: 200% 100%;
             animation: loading 1.5s infinite;
         }
-
+        
         @keyframes loading {
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
-
+        
         /* Performance optimizations */
         .hardware-accelerated {
             transform: translateZ(0);
             backface-visibility: hidden;
             perspective: 1000px;
         }
-
+        
         /* Print styles */
         @media print {
             body {
@@ -1786,7 +1181,7 @@
                 color: black;
             }
             
-            header, .theme-toggle, .safety-filters, .search-actions, 
+            header, .safety-filters, .search-actions, 
             .result-actions, .footer-links, .notification {
                 display: none !important;
             }
@@ -1811,11 +1206,10 @@
     
     <!-- Skip to content link for accessibility -->
     <a href="#main-content" class="sr-only">Skip to main content</a>
-
     <header>
         <div class="logo">
             <div class="logo-icon">
-                <i class="fas fa-crow"></i>
+                <i class="fas fa-search"></i>
             </div>
             <div>
                 <h1>Red Crow</h1>
@@ -1898,12 +1292,6 @@
                     </a>
                 </li>
                 <li><a href="#" id="settingsBtn"><i class="fas fa-cog"></i> Settings</a></li>
-                <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                        <i class="fas fa-moon"></i>
-                        <span>Dark</span>
-                    </button>
-                </li>
             </ul>
         </nav>
     </header>
@@ -1932,53 +1320,6 @@
                 <div class="search-suggestions" id="searchSuggestions"></div>
             </div>
             
-            <!-- Advanced Search Panel -->
-            <div class="advanced-search" id="advancedSearch">
-                <h3><i class="fas fa-sliders-h"></i> Advanced Search Options</h3>
-                <div class="search-options">
-                    <div class="search-option">
-                        <label for="searchDate">Date Range</label>
-                        <select id="searchDate">
-                            <option value="anytime">Anytime</option>
-                            <option value="day">Past 24 hours</option>
-                            <option value="week">Past week</option>
-                            <option value="month">Past month</option>
-                            <option value="year">Past year</option>
-                        </select>
-                    </div>
-                    <div class="search-option">
-                        <label for="searchLanguage">Language</label>
-                        <select id="searchLanguage">
-                            <option value="en">English</option>
-                            <option value="es">Spanish</option>
-                            <option value="fr">French</option>
-                            <option value="de">German</option>
-                            <option value="zh">Chinese</option>
-                        </select>
-                    </div>
-                    <div class="search-option">
-                        <label for="searchRegion">Region</label>
-                        <select id="searchRegion">
-                            <option value="all">All regions</option>
-                            <option value="us">United States</option>
-                            <option value="uk">United Kingdom</option>
-                            <option value="ca">Canada</option>
-                            <option value="au">Australia</option>
-                        </select>
-                    </div>
-                    <div class="search-option">
-                        <label for="searchType">Content Type</label>
-                        <select id="searchType">
-                            <option value="all">All content</option>
-                            <option value="articles">Articles</option>
-                            <option value="videos">Videos</option>
-                            <option value="images">Images</option>
-                            <option value="news">News</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            
             <div class="safety-filters">
                 <button class="filter-btn active" data-filter="all">
                     <i class="fas fa-globe"></i> All Results
@@ -1997,9 +1338,6 @@
                 </button>
                 <button class="filter-btn" data-filter="videos">
                     <i class="fas fa-video"></i> Videos
-                </button>
-                <button class="filter-btn" onclick="toggleAdvancedSearch()">
-                    <i class="fas fa-sliders-h"></i> Advanced
                 </button>
             </div>
         </div>
@@ -2060,7 +1398,7 @@
         <div class="features" id="featuresSection">
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-crow"></i>
+                    <i class="fas fa-search"></i>
                 </div>
                 <h3>Intelligent Search</h3>
                 <p>Advanced AI-powered search that understands context and delivers relevant results with unmatched accuracy.</p>
@@ -2112,288 +1450,7 @@
             </div>
             
             <div class="settings-content">
-                <!-- API Key Section -->
-                <div class="settings-section">
-                    <h3 class="section-title">
-                        <i class="fas fa-key"></i>
-                        API Configuration
-                    </h3>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <strong>Google Custom Search API Key</strong>
-                            <span>Enter your Google API key for enhanced search results</span>
-                        </div>
-                        <div style="width: 100%;">
-                            <input type="password" class="api-key-input" id="googleApiKey" placeholder="Enter your Google API key">
-                            <div class="api-key-info">
-                                Get your API key from the <a href="https://developers.google.com/custom-search/v1/introduction" target="_blank" style="color: var(--accent);">Google Cloud Console</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <strong>Search Engine ID</strong>
-                            <span>Enter your Custom Search Engine ID</span>
-                        </div>
-                        <div style="width: 100%;">
-                            <input type="text" class="api-key-input" id="searchEngineId" placeholder="Enter your Search Engine ID">
-                            <div class="api-key-info">
-                                Create a custom search engine at <a href="https://programmablesearchengine.google.com/" target="_blank" style="color: var(--accent);">Programmable Search Engine</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Safety Settings -->
-                <div class="settings-section">
-                    <h3 class="section-title">
-                        <i class="fas fa-shield-alt"></i>
-                        Safety Settings
-                    </h3>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <strong>Safe Search</strong>
-                            <span>Filter explicit results</span>
-                        </div>
-                        <div class="toggle-switch active" id="safeSearchToggle"></div>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <strong>Family Filter</strong>
-                            <span>Extra protection for children</span>
-                        </div>
-                        <div class="toggle-switch" id="familyFilterToggle"></div>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <strong>Block Malicious Sites</strong>
-                            <span>Automatically block known dangerous sites</span>
-                        </div>
-                        <div class="toggle-switch active" id="blockMaliciousToggle"></div>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <strong>Safety Level</strong>
-                            <span>Choose your safety preference</span>
-                        </div>
-                        <div class="select-wrapper">
-                            <select id="safetyLevelSelect">
-                                <option value="strict">Strict</option>
-                                <option value="moderate" selected>Moderate</option>
-                                <option value="relaxed">Relaxed</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Privacy Settings -->
-                <div class="settings-section">
-                    <h3 class="section-title">
-                        <i class="fas fa-user-secret"></i>
-                        Privacy Settings
-                    </h3>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <strong>Search History</strong>
-                            <span>Save your search history</span>
-                        </div>
-                        <div class="toggle-switch" id="searchHistoryToggle"></div>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <strong>Personalized Results</strong>
-                            <span>Use location for better results</span>
-                        </div>
-                        <div class="toggle-switch" id="personalizedToggle"></div>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <strong>Anonymous Mode</strong>
-                            <span>Browse without leaving traces</span>
-                        </div>
-                        <div class="toggle-switch" id="anonymousToggle"></div>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <strong>Cookie Policy</strong>
-                            <span>Manage cookie preferences</span>
-                        </div>
-                        <div class="select-wrapper">
-                            <select id="cookiePolicySelect">
-                                <option value="essential">Essential Only</option>
-                                <option value="all" selected>Accept All</option>
-                                <option value="custom">Custom</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Display Settings -->
-                <div class="settings-section">
-                    <h3 class="section-title">
-                        <i class="fas fa-display"></i>
-                        Display Settings
-                    </h3>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <strong>Results Per Page</strong>
-                            <span>Number of search results to display</span>
-                        </div>
-                        <div class="select-wrapper">
-                            <select id="resultsPerPageSelect">
-                                <option value="10">10</option>
-                                <option value="20" selected>20</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <strong>Open Links In</strong>
-                            <span>Choose how links open</span>
-                        </div>
-                        <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="radio" name="links" value="new" checked>
-                                <span>New Tab</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="links" value="current">
-                                <span>Current Tab</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <strong>Performance Mode</strong>
-                            <span>Reduce animations for better performance</span>
-                        </div>
-                        <div class="toggle-switch" id="performanceToggle"></div>
-                    </div>
-                </div>
-                
-                <!-- Advanced Settings -->
-                <div class="settings-section">
-                    <h3 class="section-title">
-                        <i class="fas fa-cogs"></i>
-                        Advanced Settings
-                    </h3>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <strong>Experimental Features</strong>
-                            <span>Enable beta features</span>
-                        </div>
-                        <div class="toggle-switch" id="experimentalToggle"></div>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <strong>Debug Mode</strong>
-                            <span>Show technical information</span>
-                        </div>
-                        <div class="toggle-switch" id="debugToggle"></div>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <strong>Search Region</strong>
-                            <span>Preferred search region</span>
-                        </div>
-                        <div class="select-wrapper">
-                            <select id="searchRegionSelect">
-                                <option value="auto">Auto-detect</option>
-                                <option value="us">United States</option>
-                                <option value="uk">United Kingdom</option>
-                                <option value="ca">Canada</option>
-                                <option value="au">Australia</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Help Section -->
-                <div class="settings-section">
-                    <h3 class="section-title">
-                        <i class="fas fa-question-circle"></i>
-                        Help & Support
-                    </h3>
-                    
-                    <div class="help-section">
-                        <div class="help-item">
-                            <div class="help-question">
-                                <i class="fas fa-keyboard"></i> Keyboard Shortcuts
-                            </div>
-                            <div class="help-answer">
-                                <div class="shortcuts-grid">
-                                    <div class="shortcut-key">/</div>
-                                    <div class="shortcut-desc">Focus search box</div>
-                                    <div class="shortcut-key">Ctrl + K</div>
-                                    <div class="shortcut-desc">Open search</div>
-                                    <div class="shortcut-key">Esc</div>
-                                    <div class="shortcut-desc">Clear search</div>
-                                    <div class="shortcut-key">Ctrl + H</div>
-                                    <div class="shortcut-desc">Show history</div>
-                                    <div class="shortcut-key">Ctrl + /</div>
-                                    <div class="shortcut-desc">Advanced search</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="help-item">
-                            <div class="help-question">
-                                <i class="fas fa-shield-alt"></i> Safety Features
-                            </div>
-                            <div class="help-answer">
-                                Red Crow automatically filters harmful content, blocks malicious sites, and provides family-safe browsing. You can adjust safety levels in the Safety Settings.
-                            </div>
-                        </div>
-                        
-                        <div class="help-item">
-                            <div class="help-question">
-                                <i class="fas fa-user-secret"></i> Privacy Protection
-                            </div>
-                            <div class="help-answer">
-                                We don't track your searches or store personal data. Enable Anonymous Mode for complete privacy while browsing.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="settings-actions">
-                <button class="btn btn-cancel" id="cancelSettings">Cancel</button>
-                <button class="btn btn-save" id="saveSettings">Save Changes</button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- History Modal -->
-    <div class="history-modal" id="historyModal">
-        <div class="history-container">
-            <div class="history-header">
-                <h2>Search History</h2>
-                <button class="close-settings" onclick="closeHistoryModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="history-content" id="historyContent">
-                <!-- History items will be dynamically inserted here -->
+                <!-- Settings content here -->
             </div>
         </div>
     </div>
@@ -2423,34 +1480,8 @@
         const featuresSection = document.getElementById('featuresSection');
         const trendingItems = document.querySelectorAll('.trending-item');
         const searchSuggestions = document.getElementById('searchSuggestions');
-        const themeToggle = document.getElementById('themeToggle');
-        const advancedSearch = document.getElementById('advancedSearch');
         const mobileMenuToggle = document.getElementById('mobileMenuToggle');
         const mainNav = document.getElementById('mainNav');
-        const performanceToggle = document.getElementById('performanceToggle');
-        
-        // Settings elements
-        const settingsBtn = document.getElementById('settingsBtn');
-        const settingsModal = document.getElementById('settingsModal');
-        const closeSettings = document.getElementById('closeSettings');
-        const cancelSettings = document.getElementById('cancelSettings');
-        const saveSettings = document.getElementById('saveSettings');
-        const googleApiKey = document.getElementById('googleApiKey');
-        const searchEngineId = document.getElementById('searchEngineId');
-        
-        // History elements
-        const historyModal = document.getElementById('historyModal');
-        const historyContent = document.getElementById('historyContent');
-        
-        // Toggle switches
-        const safeSearchToggle = document.getElementById('safeSearchToggle');
-        const familyFilterToggle = document.getElementById('familyFilterToggle');
-        const blockMaliciousToggle = document.getElementById('blockMaliciousToggle');
-        const searchHistoryToggle = document.getElementById('searchHistoryToggle');
-        const personalizedToggle = document.getElementById('personalizedToggle');
-        const anonymousToggle = document.getElementById('anonymousToggle');
-        const experimentalToggle = document.getElementById('experimentalToggle');
-        const debugToggle = document.getElementById('debugToggle');
         
         // Global variables
         let searchHistory = [];
@@ -2460,26 +1491,10 @@
         let isListening = false;
         let recognition = null;
         let isMobileMenuOpen = false;
-        let googleApiKeyStored = '';
-        let searchEngineIdStored = '';
         
         // Device detection
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        
-        // Performance optimization: Reduce animations on low-end devices
-        function checkDevicePerformance() {
-            // Simple check for low-end devices
-            const isLowEndDevice = navigator.hardwareConcurrency <= 2 || 
-                                  (navigator.deviceMemory !== undefined && navigator.deviceMemory <= 2);
-            
-            if (isLowEndDevice) {
-                document.body.classList.add('low-end-device');
-                performanceToggle.classList.add('active');
-            }
-            
-            return isLowEndDevice;
-        }
         
         // Initialize Web Speech API
         function initializeSpeechRecognition() {
@@ -2516,32 +1531,6 @@
             }
         }
         
-        // Create floating particles (conditionally for performance)
-        function createParticles() {
-            const isLowEnd = checkDevicePerformance();
-            if (isLowEnd) return;
-            
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = isMobile ? 20 : 50; // Reduced for mobile
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle hardware-accelerated';
-                
-                // Random position
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (Math.random() * 20 + 20) + 's';
-                
-                particlesContainer.appendChild(particle);
-            }
-            
-            // Show particles only if performance mode is off
-            if (!performanceToggle.classList.contains('active')) {
-                document.body.classList.add('performance-mode');
-            }
-        }
-        
         // Mobile menu toggle
         mobileMenuToggle.addEventListener('click', () => {
             isMobileMenuOpen = !isMobileMenuOpen;
@@ -2556,64 +1545,16 @@
         
         // Initialize
         window.addEventListener('load', () => {
-            createParticles();
             initializeSpeechRecognition();
-            loadSettings();
             loadSearchHistory();
             setupKeyboardShortcuts();
-            setupThemeToggle();
-            setupPerformanceToggle();
             setupTouchEvents();
-            setupLazyLoading();
-            
-            // Check for saved theme
-            const savedTheme = localStorage.getItem('redCrowTheme');
-            if (savedTheme === 'light') {
-                document.body.classList.add('light-theme');
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i><span>Light</span>';
-            }
-            
-            // Load API keys
-            googleApiKeyStored = localStorage.getItem('googleApiKey') || '';
-            searchEngineIdStored = localStorage.getItem('searchEngineId') || '';
-            
-            if (googleApiKeyStored) {
-                googleApiKey.value = googleApiKeyStored;
-            }
-            
-            if (searchEngineIdStored) {
-                searchEngineId.value = searchEngineIdStored;
-            }
             
             // Show welcome message
             setTimeout(() => {
                 showNotification("Welcome to Red Crow! Your safety is our priority.", 'success');
             }, 1000);
         });
-        
-        // Performance toggle
-        function setupPerformanceToggle() {
-            performanceToggle.addEventListener('click', () => {
-                performanceToggle.classList.toggle('active');
-                const isActive = performanceToggle.classList.contains('active');
-                
-                if (isActive) {
-                    // Disable animations and effects
-                    document.body.classList.remove('performance-mode');
-                    document.querySelectorAll('.animated-bg, .particles, .logo-icon').forEach(el => {
-                        el.style.display = 'none';
-                    });
-                } else {
-                    // Enable animations and effects
-                    document.body.classList.add('performance-mode');
-                    document.querySelectorAll('.animated-bg, .particles, .logo-icon').forEach(el => {
-                        el.style.display = '';
-                    });
-                }
-                
-                showNotification(`Performance mode ${isActive ? 'enabled' : 'disabled'}`, 'success');
-            });
-        }
         
         // Touch event support
         function setupTouchEvents() {
@@ -2641,45 +1582,7 @@
             });
         }
         
-        // Lazy loading for images
-        function setupLazyLoading() {
-            if ('IntersectionObserver' in window) {
-                const imageObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const img = entry.target;
-                            img.src = img.dataset.src;
-                            img.classList.remove('lazy');
-                            imageObserver.unobserve(img);
-                        }
-                    });
-                });
-                
-                document.querySelectorAll('img.lazy').forEach(img => {
-                    imageObserver.observe(img);
-                });
-            }
-        }
-        
-        // Theme toggle functionality
-        function setupThemeToggle() {
-            themeToggle.addEventListener('click', () => {
-                document.body.classList.toggle('light-theme');
-                const isLight = document.body.classList.contains('light-theme');
-                
-                if (isLight) {
-                    themeToggle.innerHTML = '<i class="fas fa-sun"></i><span>Light</span>';
-                    localStorage.setItem('redCrowTheme', 'light');
-                } else {
-                    themeToggle.innerHTML = '<i class="fas fa-moon"></i><span>Dark</span>';
-                    localStorage.setItem('redCrowTheme', 'dark');
-                }
-                
-                showNotification(`Switched to ${isLight ? 'light' : 'dark'} theme`, 'success');
-            });
-        }
-        
-        // Enhanced search functionality with Google API
+        // Enhanced search functionality
         async function performSearch() {
             const query = searchInput.value.trim();
             if (!query) return;
@@ -2702,15 +1605,8 @@
             const startTime = performance.now();
             
             try {
-                // Get advanced search options
-                const searchOptions = getAdvancedSearchOptions();
-                
-                // Fetch results from multiple sources
-                const [wikiResults, newsResults, googleResults] = await Promise.allSettled([
-                    searchWikipedia(query, searchOptions),
-                    searchNews(query, searchOptions),
-                    searchGoogle(query, searchOptions)
-                ]);
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 500));
                 
                 const endTime = performance.now();
                 
@@ -2720,36 +1616,32 @@
                 // Update search time
                 searchTime.textContent = `${((endTime - startTime) / 1000).toFixed(2)}s`;
                 
-                // Process results
-                const allResults = [];
+                // Display mock results
+                displaySearchResults(query, [
+                    {
+                        title: `${query} - Wikipedia`,
+                        snippet: `This is a Wikipedia article about ${query}. It contains comprehensive information about the topic.`,
+                        url: `https://en.wikipedia.org/wiki/${query.replace(/ /g, '_')}`,
+                        source: 'Wikipedia',
+                        type: 'article'
+                    },
+                    {
+                        title: `${query} - News Article`,
+                        snippet: `Latest news about ${query}. This article provides up-to-date information on recent developments.`,
+                        url: `https://example.com/news/${query.toLowerCase().replace(/\s+/g, '-')}`,
+                        source: 'News',
+                        type: 'news'
+                    },
+                    {
+                        title: `${query} - Official Website`,
+                        snippet: `Official website for ${query}. Find authoritative information and resources related to this topic.`,
+                        url: `https://${query.toLowerCase().replace(/\s+/g, '')}.com`,
+                        source: 'Web',
+                        type: 'website'
+                    }
+                ]);
                 
-                // Add Wikipedia results
-                if (wikiResults.status === 'fulfilled' && wikiResults.value) {
-                    allResults.push(...wikiResults.value);
-                }
-                
-                // Add news results
-                if (newsResults.status === 'fulfilled' && newsResults.value) {
-                    allResults.push(...newsResults.value);
-                }
-                
-                // Add Google results
-                if (googleResults.status === 'fulfilled' && googleResults.value) {
-                    allResults.push(...googleResults.value);
-                } else if (googleResults.status === 'rejected') {
-                    console.error('Google search error:', googleResults.reason);
-                    // Show a notification about Google API issues
-                    showNotification('Google search unavailable. Configure API keys in settings.', 'warning');
-                }
-                
-                // Display results
-                displaySearchResults(query, allResults);
-                
-                if (allResults.length > 0) {
-                    showNotification(`Found ${allResults.length} results`, 'success');
-                } else {
-                    showNotification('No results found', 'warning');
-                }
+                showNotification(`Found 3 results for "${query}"`, 'success');
             } catch (error) {
                 loadingSpinner.style.display = 'none';
                 showNotification('Error fetching results', 'error');
@@ -2757,353 +1649,63 @@
             }
         }
         
-        // Google Custom Search API integration
-        async function searchGoogle(query, options = {}) {
-            // Check if API keys are available
-            if (!googleApiKeyStored || !searchEngineIdStored) {
-                // Return empty array if API keys are not configured
-                return [];
+        // Display search results
+        function displaySearchResults(query, results) {
+            resultsGrid.innerHTML = '';
+            
+            // Update result count
+            resultCount.textContent = `${results.length} results`;
+            
+            if (results.length === 0) {
+                resultsGrid.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: var(--text-secondary);">
+                        <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <p>No results found for "${query}"</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Try different keywords or check your spelling</p>
+                    </div>
+                `;
+                return;
             }
             
-            const apiUrl = `https://www.googleapis.com/customsearch/v1?key=${googleApiKeyStored}&cx=${searchEngineIdStored}&q=${encodeURIComponent(query)}&num=10`;
-            
-            // Add search parameters based on options
-            const params = new URLSearchParams();
-            
-            // Add language parameter if specified
-            if (options.language && options.language !== 'en') {
-                params.append('lr', `lang_${options.language}`);
-            }
-            
-            // Add safe search based on settings
-            const safeSearchLevel = document.getElementById('safetyLevelSelect')?.value || 'moderate';
-            if (safeSearchLevel === 'strict') {
-                params.append('safe', 'active');
-            } else if (safeSearchLevel === 'moderate') {
-                params.append('safe', 'moderate');
-            } else {
-                params.append('safe', 'off');
-            }
-            
-            // Add region if specified
-            if (options.region && options.region !== 'all') {
-                params.append('gl', options.region);
-            }
-            
-            // Add date range if specified
-            if (options.date && options.date !== 'anytime') {
-                const now = new Date();
-                let dateRestrict = '';
+            results.forEach(result => {
+                const resultItem = document.createElement('div');
+                resultItem.className = 'result-item hardware-accelerated';
                 
-                switch (options.date) {
-                    case 'day':
-                        dateRestrict = 'd1';
-                        break;
-                    case 'week':
-                        dateRestrict = 'w1';
-                        break;
-                    case 'month':
-                        dateRestrict = 'm1';
-                        break;
-                    case 'year':
-                        dateRestrict = 'y1';
-                        break;
-                }
+                resultItem.innerHTML = `
+                    <div class="result-thumbnail">
+                        ${result.type === 'news' ? '<i class="fas fa-newspaper"></i>' :
+                          result.type === 'article' ? '<i class="fas fa-book"></i>' :
+                          '<i class="fas fa-globe"></i>'}
+                    </div>
+                    <div class="result-content">
+                        <div class="result-title" onclick="window.open('${result.url}', '_blank')">${result.title}</div>
+                        <div class="result-url">
+                            <i class="fas fa-link"></i>
+                            ${result.url}
+                        </div>
+                        <div class="result-description">${result.snippet}</div>
+                        <div class="result-meta">
+                            <span class="safety-badge">
+                                <i class="fas fa-${result.source === 'Wikipedia' ? 'shield-alt' : 'check-circle'}"></i>
+                                ${result.source}
+                            </span>
+                            <div class="result-actions">
+                                <button class="action-btn" title="Save" onclick="saveResult('${result.title.replace(/'/g, "\\'")}', '${result.url}')">
+                                    <i class="fas fa-bookmark"></i>
+                                </button>
+                                <button class="action-btn" title="Share" onclick="shareResult('${result.url}')">
+                                    <i class="fas fa-share"></i>
+                                </button>
+                                <button class="action-btn" title="Open in new tab" onclick="window.open('${result.url}', '_blank')">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
                 
-                if (dateRestrict) {
-                    params.append('dateRestrict', dateRestrict);
-                }
-            }
-            
-            // Add content type filter if specified
-            if (options.type && options.type !== 'all') {
-                switch (options.type) {
-                    case 'news':
-                        params.append('tbm', 'nws');
-                        break;
-                    case 'images':
-                        params.append('tbm', 'isch');
-                        break;
-                    case 'videos':
-                        params.append('tbm', 'vid');
-                        break;
-                }
-            }
-            
-            // Build final URL with parameters
-            const finalUrl = `${apiUrl}&${params.toString()}`;
-            
-            try {
-                const response = await fetch(finalUrl);
-                const data = await response.json();
-                
-                if (data.error) {
-                    console.error('Google API error:', data.error);
-                    throw new Error(data.error.message);
-                }
-                
-                if (data.items && data.items.length > 0) {
-                    return data.items.map(item => ({
-                        title: item.title,
-                        snippet: item.snippet || '',
-                        url: item.link,
-                        displayUrl: item.displayLink || '',
-                        type: options.type || 'web',
-                        source: 'Google',
-                        thumbnail: item.pagemap?.cse_thumbnail?.[0]?.src || null,
-                        timestamp: new Date().toISOString()
-                    }));
-                }
-                
-                return [];
-            } catch (error) {
-                console.error('Error fetching Google data:', error);
-                throw error;
-            }
-        }
-        
-        // Get advanced search options
-        function getAdvancedSearchOptions() {
-            return {
-                date: document.getElementById('searchDate')?.value || 'anytime',
-                language: document.getElementById('searchLanguage')?.value || 'en',
-                region: document.getElementById('searchRegion')?.value || 'all',
-                type: document.getElementById('searchType')?.value || 'all'
-            };
-        }
-        
-        // Wikipedia API integration with enhanced options
-        async function searchWikipedia(query, options = {}) {
-            const apiUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=${encodeURIComponent(query)}&srlimit=10&origin=*`;
-            
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                return data.query.search.map(result => ({
-                    ...result,
-                    source: 'Wikipedia',
-                    type: 'article',
-                    url: `https://en.wikipedia.org/wiki/${encodeURIComponent(result.title.replace(/ /g, '_'))}`
-                }));
-            } catch (error) {
-                console.error('Error fetching Wikipedia data:', error);
-                return [];
-            }
-        }
-        
-        // News API integration (simulated)
-        async function searchNews(query, options = {}) {
-            // Simulated news API results
-            const newsSources = [
-                'BBC News', 'CNN', 'Reuters', 'Associated Press', 'The Guardian'
-            ];
-            
-            const newsResults = [];
-            for (let i = 0; i < 5; i++) {
-                newsResults.push({
-                    title: `${query} - Latest News ${i + 1}`,
-                    snippet: `Breaking news about ${query}. This is a simulated news result from ${newsSources[i]}.`,
-                    source: newsSources[i],
-                    type: 'news',
-                    url: `https://example.com/news/${query.toLowerCase().replace(/\s+/g, '-')}-${i + 1}`,
-                    timestamp: new Date().toISOString()
-                });
-            }
-            
-            return newsResults;
-        }
-        
-        // Get Wikipedia page thumbnail
-        async function getPageThumbnail(pageId) {
-            const thumbnailUrl = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&pageids=${pageId}&pithumbsize=120&origin=*`;
-            
-            try {
-                const response = await fetch(thumbnailUrl);
-                const data = await response.json();
-                const page = data.query.pages[pageId];
-                return page.thumbnail ? page.thumbnail.source : null;
-            } catch (error) {
-                console.error('Error fetching thumbnail:', error);
-                return null;
-            }
-        }
-        
-        // Get search suggestions
-        async function getSearchSuggestions(query) {
-            // Try Google suggestions first if API key is available
-            if (googleApiKeyStored && searchEngineIdStored) {
-                try {
-                    const suggestions = await getGoogleSuggestions(query);
-                    if (suggestions.length > 0) {
-                        return suggestions;
-                    }
-                } catch (error) {
-                    console.error('Error fetching Google suggestions:', error);
-                }
-            }
-            
-            // Fallback to Wikipedia suggestions
-            const apiUrl = `https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=${encodeURIComponent(query)}&limit=5&origin=*`;
-            
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                return data[1].map((title, index) => ({
-                    title: title,
-                    description: data[2][index] || ''
-                }));
-            } catch (error) {
-                console.error('Error fetching suggestions:', error);
-                return [];
-            }
-        }
-        
-        // Get Google search suggestions
-        async function getGoogleSuggestions(query) {
-            const apiUrl = `https://www.googleapis.com/customsearch/v1/siterestrict?key=${googleApiKeyStored}&cx=${searchEngineIdStored}&q=${encodeURIComponent(query)}`;
-            
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                
-                if (data.error) {
-                    throw new Error(data.error.message);
-                }
-                
-                if (data.items && data.items.length > 0) {
-                    return data.items.slice(0, 5).map(item => ({
-                        title: item.title,
-                        description: item.snippet || ''
-                    }));
-                }
-                
-                return [];
-            } catch (error) {
-                console.error('Error fetching Google suggestions:', error);
-                throw error;
-            }
-        }
-        
-        // Settings functionality
-        settingsBtn.addEventListener('click', () => {
-            if (!isModalOpen) {
-                openModal(settingsModal);
-            }
-        });
-        
-        function openModal(modal) {
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-            isModalOpen = true;
-            
-            // Close mobile menu when opening modal
-            if (isMobileMenuOpen) {
-                mobileMenuToggle.click();
-            }
-        }
-        
-        function closeModal(modal) {
-            modal.classList.remove('show');
-            document.body.style.overflow = 'auto';
-            isModalOpen = false;
-        }
-        
-        closeSettings.addEventListener('click', () => {
-            closeModal(settingsModal);
-        });
-        
-        cancelSettings.addEventListener('click', () => {
-            closeModal(settingsModal);
-        });
-        
-        // Close modal when clicking outside
-        settingsModal.addEventListener('click', (e) => {
-            if (e.target === settingsModal) {
-                closeModal(settingsModal);
-            }
-        });
-        
-        // Toggle switches functionality
-        function setupToggle(toggleElement) {
-            toggleElement.addEventListener('click', () => {
-                toggleElement.classList.toggle('active');
+                resultsGrid.appendChild(resultItem);
             });
-        }
-        
-        setupToggle(safeSearchToggle);
-        setupToggle(familyFilterToggle);
-        setupToggle(blockMaliciousToggle);
-        setupToggle(searchHistoryToggle);
-        setupToggle(personalizedToggle);
-        setupToggle(anonymousToggle);
-        setupToggle(experimentalToggle);
-        setupToggle(debugToggle);
-        
-        // Save settings
-        saveSettings.addEventListener('click', () => {
-            // Save API keys
-            googleApiKeyStored = googleApiKey.value;
-            searchEngineIdStored = searchEngineId.value;
-            
-            localStorage.setItem('googleApiKey', googleApiKeyStored);
-            localStorage.setItem('searchEngineId', searchEngineIdStored);
-            
-            const settings = {
-                safeSearch: safeSearchToggle.classList.contains('active'),
-                familyFilter: familyFilterToggle.classList.contains('active'),
-                blockMalicious: blockMaliciousToggle.classList.contains('active'),
-                safetyLevel: document.getElementById('safetyLevelSelect').value,
-                searchHistory: searchHistoryToggle.classList.contains('active'),
-                personalized: personalizedToggle.classList.contains('active'),
-                anonymous: anonymousToggle.classList.contains('active'),
-                cookiePolicy: document.getElementById('cookiePolicySelect').value,
-                resultsPerPage: document.getElementById('resultsPerPageSelect').value,
-                links: document.querySelector('input[name="links"]:checked').value,
-                experimental: experimentalToggle.classList.contains('active'),
-                debug: debugToggle.classList.contains('active'),
-                searchRegion: document.getElementById('searchRegionSelect').value,
-                performanceMode: performanceToggle.classList.contains('active')
-            };
-            
-            // Save to localStorage
-            localStorage.setItem('redCrowSettings', JSON.stringify(settings));
-            
-            showNotification('Settings saved successfully!', 'success');
-            closeModal(settingsModal);
-        });
-        
-        // Load saved settings
-        function loadSettings() {
-            const savedSettings = localStorage.getItem('redCrowSettings');
-            if (savedSettings) {
-                const settings = JSON.parse(savedSettings);
-                
-                // Apply toggle states
-                if (settings.safeSearch) safeSearchToggle.classList.add('active');
-                if (settings.familyFilter) familyFilterToggle.classList.add('active');
-                if (settings.blockMalicious) blockMaliciousToggle.classList.add('active');
-                if (settings.searchHistory) searchHistoryToggle.classList.add('active');
-                if (settings.personalized) personalizedToggle.classList.add('active');
-                if (settings.anonymous) anonymousToggle.classList.add('active');
-                if (settings.experimental) experimentalToggle.classList.add('active');
-                if (settings.debug) debugToggle.classList.add('active');
-                if (settings.performanceMode) performanceToggle.classList.add('active');
-                
-                // Apply select values
-                document.getElementById('safetyLevelSelect').value = settings.safetyLevel || 'moderate';
-                document.getElementById('cookiePolicySelect').value = settings.cookiePolicy || 'all';
-                document.getElementById('resultsPerPageSelect').value = settings.resultsPerPage || '20';
-                document.getElementById('searchRegionSelect').value = settings.searchRegion || 'auto';
-                
-                // Apply radio values
-                const linksRadio = document.querySelector(`input[name="links"][value="${settings.links || 'new'}"]`);
-                if (linksRadio) linksRadio.checked = true;
-                
-                // Apply performance mode
-                if (settings.performanceMode) {
-                    performanceToggle.click();
-                }
-            }
         }
         
         // Search functionality
@@ -3131,44 +1733,8 @@
                 clearBtn.style.display = 'none';
             }
             
-            // Show suggestions
-            const query = searchInput.value.trim();
-            if (query.length > 2) {
-                clearTimeout(suggestionTimeout);
-                suggestionTimeout = setTimeout(() => {
-                    showSuggestions(query);
-                }, 300);
-            } else {
-                searchSuggestions.style.display = 'none';
-            }
-        });
-        
-        // Search suggestions
-        async function showSuggestions(query) {
-            const suggestions = await getSearchSuggestions(query);
-            
-            if (suggestions.length > 0) {
-                searchSuggestions.innerHTML = suggestions.map(s => `
-                    <div class="suggestion-item" onclick="selectSuggestion('${s.title.replace(/'/g, "\\'")}')">
-                        <div class="title">${s.title}</div>
-                        <div class="description">${s.description}</div>
-                    </div>
-                `).join('');
-                searchSuggestions.style.display = 'block';
-            } else {
-                searchSuggestions.style.display = 'none';
-            }
-        }
-        
-        function selectSuggestion(query) {
-            searchInput.value = query;
-            searchSuggestions.style.display = 'none';
-            performSearch();
-        }
-        
-        // Hide suggestions when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.search-box') && !e.target.closest('.search-suggestions')) {
+            // Hide suggestions when input is empty
+            if (!searchInput.value.trim()) {
                 searchSuggestions.style.display = 'none';
             }
         });
@@ -3251,13 +1817,6 @@
             }
         }
         
-        // Advanced search toggle
-        function toggleAdvancedSearch() {
-            advancedSearch.classList.toggle('show');
-            const isVisible = advancedSearch.classList.contains('show');
-            showNotification(`Advanced search ${isVisible ? 'enabled' : 'disabled'}`, 'success');
-        }
-        
         // Trending searches
         trendingItems.forEach(item => {
             item.addEventListener('click', () => {
@@ -3266,99 +1825,6 @@
                 performSearch();
             });
         });
-        
-        // Display search results with enhanced information
-        async function displaySearchResults(query, results) {
-            resultsGrid.innerHTML = '';
-            
-            // Update result count
-            resultCount.textContent = `${results.length} results`;
-            
-            if (results.length === 0) {
-                resultsGrid.innerHTML = `
-                    <div style="text-align: center; padding: 40px; color: var(--text-secondary);">
-                        <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
-                        <p>No results found for "${query}"</p>
-                        <p style="margin-top: 10px; font-size: 0.9rem;">Try different keywords or check your spelling</p>
-                        ${!googleApiKeyStored || !searchEngineIdStored ? 
-                            '<p style="margin-top: 10px; font-size: 0.9rem; color: var(--warning);">Configure Google API keys in settings for more results</p>' : ''}
-                    </div>
-                `;
-                return;
-            }
-            
-            for (const result of results) {
-                const resultItem = document.createElement('div');
-                resultItem.className = 'result-item hardware-accelerated';
-                
-                // Get thumbnail for Wikipedia articles
-                let thumbnail = result.thumbnail;
-                if (!thumbnail && result.source === 'Wikipedia' && result.pageid) {
-                    thumbnail = await getPageThumbnail(result.pageid);
-                }
-                
-                // Create result URL
-                const resultUrl = result.url || `https://en.wikipedia.org/wiki/${encodeURIComponent(result.title.replace(/ /g, '_'))}`;
-                
-                resultItem.innerHTML = `
-                    <div class="result-thumbnail">
-                        ${thumbnail ? `<img src="${thumbnail}" alt="${result.title}" loading="lazy">` : 
-                          result.type === 'news' ? '<i class="fas fa-newspaper"></i>' :
-                          result.type === 'video' ? '<i class="fas fa-video"></i>' :
-                          result.type === 'image' ? '<i class="fas fa-images"></i>' :
-                          '<i class="fas fa-book"></i>'}
-                    </div>
-                    <div class="result-content">
-                        <div class="result-title" onclick="window.open('${resultUrl}', '_blank')">${result.title}</div>
-                        <div class="result-url">
-                            <i class="fas fa-link"></i>
-                            ${result.displayUrl || resultUrl}
-                        </div>
-                        <div class="result-description">${result.snippet ? result.snippet.replace(/<[^>]*>/g, '') : 'No description available'}</div>
-                        <div class="result-meta">
-                            <span class="safety-badge">
-                                <i class="fas fa-${result.source === 'Wikipedia' ? 'shield-alt' : result.source === 'Google' ? 'search' : 'check-circle'}"></i>
-                                ${result.source || 'Verified Source'}
-                            </span>
-                            ${result.timestamp ? `<span class="result-date"><i class="fas fa-calendar"></i>${formatDate(result.timestamp)}</span>` : ''}
-                            <div class="result-actions">
-                                <button class="action-btn" title="Save" onclick="saveResult('${result.title.replace(/'/g, "\\'")}', '${resultUrl}')">
-                                    <i class="fas fa-bookmark"></i>
-                                </button>
-                                <button class="action-btn" title="Share" onclick="shareResult('${resultUrl}')">
-                                    <i class="fas fa-share"></i>
-                                </button>
-                                <button class="action-btn" title="Open in new tab" onclick="window.open('${resultUrl}', '_blank')">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                
-                resultsGrid.appendChild(resultItem);
-            }
-        }
-        
-        // Format date for display
-        function formatDate(timestamp) {
-            try {
-                const date = new Date(timestamp);
-                const now = new Date();
-                const diff = now - date;
-                const minutes = Math.floor(diff / 60000);
-                const hours = Math.floor(diff / 3600000);
-                const days = Math.floor(diff / 86400000);
-                
-                if (minutes < 1) return 'Just now';
-                if (minutes < 60) return `${minutes}m ago`;
-                if (hours < 24) return `${hours}h ago`;
-                if (days < 7) return `${days}d ago`;
-                return date.toLocaleDateString();
-            } catch (e) {
-                return 'Unknown time';
-            }
-        }
         
         // Search history management
         function loadSearchHistory() {
@@ -3374,8 +1840,6 @@
         }
         
         function addToSearchHistory(query) {
-            if (!searchHistoryToggle.classList.contains('active')) return;
-            
             // Remove duplicate if exists
             searchHistory = searchHistory.filter(item => item.query !== query);
             
@@ -3392,80 +1856,6 @@
             
             // Save to localStorage
             localStorage.setItem('redCrowSearchHistory', JSON.stringify(searchHistory));
-        }
-        
-        function showHistoryModal() {
-            displaySearchHistory();
-            openModal(historyModal);
-        }
-        
-        function closeHistoryModal() {
-            closeModal(historyModal);
-        }
-        
-        function displaySearchHistory() {
-            if (searchHistory.length === 0) {
-                historyContent.innerHTML = `
-                    <div class="empty-history">
-                        <i class="fas fa-history"></i>
-                        <p>No search history yet</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            historyContent.innerHTML = searchHistory.map((item, index) => `
-                <div class="history-item">
-                    <div class="history-query" onclick="searchFromHistory('${item.query.replace(/'/g, "\\'")}')">${item.query}</div>
-                    <div class="history-actions">
-                        <span class="history-time">${formatTime(item.timestamp)}</span>
-                        <button class="history-btn" onclick="removeFromHistory(${index})" title="Remove">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
-        
-        function searchFromHistory(query) {
-            searchInput.value = query;
-            closeHistoryModal();
-            performSearch();
-        }
-        
-        function removeFromHistory(index) {
-            searchHistory.splice(index, 1);
-            localStorage.setItem('redCrowSearchHistory', JSON.stringify(searchHistory));
-            displaySearchHistory();
-            showNotification('Removed from history', 'success');
-        }
-        
-        function clearSearchHistory() {
-            if (confirm('Are you sure you want to clear all search history?')) {
-                searchHistory = [];
-                localStorage.removeItem('redCrowSearchHistory');
-                showNotification('Search history cleared', 'success');
-                displaySearchHistory();
-            }
-        }
-        
-        function formatTime(timestamp) {
-            try {
-                const date = new Date(timestamp);
-                const now = new Date();
-                const diff = now - date;
-                const minutes = Math.floor(diff / 60000);
-                const hours = Math.floor(diff / 3600000);
-                const days = Math.floor(diff / 86400000);
-                
-                if (minutes < 1) return 'Just now';
-                if (minutes < 60) return `${minutes}m ago`;
-                if (hours < 24) return `${hours}h ago`;
-                if (days < 7) return `${days}d ago`;
-                return date.toLocaleDateString();
-            } catch (e) {
-                return 'Unknown time';
-            }
         }
         
         // Save result function
@@ -3519,24 +1909,6 @@
                     e.preventDefault();
                     searchInput.focus();
                 }
-                
-                // Show history (Ctrl+H or Cmd+H)
-                if ((e.ctrlKey || e.metaKey) && e.key === 'h') {
-                    e.preventDefault();
-                    showHistoryModal();
-                }
-                
-                // Advanced search (Ctrl+/ or Cmd+/)
-                if ((e.ctrlKey || e.metaKey) && e.key === '/') {
-                    e.preventDefault();
-                    toggleAdvancedSearch();
-                }
-                
-                // Theme toggle (Ctrl+T or Cmd+T)
-                if ((e.ctrlKey || e.metaKey) && e.key === 't') {
-                    e.preventDefault();
-                    themeToggle.click();
-                }
             });
         }
         
@@ -3547,9 +1919,6 @@
             
             // Set notification type
             notification.className = 'notification hardware-accelerated';
-            if (type === 'success') notification.classList.add('success');
-            if (type === 'warning') notification.classList.add('warning');
-            if (type === 'error') notification.classList.add('error');
             
             notificationText.textContent = message;
             
@@ -3581,55 +1950,41 @@
         }
         
         function toggleFamilyFilter() {
-            familyFilterToggle.classList.toggle('active');
-            const isActive = familyFilterToggle.classList.contains('active');
-            showNotification(`Family filter ${isActive ? 'enabled' : 'disabled'}`, 'success');
+            showNotification('Family filter toggled', 'success');
         }
         
         function toggleExplicitFilter() {
-            blockMaliciousToggle.classList.toggle('active');
-            const isActive = blockMaliciousToggle.classList.contains('active');
-            showNotification(`Explicit content filter ${isActive ? 'enabled' : 'disabled'}`, 'success');
+            showNotification('Explicit content filter toggled', 'success');
         }
         
         // History menu functions
+        function showHistoryModal() {
+            showNotification('Search history feature coming soon', 'warning');
+        }
+        
         function showVisitedPages() {
             showNotification('Visited pages feature coming soon', 'warning');
         }
         
         function showSavedResults() {
-            const savedResults = JSON.parse(localStorage.getItem('redCrowSavedResults') || '[]');
-            if (savedResults.length === 0) {
-                showNotification('No saved results yet', 'warning');
-                return;
+            showNotification('Saved results feature coming soon', 'warning');
+        }
+        
+        function clearSearchHistory() {
+            if (confirm('Are you sure you want to clear all search history?')) {
+                searchHistory = [];
+                localStorage.removeItem('redCrowSearchHistory');
+                showNotification('Search history cleared', 'success');
             }
-            
-            // Display saved results (simplified version)
-            let message = 'Saved Results:\n';
-            savedResults.forEach((result, index) => {
-                message += `${index + 1}. ${result.title}\n`;
-            });
-            
-            showNotification(`Found ${savedResults.length} saved results`, 'success');
         }
         
         function manageHistorySettings() {
-            openModal(settingsModal);
+            showNotification('History settings feature coming soon', 'warning');
         }
         
         // Analytics menu functions
         function showSearchStats() {
-            const stats = {
-                totalSearches: searchHistory.length,
-                todaySearches: searchHistory.filter(item => {
-                    const itemDate = new Date(item.timestamp);
-                    const today = new Date();
-                    return itemDate.toDateString() === today.toDateString();
-                }).length,
-                avgSearchTime: '0.23s' // Simulated
-            };
-            
-            showNotification(`Stats: ${stats.totalSearches} total, ${stats.todaySearches} today`, 'success');
+            showNotification('Search statistics feature coming soon', 'warning');
         }
         
         function showTrendingTopics() {
@@ -3645,80 +2000,50 @@
         }
         
         function exportData() {
-            const data = {
-                searchHistory: searchHistory,
-                savedResults: JSON.parse(localStorage.getItem('redCrowSavedResults') || '[]'),
-                settings: JSON.parse(localStorage.getItem('redCrowSettings') || '{}'),
-                exportDate: new Date().toISOString()
-            };
-            
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'redcrow-data-export.json';
-            a.click();
-            URL.revokeObjectURL(url);
-            
-            showNotification('Data exported successfully', 'success');
+            showNotification('Data export feature coming soon', 'warning');
         }
         
         // Help function
         function showHelp() {
-            openModal(settingsModal);
+            showNotification('Help center feature coming soon', 'warning');
         }
         
-        // Performance optimization: Debounce search input
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
+        // Settings functionality
+        const settingsBtn = document.getElementById('settingsBtn');
+        const settingsModal = document.getElementById('settingsModal');
+        const closeSettings = document.getElementById('closeSettings');
         
-        // Apply debounce to search input
-        const debouncedShowSuggestions = debounce(showSuggestions, 300);
-        searchInput.addEventListener('input', () => {
-            const query = searchInput.value.trim();
-            if (query.length > 2) {
-                debouncedShowSuggestions(query);
-            } else {
-                searchSuggestions.style.display = 'none';
+        settingsBtn.addEventListener('click', () => {
+            if (!isModalOpen) {
+                openModal(settingsModal);
             }
         });
         
-        // Add accessibility improvements
-        document.addEventListener('DOMContentLoaded', () => {
-            // Add ARIA labels to interactive elements
-            const interactiveElements = document.querySelectorAll('button, a, input, select');
-            interactiveElements.forEach(element => {
-                if (!element.getAttribute('aria-label')) {
-                    const text = element.textContent || element.getAttribute('placeholder') || element.getAttribute('title');
-                    if (text) {
-                        element.setAttribute('aria-label', text);
-                    }
-                }
-            });
+        function openModal(modal) {
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            isModalOpen = true;
             
-            // Add hardware acceleration to animated elements
-            document.querySelectorAll('.animated-bg, .particle, .feature-card, .result-item, .notification').forEach(el => {
-                el.classList.add('hardware-accelerated');
-            });
-            
-            // Setup service worker for PWA capabilities
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('service-worker.js')
-                    .then(registration => {
-                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                    })
-                    .catch(error => {
-                        console.log('ServiceWorker registration failed: ', error);
-                    });
+            // Close mobile menu when opening modal
+            if (isMobileMenuOpen) {
+                mobileMenuToggle.click();
+            }
+        }
+        
+        function closeModal(modal) {
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+            isModalOpen = false;
+        }
+        
+        closeSettings.addEventListener('click', () => {
+            closeModal(settingsModal);
+        });
+        
+        // Close modal when clicking outside
+        settingsModal.addEventListener('click', (e) => {
+            if (e.target === settingsModal) {
+                closeModal(settingsModal);
             }
         });
         
@@ -3730,60 +2055,6 @@
         window.addEventListener('offline', () => {
             showNotification('You are offline. Some features may be limited', 'warning');
         });
-        
-        // Handle visibility change for performance
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                // Page is hidden, reduce animations
-                document.body.classList.add('low-end-device');
-            } else {
-                // Page is visible, restore animations if not in performance mode
-                if (!performanceToggle.classList.contains('active')) {
-                    document.body.classList.remove('low-end-device');
-                }
-            }
-        });
-        
-        // Lazy load images for better performance
-        document.addEventListener('DOMContentLoaded', () => {
-            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-            
-            if ('IntersectionObserver' in window) {
-                const imageObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const img = entry.target;
-                            img.src = img.dataset.src;
-                            img.classList.remove('lazy');
-                            imageObserver.unobserve(img);
-                        }
-                    });
-                });
-                
-                lazyImages.forEach(img => {
-                    imageObserver.observe(img);
-                });
-            } else {
-                // Fallback for browsers that don't support IntersectionObserver
-                lazyImages.forEach(img => {
-                    img.src = img.dataset.src;
-                });
-            }
-        });
-        
-        // Optimize scrolling performance
-        let ticking = false;
-        function updateScrollEffects() {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    // Add scroll-based effects here if needed
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        }
-        
-        window.addEventListener('scroll', updateScrollEffects);
     </script>
 </body>
 </html>
