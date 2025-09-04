@@ -819,6 +819,7 @@
             max-width: 350px;
             font-size: 0.9rem;
             border: 1px solid #cccccc;
+            cursor: pointer;
         }
         
         .notification.show {
@@ -1703,7 +1704,7 @@
             <a href="#">Contact</a>
             <a href="#">Developers</a>
         </div>
-        <p>© 2023 Red Crow Search Engine. Your safety, our priority. Powered by DuckDuckGo.</p>
+        <p>© 2025 Faxson. Your safety, our priority. Powered by DuckDuckGo.</p>
     </footer>
     
     <!-- Settings Modal -->
@@ -1898,9 +1899,9 @@
             setupKeyboardShortcuts();
             setupTouchEvents();
             
-            // Show welcome message that disappears after a while
+            // Show welcome message that disappears after 5 seconds
             setTimeout(() => {
-                showNotification("Welcome to Red Crow! Your safety is our priority.", 'success');
+                showNotification("Welcome to Red Crow! Your safety is our priority.", 'success', 5000);
             }, 1000);
         });
         
@@ -2395,8 +2396,8 @@
             });
         }
         
-        // Notification system - FIXED with auto-dismiss
-        function showNotification(message, type = 'default') {
+        // Notification system - FIXED with auto-hide and click to close
+        function showNotification(message, type = 'default', duration = 3000) {
             // Clear any existing timeout
             if (notificationTimeout) {
                 clearTimeout(notificationTimeout);
@@ -2421,10 +2422,18 @@
                 notification.classList.add('show');
             }, 10);
             
-            // Auto hide after 3 seconds
+            // Auto hide after specified duration (default 3 seconds)
             notificationTimeout = setTimeout(() => {
                 notification.classList.remove('show');
-            }, 3000);
+            }, duration);
+            
+            // Add click handler to close notification manually
+            notification.onclick = function() {
+                notification.classList.remove('show');
+                if (notificationTimeout) {
+                    clearTimeout(notificationTimeout);
+                }
+            };
         }
         
         // Safe Search menu functions
